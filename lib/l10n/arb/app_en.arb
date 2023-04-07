@@ -1,0 +1,11 @@
+{
+    "@@locale": "en",
+    "counterAppBarTitle": "Counter",
+    "@counterAppBarTitle": {
+        "description": "Text shown in the AppBar of the Counter Page"
+    },
+    "appTitle": "Leafy Leasing",
+            "@appTitle": {
+                "description": "The app's name"
+            }
+}

@@ -1,0 +1,51 @@
+name: leafy_leasing
+description: A companion app for PaaS (Plants as a Service) companies.
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.18.0 <3.0.0"
+
+dependencies:
+  google_fonts: 2.2.0
+  freezed: ^2.1.0
+  flutter_hooks: ^0.18.6
+  gap: ^2.0.0
+  hive_flutter:
+  # flutter_dotenv: ^5.0.2
+  hooks_riverpod:
+  dartx: ^1.1.0
+  hive_generator:
+  flutter_animate: 4.1.1+1
+  auto_route: ^5.0.2
+  flutter_native_splash: ^2.1.6
+  settings_ui: ^2.0.2
+  flutter_loggy: ^2.0.1
+
+  # standard
+  bloc: ^8.1.1
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.1.2
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.17.0
+
+dev_dependencies:
+  bloc_test: ^9.1.1
+  flutter_test:
+    sdk: flutter
+  mocktail: ^0.3.0
+  very_good_analysis: ^3.1.0
+  build_runner: ^2.1.7
+  json_serializable:
+  flutter_launcher_icons: ^0.12.0
+  auto_route_generator: ^5.0.3
+
+
+flutter:
+  uses-material-design: true
+  generate: true
+  assets:
+    - assets/logo.png
+    - assets/logo_v2.png

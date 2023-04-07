@@ -1,0 +1,194 @@
+# Leafy Leasing  🪴
+
+[![style: very good analysis][very_good_analysis_badge]][very_good_analysis_link]
+[![License: MIT][license_badge]][license_link]
+
+This project was started using the [Very Good CLI][very_good_cli_link] 🤖
+
+A companion app for PaaS (_Plants as a Service_) companies. Under the hood:
+* 💅  Design System: Material 3 with a green seed color
+* 🏄‍♂ ️State Management: `riverpod`
+* 🪝 Local State Management: `flutter_hooks`
+* 🐝 Data Persistence: `hive`
+* 🧭 Navigation: `auto_route`
+* 🗣️ Internationalization: `flutter_localizations`
+* 📄 Declarative Logging: `loggy` with state listeners
+
+Developed using Flutter 3.7.8 and Dart 2.19.5, tested **only** on Android (API 31, Pixel 4a Emulator).
+_No tests, no actively used flavors._
+
+---
+
+## Getting Started 🚀
+
+This project contains 3 flavors:
+
+- development
+- staging
+- production
+
+To run the desired flavor either use the launch configuration in VSCode/Android Studio or use the following commands:
+
+```sh
+# Development
+$ flutter run --flavor development --target lib/main_development.dart
+
+# Staging
+$ flutter run --flavor staging --target lib/main_staging.dart
+
+# Production
+$ flutter run --flavor production --target lib/main_production.dart
+```
+
+_\*Leafy Leasing should work on iOS, Android, Web, and Windows._
+
+
+**All those flavors are currently pointing to the same main function.** 
+
+---
+## Commit Keys 🔑
+
+* **ICM**  Neues Feature
+* **REF**  Refactoring
+* **ENH**  Verbesserung (ohne UI)
+* **UI** Verbesserung am UI
+* **BFX**  Bugfix
+* **DAT**  Data (configs, dummy data)
+* **IMG**  Bilder / Animationen
+* **LOC**  Localization / Internationalization
+* **DEP**  Deployment
+
+---
+## Running Tests 🧪 (Currently not integrated ❌) 
+
+To run all unit and widget tests use the following command:
+
+```sh
+$ flutter test --coverage --test-randomize-ordering-seed random
+```
+
+To view the generated coverage report you can use [lcov](https://github.com/linux-test-project/lcov).
+
+```sh
+# Generate Coverage Report
+$ genhtml coverage/lcov.info -o coverage/
+
+# Open Coverage Report
+$ open coverage/index.html
+```
+
+---
+
+## Working with Translations 🌐
+
+This project relies on [flutter_localizations][flutter_localizations_link] and follows the [official internationalization guide for Flutter][internationalization_link].
+
+### Adding Strings
+
+1. To add a new localizable string, open the `app_en.arb` file at `lib/l10n/arb/app_en.arb`.
+
+```arb
+{
+    "@@locale": "en",
+    "counterAppBarTitle": "Counter",
+    "@counterAppBarTitle": {
+        "description": "Text shown in the AppBar of the Counter Page"
+    }
+}
+```
+
+2. Then add a new key/value and description
+
+```arb
+{
+    "@@locale": "en",
+    "counterAppBarTitle": "Counter",
+    "@counterAppBarTitle": {
+        "description": "Text shown in the AppBar of the Counter Page"
+    },
+    "helloWorld": "Hello World",
+    "@helloWorld": {
+        "description": "Hello World Text"
+    }
+}
+```
+
+3. Use the new string
+
+```dart
+import 'package:leafy_leasing/l10n/l10n.dart';
+
+@override
+Widget build(BuildContext context) {
+  final l10n = context.l10n;
+  return Text(l10n.helloWorld);
+}
+```
+
+### Adding Supported Locales
+
+Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info.plist` to include the new locale.
+
+```xml
+    ...
+
+    <key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>es</string>
+	</array>
+
+    ...
+```
+
+### Adding Translations
+
+1. For each supported locale, add a new ARB file in `lib/l10n/arb`.
+
+```
+├── l10n
+│   ├── arb
+│   │   ├── app_en.arb
+│   │   └── app_de.arb
+```
+
+2. Add the translated strings to each `.arb` file:
+
+`app_en.arb`
+
+```arb
+{
+    "@@locale": "en",
+    "counterAppBarTitle": "Counter",
+    "@counterAppBarTitle": {
+        "description": "Text shown in the AppBar of the Counter Page"
+    }
+}
+```
+
+`app_de.arb`
+
+```arb
+{
+    "@@locale": "de",
+    "counterAppBarTitle": "Zähler",
+    "@counterAppBarTitle": {
+        "description": "Text, der in der AppBar der Zählerseite angezeigt wird"
+    }
+}
+```
+--- 
+## App Logo 🪴
+The logo is designed with some help from [BlueWillow AI](https://www.bluewillow.ai/) (=sth. like Midjourney).
+* To initialize a new splash screen, use
+```flutter pub run flutter_native_splash:create --path=flutter_native_splash.yaml```.
+
+
+[coverage_badge]: coverage_badge.svg
+[flutter_localizations_link]: https://api.flutter.dev/flutter/flutter_localizations/flutter_localizations-library.html
+[internationalization_link]: https://flutter.dev/docs/development/accessibility-and-localization/internationalization
+[license_badge]: https://img.shields.io/badge/license-MIT-blue.svg
+[license_link]: https://opensource.org/licenses/MIT
+[very_good_analysis_badge]: https://img.shields.io/badge/style-very_good_analysis-B22C89.svg
+[very_good_analysis_link]: https://pub.dev/packages/very_good_analysis
+[very_good_cli_link]: https://github.com/VeryGoodOpenSource/very_good_cli
