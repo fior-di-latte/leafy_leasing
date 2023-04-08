@@ -3,16 +3,18 @@
 [![style: very good analysis][very_good_analysis_badge]][very_good_analysis_link]
 [![License: MIT][license_badge]][license_link]
 
-This project was started using the [Very Good CLI][very_good_cli_link] 🤖
+This project was started using the [Very Good CLI][very_good_cli_link] 🤖.
 
-A companion app for PaaS (_Plants as a Service_) companies. Under the hood:
+_"A companion app for PaaS (_Plants as a Service_) companies."_
+
+Under the hood:
 * 💅  Design System: Material 3 with a green seed color
 * 🏄‍♂ ️State Management: `riverpod`
 * 🪝 Local State Management: `flutter_hooks`
 * 🐝 Data Persistence: `hive`
 * 🧭 Navigation: `auto_route`
 * 🗣️ Internationalization: `flutter_localizations`
-* 📄 Declarative Logging: `loggy` with state listeners
+* 📄 Declarative Logging: `loggy` with listeners on providers, widget states and route changes.
 
 Developed using Flutter 3.7.8 and Dart 2.19.5, tested **only** on Android (API 31, Pixel 4a Emulator).
 _No tests, no actively used flavors._
@@ -28,7 +30,9 @@ This project contains 3 flavors:
 - production
 
 To run the desired flavor either use the launch configuration in VSCode/Android Studio or use the following commands:
-
+### Important: Use build_runner before `flutter run`, otherwise the code won't complile.
+`flutter pub run build_runner build --delete-conflicting-outputs
+`
 ```sh
 # Development
 $ flutter run --flavor development --target lib/main_development.dart
@@ -43,7 +47,7 @@ $ flutter run --flavor production --target lib/main_production.dart
 _\*Leafy Leasing should work on iOS, Android, Web, and Windows._
 
 
-**All those flavors are currently pointing to the same main function.** 
+**All those flavors are currently pointing to the same bootstrap function.** 
 
 ---
 ## Commit Keys 🔑

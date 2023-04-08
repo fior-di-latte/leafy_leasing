@@ -13,7 +13,7 @@ Future<void> bootstrap() async {
   runApp(
     ProviderScope(
       observers: kDebugMode ? devProviderLoggers : null,
-      child: const App(),
+      child: App(),
     ),
   );
 }

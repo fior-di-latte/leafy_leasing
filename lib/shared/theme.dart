@@ -3,19 +3,36 @@ import 'package:leafy_leasing/shared/base.dart';
 
 const kSeedColor = Color(0xFF33A58A);
 const kAppBarColor = Color(0xFF77A28B);
+const kTextTheme = GoogleFonts.abrilFatfaceTextTheme;
 
 final themeProvider = StateProvider<ThemeData>(
-    name: 'ThemeProvider', (ref) => buildTheme(Brightness.light));
+    name: 'ThemeProvider',
+    (ref) => _buildTheme(ref.watch(_brightnessProvider)));
 
-ThemeData buildTheme(Brightness brightness) {
+final themeModeProvider = StateProvider<ThemeMode>(
+    name: 'ThemeModeProvider', (ref) => ThemeMode.system);
+
+final _brightnessProvider = StateProvider<Brightness>(
+    name: 'ThemeProvider',
+    (ref) => _brightnessFromThemeMode(ref.watch(themeModeProvider)));
+
+Brightness _brightnessFromThemeMode(ThemeMode themeMode) {
+  final themeModeToBrightness = {
+    ThemeMode.light: Brightness.light,
+    ThemeMode.dark: Brightness.dark,
+    ThemeMode.system:
+        WidgetsBinding.instance.platformDispatcher.platformBrightness
+  };
+  return themeModeToBrightness[themeMode]!;
+}
+
+ThemeData _buildTheme(Brightness brightness) {
   final baseTheme = ThemeData(
     useMaterial3: true,
     appBarTheme: const AppBarTheme(color: kAppBarColor),
-    colorScheme: ColorScheme.fromSeed(seedColor: kSeedColor),
-    brightness: brightness,
+    colorScheme:
+        ColorScheme.fromSeed(seedColor: kSeedColor, brightness: brightness),
   );
 
-  return baseTheme.copyWith(
-    textTheme: GoogleFonts.latoTextTheme(baseTheme.textTheme),
-  );
+  return baseTheme.copyWith(textTheme: kTextTheme(baseTheme.textTheme));
 }

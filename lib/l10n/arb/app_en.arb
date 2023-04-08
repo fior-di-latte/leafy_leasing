@@ -7,5 +7,38 @@
     "appTitle": "Leafy Leasing",
             "@appTitle": {
                 "description": "The app's name"
-            }
+            },
+    "canceledTitle": "Canceled Appointments",
+                "@canceledTitle": {
+                    "description": "Abgebrochene Termine"
+                },
+    "doneTitle": "Closed Appointments",
+            "@doneTitle": {
+                "description": "Abgeschlossene Termine"
+            },
+    "settings": "Settings",
+                "@settings": {
+                    "description": "Settings (title)"
+                },
+
+    "common": "Common",
+                    "@common": {
+                        "description": "Common Settings"
+                    },
+    "language": "Language",
+                        "@language": {
+                            "description": "Language"
+                        },
+    "german": "German",
+                            "@german": {
+                                "description": "German"
+                            },
+    "english": "English",
+                                "@english": {
+                                    "description": "English"
+                                },
+    "chooseLanguage": "Choose Language",
+                                    "@chooseLanguage": {
+                                        "description": "Choose Language"
+                                    }
 }
