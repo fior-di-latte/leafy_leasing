@@ -9,7 +9,8 @@ class PendingScreen extends HookConsumerWidget with UiLoggy {
   @override
   Widget build(BuildContext ctx, WidgetRef ref) {
     return HomeScaffold(
-      body: ListView.builder(itemBuilder: (ctx, idx) => AppointmentListCard()),
+      body: ListView.builder(
+          itemBuilder: (ctx, idx) => AppointmentListCard('lol')),
       title: ctx.lc.appTitle,
       hasFloatingButton: true,
     );

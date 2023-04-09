@@ -2,8 +2,9 @@ import 'package:leafy_leasing/shared/base.dart';
 import 'package:leafy_leasing/shared/models/appointment.dart';
 
 class AppointmentListCard extends HookConsumerWidget with UiLoggy {
-  const AppointmentListCard({Key? key}) : super(key: key);
+  const AppointmentListCard(this.id, {Key? key}) : super(key: key);
   static const heightFactor = .25;
+  final String id;
   @override
   Widget build(BuildContext ctx, WidgetRef ref) {
     final appointment = Appointment(
@@ -11,96 +12,102 @@ class AppointmentListCard extends HookConsumerWidget with UiLoggy {
         date: DateTime.now(),
         customerId: 'peterId',
         status: AppointmentStatus.pending,
-        duration: Duration(hours: 2));
+        duration: 2.hours);
     return Container(
-      margin: const EdgeInsets.all(kLPadding),
+      margin: const EdgeInsets.all(lPadding),
       height: ctx.height * heightFactor,
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          Card(
-            shape: RoundedRectangleBorder(borderRadius: kBorderRadius),
-            child: Padding(
-              padding: const EdgeInsets.all(kLPadding),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Column(
+          InkWell(
+            borderRadius: kBorderRadius,
+            onTap: () => ctx.router.push(AppointmentRoute(id: id)),
+            child: Card(
+              shape: const RoundedRectangleBorder(borderRadius: kBorderRadius),
+              child: Padding(
+                padding: const EdgeInsets.all(lPadding),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        children: [
+                          const Gap(50),
+                          Row(
+                            children: [
+                              const Icon(Icons.business_outlined, size: 40),
+                              const Gap(8),
+                              Expanded(
+                                child: FittedBox(
+                                  child: Text(
+                                    'Flux Life',
+                                    style: ctx.tt.displayMedium,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                          const Gap(12),
+                          Row(
+                            children: [
+                              Icon(Icons.location_on_outlined,
+                                  size: 40, color: ctx.thm.disabledColor),
+                              const Gap(8),
+                              Expanded(
+                                child: FittedBox(
+                                  child: Text(
+                                    'Köln Sülz',
+                                    style: ctx.tt.bodyMedium!
+                                        .copyWith(color: ctx.thm.disabledColor),
+                                  ),
+                                ),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                    const VerticalDivider(
+                      indent: 20,
+                      endIndent: 20,
+                      width: 20,
+                    ),
+                    Expanded(
+                        child: Stack(
                       children: [
-                        Gap(50),
-                        Row(
-                          children: [
-                            Icon(Icons.account_balance_outlined, size: 40),
-                            Gap(8),
-                            Expanded(
-                              child: FittedBox(
-                                child: Text(
-                                  'Flux Life',
-                                  style: ctx.tt.displayMedium,
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              ActionChip(
+                                labelStyle: TextStyle(color: Colors.black),
+                                elevation: 20,
+                                surfaceTintColor: ctx.cs.secondary,
+                                avatar: Icon(
+                                  Icons.calendar_month_outlined,
+                                ),
+                                label: Text(
+                                  'Today, 21.3',
                                 ),
                               ),
-                            )
-                          ],
-                        ),
-                        Gap(12),
-                        Row(
-                          children: [
-                            Icon(Icons.directions_outlined,
-                                size: 40, color: ctx.thm.disabledColor),
-                            Gap(8),
-                            Expanded(
-                              child: FittedBox(
-                                child: Text(
-                                  'Köln Sülz',
-                                  style: ctx.tt.bodyMedium!
-                                      .copyWith(color: ctx.thm.disabledColor),
+                              Transform.scale(
+                                alignment: Alignment.centerRight,
+                                scale: .8,
+                                child: const ActionChip(
+                                  avatar: Icon(
+                                    Icons.timer_outlined,
+                                  ),
+                                  label: Text('3h'),
                                 ),
-                              ),
-                            )
-                          ],
+                              )
+                            ],
+                          ),
                         )
                       ],
-                    ),
-                  ),
-                  VerticalDivider(
-                    indent: 20,
-                    endIndent: 20,
-                    width: 20,
-                  ),
-                  Expanded(
-                      child: Stack(
-                    children: [
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            ActionChip(
-                              avatar: Icon(
-                                Icons.calendar_month_outlined,
-                              ),
-                              label: Text(
-                                'Today, 21.3',
-                                style: TextStyle(color: Colors.black),
-                              ),
-                            ),
-                            Transform.scale(
-                              alignment: Alignment.centerRight,
-                              scale: .8,
-                              child: ActionChip(
-                                avatar: Icon(
-                                  Icons.timer_outlined,
-                                ),
-                                label: Text('3h'),
-                              ),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ))
-                ],
+                    ))
+                  ],
+                ),
               ),
             ),
           ),
@@ -114,10 +121,12 @@ class AppointmentListCard extends HookConsumerWidget with UiLoggy {
                   shape: const CircleBorder(),
                   elevation: 8,
                   child: InkWell(
+                    customBorder: const CircleBorder(),
                     onTap: () => loggy.info(
                         'This would direct you to the customer profile page '),
                     child: CircleAvatar(
-                        backgroundColor: ctx.cs.secondary, child: Text('F')),
+                        backgroundColor: ctx.cs.secondary,
+                        child: const Text('F')),
                   ),
                 ),
               ))

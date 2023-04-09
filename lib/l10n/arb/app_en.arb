@@ -40,5 +40,47 @@
     "chooseLanguage": "Choose Language",
                                     "@chooseLanguage": {
                                         "description": "Choose Language"
-                                    }
+                                    },
+    "appointmentTitle": "Leafy Appointment",
+                                        "@appointmentTitle": {
+                                            "description": "Appointment title"
+                                        },
+    "closeAppointment": "Close\nAppointment",
+                                        "@closeAppointment": {
+                                            "description": "Close appointment"
+                                        },
+    "cancelAppointment": "Cancel\nAppointment",
+                                            "@cancelAppointment": {
+                                                "description": "Cancel appointment"
+                                            },
+
+    "closeAppointmentTitle": "Close Appointment",
+            "@closeAppointmentTitle": {
+            "description": "Close Appointment"
+        },
+        "cancelAppointmentTitle": "Cancel Appointment",
+                    "@cancelAppointmentTitle": {
+                    "description": "Cancel Appointment"
+                },
+"cancelAppointmentNow": "Cancel now",
+                   "@cancelAppointmentNow": {
+                       "description": "Cancel appointment now"
+                   },
+"closeAppointmentNow": "Close now",
+        "@closeAppointmentNow": {
+        "description": "Close appointment now"
+},
+ "wasAppointmentSuccessful": "Was the appoitnment\nsuccessful?",
+              "@wasAppointmentSuccessful": {
+              "description": "Was the appointment successful?"
+          },
+  "yesSuccessful": "Yes, success!",
+                "@yesSuccessful": {
+                "description": "Yes, the appointment was successful."
+            },
+"noAborted": "No, aborted!",
+                "@noAborted": {
+                "description": "No, the appointment was aborted."
+            }
+
 }

@@ -30,7 +30,7 @@ class HomeScaffold extends StatelessWidget with UiLoggy {
                   icon: const Icon(Icons.more_vert_outlined)),
             ],
             leading: const Padding(
-              padding: EdgeInsets.all(kSPadding),
+              padding: EdgeInsets.all(sPadding),
               child: CircleAvatar(
                 foregroundImage: AssetImage(AppAssets.logo),
               ),

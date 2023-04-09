@@ -1,6 +1,9 @@
 import 'package:leafy_leasing/shared/base.dart';
 
-const kSPadding = 8.0;
-const kMPadding = 12.0;
-const kLPadding = 16.0;
+const sPadding = 8.0;
+const mPadding = 12.0;
+const lPadding = 16.0;
+const kIconSizeOnCards = 44.0;
 const kBorderRadius = BorderRadius.all(Radius.circular(12.0));
+const kCancelButtonHeroTag = 'cancelButton';
+const kCloseButtonHeroTag = 'closeButton';

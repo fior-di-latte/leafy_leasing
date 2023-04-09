@@ -40,6 +40,51 @@
     "chooseLanguage": "Sprache wählen",
                                     "@chooseLanguage": {
                                         "description": "Sprache wählen"
-                                    }
+                                    },
+   "appointmentTitle": "Leafy Termin",
+                                    "@appointmentTitle": {
+                                        "description": "Termintitel"
+                                    },
+    "closeAppointment": "Termin\nabschließen",
+                                        "@closeAppointment": {
+                                            "description": "Termin abschließen"
+                                        },
+    "closeAppointmentTitle": "Termin abschließen",
+        "@closeAppointmentTitle": {
+        "description": "Termin abschließen"
+    },
+
+    "cancelAppointmentTitle": "Termin absagen",
+        "@cancelAppointmentTitle": {
+            "description": "Termin absagen"
+        },
+    "cancelAppointment": "Termin\nabsagen",
+                                            "@cancelAppointment": {
+                                                "description": "Termin absagen"
+                                            },
+
+   "cancelAppointmentNow": "Jetzt absagen",
+                                               "@cancelAppointmentNow": {
+                                                   "description": "Termin jetzt absagen"
+                                               },
+       "closeAppointmentNow": "Jetzt abschließen",
+           "@closeAppointmentNow": {
+           "description": "Termin jetzt abschließen"
+       },
+
+   "wasAppointmentSuccessful": "War der Termin\nerfolgreich?",
+              "@wasAppointmentSuccessful": {
+              "description": "War der Termin erfolgreich?"
+          },
+  "yesSuccessful": "Ja, Termin erfolgreich.",
+                "@yesSuccessful": {
+                "description": "Ja, der Termin war erfolgreich."
+            },
+"noAborted": "Nein, Termin abgebrochen.",
+                "@noAborted": {
+                "description": "Nein, der Termin wurde abgebrochen."
+            }
+
+
 
 }
