@@ -17,7 +17,7 @@ class Appointment with _$Appointment {
       {required String id,
       required DateTime date,
       required String customerId,
-      required Duration duration,
+      required int durationInMinutes,
       required AppointmentStatus status}) = _Appointment;
 
   factory Appointment.fromJson(Map<String, dynamic> json) =>

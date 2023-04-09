@@ -11,7 +11,7 @@ class AppointmentCardExtended extends HookConsumerWidget with UiLoggy {
         date: DateTime.now(),
         customerId: 'peterId',
         status: AppointmentStatus.pending,
-        duration: 2.hours);
+        durationInMinutes: 2);
     return Stack(
       clipBehavior: Clip.none,
       children: [

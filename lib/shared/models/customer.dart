@@ -7,13 +7,12 @@ part 'customer.g.dart';
 class Customer with _$Customer {
   factory Customer(
       {required String id,
-      required String name,
+      required String companyName,
       required String email,
       required String nameContact,
       required String phone,
       required String address,
       required String city,
-      required String state,
       required String zip,
       required DateTime createdAt}) = _Customer;
 

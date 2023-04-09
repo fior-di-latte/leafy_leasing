@@ -47,3 +47,5 @@ flutter:
   assets:
     - assets/logo.png
     - assets/logo_v2.png
+    - assets/customers.json
+    - assets/appointments.json
