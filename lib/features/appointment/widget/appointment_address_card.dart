@@ -1,7 +1,7 @@
 import 'package:leafy_leasing/shared/base.dart';
 
-class AppointmentAddressCard extends HookConsumerWidget with UiLoggy {
-  const AppointmentAddressCard(this.address, {Key? key}) : super(key: key);
+class CustomerAddressCard extends HookConsumerWidget with UiLoggy {
+  const CustomerAddressCard(this.address, {Key? key}) : super(key: key);
 
   final String address;
 

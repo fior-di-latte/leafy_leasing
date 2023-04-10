@@ -1,7 +1,7 @@
 import 'package:leafy_leasing/shared/base.dart';
 
-class AppointmentContactCard extends HookConsumerWidget with UiLoggy {
-  const AppointmentContactCard(
+class CustomerContactCard extends HookConsumerWidget with UiLoggy {
+  const CustomerContactCard(
       {required this.name, required this.phone, required this.email, Key? key})
       : super(key: key);
 

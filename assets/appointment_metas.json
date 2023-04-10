@@ -1,4 +1,4 @@
-{"appointment_metas": {
+{"appointment_metas": [{
   "pending": [
       {
         "id": "1",
@@ -89,6 +89,6 @@
         "date": "2023-04-12 14:30:00"
       }
     ]
-  }
+  }]
 
 }

@@ -82,12 +82,25 @@ class CancelAppointmentScreen extends HookConsumerWidget with UiLoggy {
                   flex: 2,
                   child: Center(
                       child: Hero(
-                    tag: kCancelButtonHeroTag,
-                    child: AppointmentActionButton.cancelFinalize(ctx, ref,
-                        isGreyedOut: !hasChosenAlready, id: id),
-                  )))
+                          tag: kCancelButtonHeroTag,
+                          child: AppointmentActionButton.cancelFinalize(
+                              ctx, ref,
+                              comment: commentTextController.text,
+                              newStatus:
+                                  _getNewStatus(canceledByCustomer.value),
+                              isGreyedOut: !hasChosenAlready,
+                              id: id))))
             ],
           ),
         ));
+  }
+
+  AppointmentStatus? _getNewStatus(bool? canceledByCustomer) {
+    if (canceledByCustomer == null) {
+      return null;
+    }
+    return canceledByCustomer
+        ? AppointmentStatus.canceledCustomer
+        : AppointmentStatus.canceledUs;
   }
 }

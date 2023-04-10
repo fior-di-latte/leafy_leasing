@@ -9,7 +9,7 @@ _"A companion app for PaaS (_Plants as a Service_) companies."_
 
 Under the hood:
 * 💅  Design System: Material 3 with a green seed color
-* 🏄‍♂ ️State Management: `riverpod`
+* 🏄‍♂ ️State Management: `riverpod`: All AsyncStates _(loading, error, data)_ by UI
 * 🪝 Local State Management: `flutter_hooks`
 * 🐝 Data Persistence: `hive`
 * 🧭 Navigation: `auto_route`
@@ -52,13 +52,13 @@ _\*Leafy Leasing should work on iOS, Android, Web, and Windows._
 ---
 ## Commit Keys 🔑
 
-* **ICM**  Neues Feature
+* **ICM**  New Feature
 * **REF**  Refactoring
-* **ENH**  Verbesserung (ohne UI)
-* **UI** Verbesserung am UI
+* **ENH**  Enhancement (w/o UI)
+* **UI**   User Interface Enhancement
 * **BFX**  Bugfix
 * **DAT**  Data (configs, dummy data)
-* **IMG**  Bilder / Animationen
+* **IMG**  Images / Animation
 * **LOC**  Localization / Internationalization
 * **DEP**  Deployment
 

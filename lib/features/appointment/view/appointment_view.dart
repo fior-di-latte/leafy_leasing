@@ -12,48 +12,45 @@ class AppointmentScreen extends HookConsumerWidget with UiLoggy {
   final String id;
 
   @override
-  Widget build(BuildContext ctx, WidgetRef ref) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Row(
-            children: [
-              const Padding(
-                padding: EdgeInsets.all(sPadding),
-                child: CircleAvatar(
-                  foregroundImage: AssetImage(AppAssets.logo),
-                ),
+  Widget build(BuildContext ctx, WidgetRef ref) => Scaffold(
+      appBar: AppBar(
+        title: Row(
+          children: [
+            const Padding(
+              padding: EdgeInsets.all(sPadding),
+              child: CircleAvatar(
+                foregroundImage: AssetImage(AppAssets.logo),
               ),
-              Text(
-                ctx.lc.appointmentTitle,
-              )
-            ],
-          ),
+            ),
+            Text(
+              ctx.lc.appointmentTitle,
+            )
+          ],
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(lPadding),
-          child: Column(
-            children: [
-              AppointmentCardExtended(),
-              Gap(mPadding),
-              AppointmentAddressCard('Rofl'),
-              Gap(mPadding),
-              AppointmentContactCard(
-                  name: 'Rofl', phone: 'Rofl', email: 'Rofl'),
-              Gap(mPadding),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(lPadding),
+        child: Column(
+          children: [
+            AppointmentCardExtended(id),
+            Gap(mPadding),
+            CustomerAddressCard('Rofl'),
+            Gap(mPadding),
+            CustomerContactCard(name: 'Rofl', phone: 'Rofl', email: 'Rofl'),
+            Gap(mPadding),
+            Expanded(
+                child: Row(children: [
               Expanded(
-                  child: Row(children: [
-                Expanded(
-                    child: Hero(
-                        tag: kCancelButtonHeroTag,
-                        child: AppointmentActionButton.cancel(ctx, id: id))),
-                Gap(lPadding),
-                Expanded(
-                    child: Hero(
-                        tag: kCloseButtonHeroTag,
-                        child: AppointmentActionButton.close(ctx, id: id)))
-              ])),
-            ],
-          ),
-        ));
-  }
+                  child: Hero(
+                      tag: kCancelButtonHeroTag,
+                      child: AppointmentActionButton.cancel(ctx, id: id))),
+              Gap(lPadding),
+              Expanded(
+                  child: Hero(
+                      tag: kCloseButtonHeroTag,
+                      child: AppointmentActionButton.close(ctx, id: id)))
+            ])),
+          ],
+        ),
+      ));
 }

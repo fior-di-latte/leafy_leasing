@@ -37,3 +37,13 @@ extension AddCustomLoadingErrorWidgets<T> on AsyncValue<T> {
         data: data);
   }
 }
+
+// generate a color from a string in a deterministic manner
+Color stringToColor(String str, BuildContext ctx) {
+  final hash = str.hashCode;
+  final r = (hash & 0xFF0000) >> 16;
+  final g = (hash & 0x00FF00) >> 8;
+  final b = hash & 0x0000FF;
+  return Color.lerp(Color.fromARGB(255, r, g, b), ctx.cs.primary, .5)!
+      .withOpacity(.5);
+}

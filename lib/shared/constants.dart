@@ -8,3 +8,4 @@ const kIconSizeOnCards = 44.0;
 const kBorderRadius = BorderRadius.all(Radius.circular(12.0));
 const kCancelButtonHeroTag = 'cancelButton';
 const kCloseButtonHeroTag = 'closeButton';
+const kAppointmentCardHeroTagPrefix = 'appointmentHero';

@@ -1,4 +1,7 @@
+import 'package:leafy_leasing/features/home/provider/metas_provider.dart';
 import 'package:leafy_leasing/shared/base.dart';
+
+import '../provider/appointment_provider.dart';
 
 abstract class AppointmentActionButton extends StatelessWidget with UiLoggy {
   factory AppointmentActionButton.cancel(BuildContext ctx,
@@ -12,11 +15,19 @@ abstract class AppointmentActionButton extends StatelessWidget with UiLoggy {
 
   factory AppointmentActionButton.cancelFinalize(
           BuildContext ctx, WidgetRef ref,
-          {required String id, bool isGreyedOut = false, Key? key}) =>
+          {required String id,
+          required AppointmentStatus? newStatus,
+          required String? comment,
+          bool isGreyedOut = false,
+          Key? key}) =>
       _Button(
           icon: Icons.cancel_outlined,
           onTap: () {
-            logInfo('Finalize cancel appointment');
+            logInfo('Cancel appointment with id $id');
+            ref
+                .read(appointmentProvider(id).notifier)
+                .cancelAppointment(newStatus: newStatus!, comment: comment);
+            ref.read(metasProvider.notifier).cancelAppointment(id);
             ctx.router.navigate(const HomeRoute());
           },
           foregroundColor: ctx.cs.error,
@@ -25,11 +36,19 @@ abstract class AppointmentActionButton extends StatelessWidget with UiLoggy {
           key: key);
 
   factory AppointmentActionButton.closeFinalize(BuildContext ctx, WidgetRef ref,
-          {required String id, bool isGreyedOut = false, Key? key}) =>
+          {required String id,
+          required String? comment,
+          AppointmentStatus? newStatus,
+          bool isGreyedOut = false,
+          Key? key}) =>
       _Button(
           icon: Icons.check_circle_outline,
           onTap: () {
-            logInfo('Finalize close appointment');
+            logInfo('Cancel appointment with id $id');
+            ref
+                .read(appointmentProvider(id).notifier)
+                .cancelAppointment(newStatus: newStatus!, comment: comment);
+            ref.read(metasProvider.notifier).closeAppointment(id);
             ctx.router.navigate(const HomeRoute());
           },
           isGreyedOut: isGreyedOut,
