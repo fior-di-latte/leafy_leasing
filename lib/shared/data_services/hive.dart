@@ -1,33 +1,28 @@
+import 'dart:convert';
+
+import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-const themeModeBox = 'themeModeBox';
+import 'package:leafy_leasing/features/home/model/appointment_meta.dart';
+import 'package:leafy_leasing/shared/base.dart';
 
-extension BoxExtensions on Box {
-  Stream<BoxEvent> watchWithInitial({required String key}) {
-    Future.delayed(Duration(milliseconds: 10), () {
-      var obj = get(key);
-      put(key, obj);
-    });
-    return watch(key: key);
-  }
+const themeModeBox = 'themeModeBox';
+const hiveKeyMetas = 'appointment_metas'; // both in json and in hive
+const hiveBoxNameMetas = 'metaBox';
+
+Future<void> setupHive() async {
+  await Hive.initFlutter();
+  Hive.registerAdapter(AppointmentMetasAdapter());
+  Hive.registerAdapter(AppointmentMetaAdapter());
+  await Hive.openBox<AppointmentMetas>('metaBox');
+  await _fillMetaBox();
 }
 
-// Future setupHive() async {
-//   await Hive.initFlutter();
-//   await _maybeDeleteBoxes();
-//   // Hive.registerAdapter<ProofMeta>(ProofMetaAdapter());
-//   await _openBoxes();
-//   _maybeSetInitialValues();
-// }
-//
-// Future _openBoxes() async {
-//   try {
-//     // generic type = field type, index can be auto incremented or custom
-//     return Future.wait([
-//       Hive.openBox<ThemeMode>(proofOverviewLastSeenBox),
-//     ]);
-//   } catch (e) {
-//     logError(
-//         'Hive box opening failed due to improper app closing before. Exception: \n $e');
-//   }
-// }
+// read json '/assets/appointment_metas', get dictionary from key 'appointmentMetas'
+Future<void> _fillMetaBox() async {
+  final appointmentMetas =
+      await rootBundle.loadString(AppAssets.appointmentMetas);
+  final asMap = jsonDecode(appointmentMetas)[hiveKeyMetas];
+  final metas = AppointmentMetas.fromJson(asMap as Map<String, dynamic>);
+  await Hive.box<AppointmentMetas>(hiveBoxNameMetas).put(hiveKeyMetas, metas);
+}

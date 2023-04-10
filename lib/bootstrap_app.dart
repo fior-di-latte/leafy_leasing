@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:leafy_leasing/shared/base.dart';
+import 'package:leafy_leasing/shared/data_services/hive.dart';
 import 'package:loggy/loggy.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -17,6 +18,3 @@ Future<void> bootstrap() async {
     ),
   );
 }
-
-// TODO
-setupHive() {}

@@ -9,10 +9,10 @@ class AppointmentListCard extends HookConsumerWidget with UiLoggy {
   Widget build(BuildContext ctx, WidgetRef ref) {
     final appointment = Appointment(
         id: 'kik',
-        date: DateTime.now(),
+        date: DateTime.now().add(1.days),
         customerId: 'peterId',
         status: AppointmentStatus.pending,
-        duration: 2.hours);
+        durationInMinutes: 2);
     return Container(
       margin: const EdgeInsets.all(lPadding),
       height: ctx.height * heightFactor,
@@ -88,7 +88,7 @@ class AppointmentListCard extends HookConsumerWidget with UiLoggy {
                                   Icons.calendar_month_outlined,
                                 ),
                                 label: Text(
-                                  'Today, 21.3',
+                                  RelativeTime(ctx).format(appointment.date),
                                 ),
                               ),
                               Transform.scale(

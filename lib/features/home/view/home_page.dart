@@ -1,11 +1,11 @@
+import 'package:leafy_leasing/features/home/provider/home_provider.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
 @RoutePage()
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends HookConsumerWidget {
   const HomeScreen({super.key});
-
   @override
-  Widget build(BuildContext ctx) {
+  Widget build(BuildContext ctx, WidgetRef ref) {
     return AutoTabsRouter.tabBar(
       routes: const [PendingRoute(), DoneRoute(), CanceledRoute()],
       builder: (ctx, child, _) {

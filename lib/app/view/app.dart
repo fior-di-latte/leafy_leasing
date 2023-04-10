@@ -12,7 +12,10 @@ class App extends ConsumerWidget {
     return MaterialApp.router(
       theme: ref.watch(themeProvider),
       locale: ref.watch(localeProvider),
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      localizationsDelegates: [
+        ...AppLocalizations.localizationsDelegates,
+        RelativeTimeLocalizations.delegate,
+      ],
       supportedLocales: AppLocalizations.supportedLocales,
       routerConfig: _appRouter.config(
           navigatorObservers: () => [CustomRouteObserver()],

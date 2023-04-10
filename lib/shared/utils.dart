@@ -19,3 +19,21 @@ extension AddConvenience on BuildContext {
   TextTheme get tt => Theme.of(this).textTheme;
   TextTheme get att => Theme.of(this).accentTextTheme;
 }
+
+extension AddCustomLoadingErrorWidgets<T> on AsyncValue<T> {
+  Widget whenFine(Widget Function(T data) data,
+      {String? info, bool hasShimmer = false}) {
+    final placeholder = hasShimmer
+        ? Container(color: Colors.grey)
+            .animate(onInit: (c) => c.repeat())
+            .shimmer()
+        : const SizedBox.shrink();
+    return when(
+        error: (e, __) => placeholder,
+        loading: () {
+          logDebug('Loading $T $info');
+          return placeholder;
+        },
+        data: data);
+  }
+}
