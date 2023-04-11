@@ -11,7 +11,8 @@ _"A companion app for PaaS (_Plants as a Service_) companies."_
 
 Under the hood:
 * 💅  Design System: Material 3 with a green seed color, incl. dark  and light mode
-* 🏄‍♂ ️State Management: `riverpod`: All AsyncStates _(loading, error, data)_ by UI
+* 🏄‍♂ ️State Management: `riverpod`: All AsyncStates _(loading, error, data)_ handled by UI
+* ➡️ Monodirectional Data Flow: Data Service -> Repository -> StateNotifierProvider -> UI
 * 🪝 Local State Management: `flutter_hooks`
 * 🐝 Data Persistence: `hive`
 * 🧭 Navigation: `auto_route`
