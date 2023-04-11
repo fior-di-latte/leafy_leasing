@@ -25,7 +25,10 @@ class AppointmentListCard extends HookConsumerWidget with UiLoggy {
                         (appointment) => ref
                             .watch(customerProvider(appointment.customerId))
                             .whenFine((customer) => _InnerCard(
-                                appointment: appointment, customer: customer))),
+                                    appointment: appointment,
+                                    customer: customer)
+                                .animate()
+                                .fadeIn())),
                   ),
                 ),
               ),

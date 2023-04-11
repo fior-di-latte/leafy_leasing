@@ -1,4 +1,5 @@
 import 'package:leafy_leasing/features/home/provider/metas_provider.dart';
+import 'package:leafy_leasing/features/home/widget/navigation_badges.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
 @RoutePage()
@@ -23,15 +24,22 @@ class HomeScreen extends HookConsumerWidget {
                     showUnselectedLabels: false,
                     items: const <BottomNavigationBarItem>[
                       BottomNavigationBarItem(
-                        icon: Icon(Icons.home),
+                        icon: NavigationBadge(
+                          child: Icon(Icons.home),
+                          forPending: true,
+                        ),
                         label: 'Settings',
                       ),
                       BottomNavigationBarItem(
-                        icon: Icon(Icons.check_box_outlined),
+                        icon: NavigationBadge(
+                            forClosed: true,
+                            child: Icon(Icons.check_box_outlined)),
                         label: 'Home',
                       ),
                       BottomNavigationBarItem(
-                        icon: Icon(Icons.cancel_outlined),
+                        icon: NavigationBadge(
+                            forCanceled: true,
+                            child: Icon(Icons.cancel_outlined)),
                         label: 'Messages',
                       ),
                     ],
