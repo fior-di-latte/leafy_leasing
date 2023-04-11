@@ -8,7 +8,7 @@ final appointmentProvider = StateNotifierProvider.autoDispose
 
 class AppointmentNotifier extends HiveAsyncStateNotifier<Appointment> {
   AppointmentNotifier(AutoDisposeRef ref, {required String id})
-      : super(ref, boxName: hiveBoxNameAppointments, key: id);
+      : super(ref, boxName: hiveAppointments, key: id);
 
   Future<void> cancelAppointment({
     required AppointmentStatus newStatus,

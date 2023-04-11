@@ -8,7 +8,7 @@ final metasProvider = StateNotifierProvider.autoDispose<MetasNotifier,
 
 class MetasNotifier extends HiveAsyncStateNotifier<AppointmentMetas> {
   MetasNotifier(AutoDisposeRef ref)
-      : super(ref, boxName: hiveBoxNameMetas, key: hiveKeyMetas);
+      : super(ref, boxName: hiveMetas, key: hiveMetas);
 
   Future<void> cancelAppointment(String id) async {
     // add Meta to canceld, remove from pending

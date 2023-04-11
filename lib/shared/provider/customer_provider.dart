@@ -7,5 +7,5 @@ final customerProvider = StateNotifierProvider.autoDispose
 
 class CustomerNotifier extends HiveAsyncStateNotifier<Customer> {
   CustomerNotifier(AutoDisposeRef ref, {required String id})
-      : super(ref, boxName: hiveBoxNameCustomers, key: id);
+      : super(ref, boxName: hiveCustomers, key: id);
 }

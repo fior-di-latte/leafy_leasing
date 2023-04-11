@@ -1,5 +1,5 @@
 {
-"appointments": [
+"hiveAppointments": [
 {"id":  "1", "date": "2023-04-12 12:58:25",
   "customerId": "1",
   "durationInMinutes": 45,
