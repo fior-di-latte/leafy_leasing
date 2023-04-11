@@ -28,6 +28,7 @@ _No tests, no actively used flavors._
 * Flavors for CI/CD
 * Proper abstraction of repositories (s.t. backend is easily _'pluggable'_)
 * Persistance of `ThemeMode`and `Locale` over app restarts with `hive`
+* Change App Logo to Leafy Leasing Logo.
 
 ---
 
@@ -62,7 +63,7 @@ _\*Leafy Leasing should work on iOS, Android, Web, and Windows._
 ---
 ## Commit Keys 🔑
 
-* **ICM**  New Feature
+* **FT**  New Feature
 * **REF**  Refactoring
 * **ENH**  Enhancement (w/o UI)
 * **UI**   User Interface Enhancement
@@ -71,6 +72,7 @@ _\*Leafy Leasing should work on iOS, Android, Web, and Windows._
 * **IMG**  Images / Animation
 * **LOC**  Localization / Internationalization
 * **DEP**  Deployment
+* **ICM**  Big new stuff (e.g. new backend integration) (non-features)
 
 ---
 ## Running Tests 🧪 (Currently not integrated ❌) 
