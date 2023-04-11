@@ -1,3 +1,5 @@
+<img src="./assets/logo.png" width=180 height="180"/>
+
 # Leafy Leasing  🪴
 
 [![style: very good analysis][very_good_analysis_badge]][very_good_analysis_link]
@@ -8,13 +10,13 @@ This project was started using the [Very Good CLI][very_good_cli_link] 🤖.
 _"A companion app for PaaS (_Plants as a Service_) companies."_
 
 Under the hood:
-* 💅  Design System: Material 3 with a green seed color
+* 💅  Design System: Material 3 with a green seed color, incl. dark  and light mode
 * 🏄‍♂ ️State Management: `riverpod`: All AsyncStates _(loading, error, data)_ by UI
 * 🪝 Local State Management: `flutter_hooks`
 * 🐝 Data Persistence: `hive`
 * 🧭 Navigation: `auto_route`
 * 🗣️ Internationalization: `flutter_localizations`
-* 📄 Declarative Logging: `loggy` with listeners on providers, widget states and route changes.
+* 📄 Declarative Logging: `loggy` with listeners on providers (BL), widget states and route changes.
 
 Developed using Flutter 3.7.8 and Dart 2.19.5, tested **only** on Android (API 31, Pixel 4a Emulator).
 _No tests, no actively used flavors._

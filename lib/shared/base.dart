@@ -19,3 +19,4 @@ export 'utils.dart';
 export 'model/model.dart';
 export './widget/widget.dart';
 export './notifier/notifier.dart';
+export './provider/provider.dart';

@@ -3,23 +3,6 @@ import 'package:leafy_leasing/shared/base.dart';
 import 'package:leafy_leasing/shared/repository/abstract_repository.dart';
 import 'package:leafy_leasing/shared/repository/hive_repository.dart';
 
-class HiveStateNotifier<T> extends StateNotifier<T> with NetworkLoggy {
-  HiveStateNotifier(this.ref, {required String boxName, required this.key})
-      : repository = HiveRepositoryImpl<T>(boxName, key: key),
-        super(HiveRepositoryImpl<T>(boxName, key: key).syncGet() as T) {
-    repository.keyObservable().listen((event) {
-      loggy.info('Hive new event: $event');
-      if (event.value != null) {
-        state = event.value as T;
-      }
-    });
-  }
-
-  final AutoDisposeRef ref;
-  final HiveRepository<T> repository;
-  final String key;
-}
-
 /// This class mocks an async network call (like a REST API call)
 class HiveAsyncStateNotifier<T> extends StateNotifier<AsyncValue<T>>
     with NetworkLoggy {
@@ -55,3 +38,21 @@ class HiveAsyncStateNotifier<T> extends StateNotifier<AsyncValue<T>>
     await repository.delete();
   }
 }
+
+// TODO hook up settings (theme mode + loc) with this sync notifier
+// class HiveStateNotifier<T> extends StateNotifier<T> with NetworkLoggy {
+//   HiveStateNotifier(this.ref, {required String boxName, required this.key})
+//       : repository = HiveRepositoryImpl<T>(boxName, key: key),
+//         super(HiveRepositoryImpl<T>(boxName, key: key).syncGet() as T) {
+//     repository.keyObservable().listen((event) {
+//       loggy.info('Hive new event: $event');
+//       if (event.value != null) {
+//         state = event.value as T;
+//       }
+//     });
+//   }
+//
+//   final AutoDisposeRef ref;
+//   final HiveRepository<T> repository;
+//   final String key;
+// }

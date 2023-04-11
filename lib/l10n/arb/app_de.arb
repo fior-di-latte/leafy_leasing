@@ -83,7 +83,44 @@
 "noAborted": "Nein, Termin abgebrochen.",
                 "@noAborted": {
                 "description": "Nein, der Termin wurde abgebrochen."
+            },
+"customerHasCanceled": "Kunde\nhat abgesagt",
+                "@customerHasCanceled": {
+                "description": "Kunde hat abgesagt"
+            },
+"weHaveCanceled": "Wir\nhaben abgesagt",
+                "@weHaveCanceled": {
+                "description": "Wir haben abgesagt"
+            },
+"hasBeenSuccessful": "Termin\nerfolgreich",
+                "@hasBeenSuccessful": {
+                "description": "Termin erfolgreich"
+            },
+"hasBeenAborted": "Termin\nunterbrochen",
+                "@hasBeenAborted": {
+                "description": "Termin unterbrochen"
+            },
+"noCommentFound": "Keine Notizen zu diesem Termin.",
+                "@noCommentFound": {
+                "description": "Keine Notizen zu diesem Termin."
+            },
+"noAppointmentFound": "Keine Termine gefunden.",
+                "@noAppointmentFound": {
+                "description": "Keine Termine gefunden."
+            },
+"closedAppointmentsHere": "Hier findest du alle stattgefundenen Termine.",
+                "@closedAppointmentsHere": {
+                "description": "Hier findest du alle stattgefundenen Termine."
+            },
+"canceledAppointmentsHere": "Hier findest du alle abgesagten Termine.",
+                "@canceledAppointmentsHere": {
+                "description": "Hier findest du alle abgesagten Termine."
+            },
+"pendingAppointmentsHere": "Hier findest du alle anstehenden Termine.",
+                "@pendingAppointmentsHere": {
+                "description": "Hier findest du alle anstehenden Termine."
             }
+
 
 
 

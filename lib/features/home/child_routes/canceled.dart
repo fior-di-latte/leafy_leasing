@@ -1,4 +1,5 @@
 import 'package:leafy_leasing/features/home/widget/custom_scaffold.dart';
+import 'package:leafy_leasing/features/home/widget/empty_iterable_placeholder.dart';
 import 'package:leafy_leasing/shared/base.dart';
 import 'package:leafy_leasing/features/home/provider/metas_provider.dart';
 import 'package:leafy_leasing/features/home/widget/custom_scaffold.dart';
@@ -17,33 +18,39 @@ class CanceledScreen extends HookConsumerWidget with UiLoggy {
         return HookBuilder(
           builder: (ctx) {
             final sorted = useSortMetas(metas.canceled);
-            return ListView.builder(
-              cacheExtent: 8000,
-              itemCount: sorted.length,
-              itemBuilder: (ctx, idx) => Stack(
-                children: [
-                  AppointmentListCard(
-                    sorted[idx].id,
-                  ),
-                  const Positioned.fill(
-                      child: Align(
-                    alignment: Alignment.bottomRight,
-                    child: Padding(
-                      padding: const EdgeInsets.all(lPadding * 2),
-                      child: Icon(
-                        Icons.cancel_outlined,
-                        size: 50,
-                        color: Colors.red,
-                      ),
-                    ),
-                  ))
-                ],
+            return Visibility(
+              visible: sorted.isNotEmpty,
+              replacement: EmptyIterableInfo(
+                hintText: ctx.lc.canceledAppointmentsHere,
               ),
+              child: ListView.builder(
+                cacheExtent: 8000,
+                itemCount: sorted.length,
+                itemBuilder: (ctx, idx) => Stack(
+                  children: [
+                    AppointmentListCard(
+                      sorted[idx].id,
+                    ),
+                    const Positioned.fill(
+                        child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: Padding(
+                        padding: EdgeInsets.all(lPadding * 2),
+                        child: Icon(
+                          Icons.cancel_outlined,
+                          size: 50,
+                          color: Colors.red,
+                        ),
+                      ),
+                    ))
+                  ],
+                ),
+              ).animate().fadeIn(),
             );
           },
         );
       }),
-      title: ctx.lc.doneTitle,
+      title: ctx.lc.canceledTitle,
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:leafy_leasing/features/home/model/appointment_meta.dart';
 import 'package:leafy_leasing/features/home/provider/metas_provider.dart';
 import 'package:leafy_leasing/features/home/widget/appointment_listcard.dart';
 import 'package:leafy_leasing/features/home/widget/custom_scaffold.dart';
+import 'package:leafy_leasing/features/home/widget/empty_iterable_placeholder.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
 @RoutePage()
@@ -14,12 +15,18 @@ class PendingScreen extends HookConsumerWidget with UiLoggy {
           return HookBuilder(
             builder: (ctx) {
               final sorted = useSortMetas(metas.pending);
-              return ListView.builder(
-                cacheExtent: 8000,
-                itemCount: sorted.length,
-                itemBuilder: (ctx, idx) => AppointmentListCard(
-                  sorted[idx].id,
+              return Visibility(
+                visible: sorted.isNotEmpty,
+                replacement: EmptyIterableInfo(
+                  hintText: ctx.lc.pendingAppointmentsHere,
                 ),
+                child: ListView.builder(
+                  cacheExtent: 8000,
+                  itemCount: sorted.length,
+                  itemBuilder: (ctx, idx) => AppointmentListCard(
+                    sorted[idx].id,
+                  ),
+                ).animate().fadeIn(),
               );
             },
           );

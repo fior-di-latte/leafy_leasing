@@ -81,6 +81,43 @@
 "noAborted": "No, aborted!",
                 "@noAborted": {
                 "description": "No, the appointment was aborted."
-            }
+            },
+"customerHasCanceled": "Customer\ncanceled",
+                "@customerHasCanceled": {
+                "description": "Customer canceled"
+            },
+"weHaveCanceled": "We\ncanceled",
+                "@weHaveCanceled": {
+                "description": "We canceled"
+            },
+"hasBeenSuccessful": "Appointment\nsuccessful",
+                "@hasBeenSuccessful": {
+                "description": "Appointment successful"
+            },
+"hasBeenAborted": "Appointment\naborted",
+                "@hasBeenAborted": {
+                "description": "Appointment aborted"
+            },
+
+            "noCommentFound": "No notes for this appointment.",
+                            "@noCommentFound": {
+                            "description": "No notes for this appointment."
+                        },
+            "noAppointmentFound": "No appointments found.",
+                            "@noAppointmentFound": {
+                            "description": "No appointments found."
+                        },
+            "closedAppointmentsHere": "You find all closed appointments here.",
+                            "@closedAppointmentsHere": {
+                            "description": "You find all closed appointments here."
+                        },
+            "canceledAppointmentsHere": "You find all canceled appointments here.",
+                            "@canceledAppointmentsHere": {
+                            "description": "You find all canceled appointments here."
+                        },
+            "pendingAppointmentsHere": "You find all pending appointments here.",
+                            "@pendingAppointmentsHere": {
+                            "description": "You find all canceled appointments here."
+                        }
 
 }

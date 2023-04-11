@@ -21,12 +21,11 @@ class AppointmentNotifier extends HiveAsyncStateNotifier<Appointment> {
   }
 
   Future<void> closeAppointment({
-    required Appointment appointment,
     required AppointmentStatus newStatus,
     required String? comment,
   }) async {
     assert(newStatus == AppointmentStatus.doneSuccessful ||
         newStatus == AppointmentStatus.doneAborted);
-    repository.put(appointment.copyWith(comment: comment, status: newStatus));
+    repository.put(state.value!.copyWith(comment: comment, status: newStatus));
   }
 }

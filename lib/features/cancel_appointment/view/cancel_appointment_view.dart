@@ -85,7 +85,7 @@ class CancelAppointmentScreen extends HookConsumerWidget with UiLoggy {
                           tag: kCancelButtonHeroTag,
                           child: AppointmentActionButton.cancelFinalize(
                               ctx, ref,
-                              comment: commentTextController.text,
+                              commentTextController: commentTextController,
                               newStatus:
                                   _getNewStatus(canceledByCustomer.value),
                               isGreyedOut: !hasChosenAlready,

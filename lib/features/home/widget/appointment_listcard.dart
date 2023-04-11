@@ -1,7 +1,4 @@
 import 'package:leafy_leasing/shared/base.dart';
-import 'package:leafy_leasing/shared/provider/customer_provider.dart';
-
-import '../../../shared/provider/appointment_provider.dart';
 
 class AppointmentListCard extends HookConsumerWidget with UiLoggy {
   const AppointmentListCard(this.id, {Key? key}) : super(key: key);

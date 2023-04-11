@@ -5,6 +5,15 @@ class CustomerContactCard extends HookConsumerWidget with UiLoggy {
       {required this.name, required this.phone, required this.email, Key? key})
       : super(key: key);
 
+  static Widget fromAppointment(String id) => Consumer(
+      builder: (ctx, ref, _) => ref.watch(appointmentProvider(id)).whenFine(
+          (appointment) => ref
+              .watch(customerProvider(appointment.customerId))
+              .whenFine((customer) => CustomerContactCard(
+                  name: customer.nameContact,
+                  phone: customer.phone,
+                  email: customer.email))));
+
   final String name;
   final String phone;
   final String email;

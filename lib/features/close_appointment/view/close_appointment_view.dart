@@ -84,7 +84,7 @@ class CloseAppointmentScreen extends HookConsumerWidget with UiLoggy {
                       child: Hero(
                     tag: kCloseButtonHeroTag,
                     child: AppointmentActionButton.closeFinalize(ctx, ref,
-                        comment: commentTextController.text,
+                        commentTextController: commentTextController,
                         newStatus: _getNewStatus(wasSuccessful.value),
                         isGreyedOut: !hasChosenAlready,
                         id: id),

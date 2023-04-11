@@ -17,16 +17,16 @@ abstract class AppointmentActionButton extends StatelessWidget with UiLoggy {
           BuildContext ctx, WidgetRef ref,
           {required String id,
           required AppointmentStatus? newStatus,
-          required String? comment,
+          required TextEditingController commentTextController,
           bool isGreyedOut = false,
           Key? key}) =>
       _Button(
           icon: Icons.cancel_outlined,
           onTap: () {
-            logInfo('Cancel appointment with id $id');
-            ref
-                .read(appointmentProvider(id).notifier)
-                .cancelAppointment(newStatus: newStatus!, comment: comment);
+            logInfo(
+                'Cancel appointment with id $id. New status $newStatus, Comment ${commentTextController.text}');
+            ref.read(appointmentProvider(id).notifier).cancelAppointment(
+                newStatus: newStatus!, comment: commentTextController.text);
             ref.read(metasProvider.notifier).cancelAppointment(id);
             ctx.router.navigate(const HomeRoute());
           },
@@ -37,17 +37,17 @@ abstract class AppointmentActionButton extends StatelessWidget with UiLoggy {
 
   factory AppointmentActionButton.closeFinalize(BuildContext ctx, WidgetRef ref,
           {required String id,
-          required String? comment,
+          required TextEditingController commentTextController,
           AppointmentStatus? newStatus,
           bool isGreyedOut = false,
           Key? key}) =>
       _Button(
           icon: Icons.check_circle_outline,
           onTap: () {
-            logInfo('Cancel appointment with id $id');
-            ref
-                .read(appointmentProvider(id).notifier)
-                .cancelAppointment(newStatus: newStatus!, comment: comment);
+            logInfo(
+                'Cancel appointment with id $id. New status $newStatus, Comment ${commentTextController.text}');
+            ref.read(appointmentProvider(id).notifier).closeAppointment(
+                newStatus: newStatus!, comment: commentTextController.text);
             ref.read(metasProvider.notifier).closeAppointment(id);
             ctx.router.navigate(const HomeRoute());
           },
