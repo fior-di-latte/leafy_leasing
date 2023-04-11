@@ -9,7 +9,7 @@ This project was started using the [Very Good CLI][very_good_cli_link] 🤖.
 
 _"A companion app for PaaS (_Plants as a Service_) companies."_
 
-Under the hood:
+### Under the hood
 * 💅  Design System: Material 3 with a green seed color, incl. dark  and light mode
 * 🏄‍♂ ️State Management: `riverpod`: All AsyncStates _(loading, error, data)_ handled by UI
 * ➡️ Monodirectional Data Flow: Data Service -> Repository -> StateNotifierProvider -> UI
@@ -19,8 +19,15 @@ Under the hood:
 * 🗣️ Internationalization: `flutter_localizations`
 * 📄 Declarative Logging: `loggy` with listeners on providers (BL), widget states and route changes.
 
+Mock backend via local NoSQL database (`hive`), initialized with json data & made pseudo async with a short network delay of 300 milliseconds.
+
 Developed using Flutter 3.7.8 and Dart 2.19.5, tested **only** on Android (API 31, Pixel 4a Emulator).
 _No tests, no actively used flavors._
+### Todos
+* Tests
+* Flavors for CI/CD
+* Proper abstraction of repositories (s.t. backend is easily _'pluggable'_)
+* Persistance of `ThemeMode`and `Locale` over app restarts with `hive`
 
 ---
 

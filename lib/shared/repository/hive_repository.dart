@@ -1,7 +1,7 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
-import 'abstract_repository.dart';
+import 'package:leafy_leasing/shared/repository/abstract_repository.dart';
 
 class HiveRepositoryImpl<T> implements HiveRepository<T> {
   HiveRepositoryImpl(this.boxName, {required this.key})
@@ -35,5 +35,5 @@ class HiveRepositoryImpl<T> implements HiveRepository<T> {
   }
 
   @override
-  Future<T?> get() => Future.delayed(kMockNetworkLag, () => syncGet());
+  Future<T?> get() => Future.delayed(kMockNetworkLag, syncGet);
 }
