@@ -14,7 +14,7 @@ dependencies:
   auto_size_text: ^3.0.0
   hive_flutter:
   # flutter_dotenv: ^5.0.2
-  hooks_riverpod:
+  hooks_riverpod: ^2.3.5
   dartx: ^1.1.0
   hive_generator:
   flutter_animate: 4.1.1+1
