@@ -15,6 +15,6 @@ class CommentTextField extends StatelessWidget {
         decoration: InputDecoration(
             labelText: 'Comment (optional)',
             border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(8))));
+                OutlineInputBorder(borderRadius: BorderRadius.circular(8)),),);
   }
 }

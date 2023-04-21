@@ -41,8 +41,8 @@ This project contains 3 flavors:
 - production
 
 To run the desired flavor either use the launch configuration in VSCode/Android Studio or use the following commands:
-### Important: Use build_runner before `flutter run`, otherwise the code won't complile.
-`flutter pub run build_runner build --delete-conflicting-outputs
+### Important: Get packages and use build_runner before `flutter run`, otherwise the code won't compile.
+`flutter pub get && flutter pub run build_runner build --delete-conflicting-outputs
 `
 ```sh
 # Development

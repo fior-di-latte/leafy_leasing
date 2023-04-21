@@ -22,7 +22,7 @@ extension AddConvenience on BuildContext {
 
 extension AddCustomLoadingErrorWidgets<T> on AsyncValue<T> {
   Widget whenFine(Widget Function(T data) data,
-      {String? info, bool hasShimmer = false}) {
+      {String? info, bool hasShimmer = false,}) {
     final placeholder = hasShimmer
         ? Container(color: Colors.grey)
             .animate(onInit: (c) => c.repeat())
@@ -34,7 +34,7 @@ extension AddCustomLoadingErrorWidgets<T> on AsyncValue<T> {
           logDebug('Loading $T $info');
           return placeholder;
         },
-        data: data);
+        data: data,);
   }
 }
 

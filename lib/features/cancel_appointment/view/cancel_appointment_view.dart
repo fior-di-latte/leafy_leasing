@@ -1,12 +1,9 @@
 import 'package:leafy_leasing/features/cancel_appointment/widget/who_canceled_radio_buttons.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
-import '../../close_appointment/widget/success_radiobuttons.dart';
-
 @RoutePage()
 class CancelAppointmentScreen extends HookConsumerWidget with UiLoggy {
-  const CancelAppointmentScreen(@PathParam() this.id, {Key? key})
-      : super(key: key);
+  const CancelAppointmentScreen(@PathParam() this.id, {super.key});
 
   final String id;
 
@@ -33,7 +30,7 @@ class CancelAppointmentScreen extends HookConsumerWidget with UiLoggy {
                       curve: Curves.easeOut,
                       top: hasChosenAlready ? 0 : 200,
                       child: WhoCanceledRadioButtons(
-                          canceledByCustomer: canceledByCustomer),
+                          canceledByCustomer: canceledByCustomer,),
                     ),
                     Positioned.fill(
                       child: Align(
@@ -50,7 +47,7 @@ class CancelAppointmentScreen extends HookConsumerWidget with UiLoggy {
                                     'Who canceled\nthe appointment?',
                                     style: ctx.tt.headlineLarge!.copyWith(
                                         color: ctx.cs.onBackground,
-                                        fontStyle: FontStyle.italic),
+                                        fontStyle: FontStyle.italic,),
                                   ),
                           ),
                         ),
@@ -89,10 +86,10 @@ class CancelAppointmentScreen extends HookConsumerWidget with UiLoggy {
                               newStatus:
                                   _getNewStatus(canceledByCustomer.value),
                               isGreyedOut: !hasChosenAlready,
-                              id: id))))
+                              id: id,),),),)
             ],
           ),
-        ));
+        ),);
   }
 
   AppointmentStatus? _getNewStatus(bool? canceledByCustomer) {

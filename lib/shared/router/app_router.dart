@@ -28,6 +28,6 @@ class AppRouter extends _$AppRouter {
     AutoRoute(page: AppointmentRoute.page, path: '/appointment/:id'),
     AutoRoute(page: CloseAppointmentRoute.page, path: '/appointment/:id/close'),
     AutoRoute(
-        page: CancelAppointmentRoute.page, path: '/appointment/:id/cancel'),
+        page: CancelAppointmentRoute.page, path: '/appointment/:id/cancel',),
   ];
 }

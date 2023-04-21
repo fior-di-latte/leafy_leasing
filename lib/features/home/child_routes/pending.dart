@@ -7,7 +7,7 @@ import 'package:leafy_leasing/shared/base.dart';
 
 @RoutePage()
 class PendingScreen extends HookConsumerWidget with UiLoggy {
-  const PendingScreen({Key? key}) : super(key: key);
+  const PendingScreen({super.key});
 
   @override
   Widget build(BuildContext ctx, WidgetRef ref) => HomeScaffold(
@@ -40,5 +40,5 @@ List<AppointmentMeta> useSortMetas(List<AppointmentMeta> metas) {
   return useMemoized(() {
     final modifiable = [...metas];
     return modifiable..sort((a, b) => a.date.compareTo(b.date));
-  }, [metas]);
+  }, [metas],);
 }

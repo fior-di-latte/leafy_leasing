@@ -2,8 +2,7 @@ import 'package:leafy_leasing/shared/base.dart';
 
 class CustomerAddressCard extends HookConsumerWidget with UiLoggy {
   const CustomerAddressCard(
-      {required this.address, required this.city, required this.zip, Key? key})
-      : super(key: key);
+      {required this.address, required this.city, required this.zip, super.key,});
 
   static Widget fromAppointment(String id) => Consumer(
       builder: (ctx, ref, _) => ref.watch(appointmentProvider(id)).whenFine(
@@ -12,7 +11,7 @@ class CustomerAddressCard extends HookConsumerWidget with UiLoggy {
               .whenFine((customer) => CustomerAddressCard(
                   address: customer.address,
                   city: customer.city,
-                  zip: customer.zip))));
+                  zip: customer.zip,),),),);
 
   final String address;
   final String city;
@@ -22,7 +21,7 @@ class CustomerAddressCard extends HookConsumerWidget with UiLoggy {
   Widget build(BuildContext ctx, WidgetRef ref) {
     return InkWell(
       borderRadius: kBorderRadius,
-      onTap: () => loggy.info(('This would open Google Maps')),
+      onTap: () => loggy.info('This would open Google Maps'),
       child: SizedBox(
         height: ctx.height * .1,
         child: Card(
@@ -42,7 +41,7 @@ class CustomerAddressCard extends HookConsumerWidget with UiLoggy {
               )
             ],
           ),
-        )),
+        ),),
       ),
     );
   }

@@ -1,15 +1,12 @@
+import 'package:leafy_leasing/features/home/provider/metas_provider.dart';
+import 'package:leafy_leasing/features/home/widget/appointment_listcard.dart';
 import 'package:leafy_leasing/features/home/widget/custom_scaffold.dart';
 import 'package:leafy_leasing/features/home/widget/empty_iterable_placeholder.dart';
 import 'package:leafy_leasing/shared/base.dart';
-import 'package:leafy_leasing/features/home/provider/metas_provider.dart';
-import 'package:leafy_leasing/features/home/widget/custom_scaffold.dart';
-import 'package:leafy_leasing/shared/base.dart';
-
-import '../widget/appointment_listcard.dart';
 
 @RoutePage()
 class CanceledScreen extends HookConsumerWidget with UiLoggy {
-  const CanceledScreen({Key? key}) : super(key: key);
+  const CanceledScreen({super.key});
 
   @override
   Widget build(BuildContext ctx, WidgetRef ref) {
@@ -42,7 +39,7 @@ class CanceledScreen extends HookConsumerWidget with UiLoggy {
                           color: Colors.red,
                         ),
                       ),
-                    ))
+                    ),)
                   ],
                 ),
               ).animate().fadeIn(),

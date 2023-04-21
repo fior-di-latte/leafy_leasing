@@ -1,8 +1,9 @@
 import 'package:leafy_leasing/shared/base.dart';
 
 class BrightnessSwitches extends StatelessWidget {
-  const BrightnessSwitches({Key? key}) : super(key: key);
+  const BrightnessSwitches({super.key});
 
+  @override
   Widget build(BuildContext ctx) => GridView.count(
           physics: const NeverScrollableScrollPhysics(),
           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
@@ -11,7 +12,7 @@ class BrightnessSwitches extends StatelessWidget {
           crossAxisSpacing: 8,
           mainAxisSpacing: 8,
           childAspectRatio: 2.5 / 1,
-          children: <_ThemeCard>[
+          children: const <_ThemeCard>[
             _ThemeCard(
               themeMode: ThemeMode.system,
               icon: Icons.brightness_auto_outlined,
@@ -21,8 +22,8 @@ class BrightnessSwitches extends StatelessWidget {
               icon: Icons.wb_sunny_outlined,
             ),
             _ThemeCard(
-                themeMode: ThemeMode.dark, icon: Icons.brightness_3_outlined),
-          ]);
+                themeMode: ThemeMode.dark, icon: Icons.brightness_3_outlined,),
+          ],);
 }
 
 class _ThemeCard extends ConsumerWidget with UiLoggy {
@@ -40,7 +41,7 @@ class _ThemeCard extends ConsumerWidget with UiLoggy {
     return Card(
       elevation: 2,
       color: currentThemeMode == themeMode ? ctx.cs.primary : ctx.thm.cardColor,
-      shape: RoundedRectangleBorder(borderRadius: kBorderRadius),
+      shape: const RoundedRectangleBorder(borderRadius: kBorderRadius),
       child: InkWell(
         onTap: () {
           loggy.info('Pushed button to set display mode to $themeMode');

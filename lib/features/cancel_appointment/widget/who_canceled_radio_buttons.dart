@@ -27,7 +27,7 @@ class WhoCanceledRadioButtons extends StatelessWidget {
                 color: ctx.cs.onBackground.withOpacity(.7),
               ),
             ),
-            title: Text('Customer canceled'),
+            title: const Text('Customer canceled'),
             leading: Radio(
               value: true,
               groupValue: canceledByCustomer.value,
@@ -38,7 +38,7 @@ class WhoCanceledRadioButtons extends StatelessWidget {
             onTap: () {
               canceledByCustomer.value = false;
             },
-            title: Text('We canceled'),
+            title: const Text('We canceled'),
             leading: Radio(
               value: false,
               groupValue: canceledByCustomer.value,

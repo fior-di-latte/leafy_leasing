@@ -22,7 +22,7 @@ class AppointmentMetas with _$AppointmentMetas {
   factory AppointmentMetas(
       {@HiveField(0) required List<AppointmentMeta> pending,
       @HiveField(1) required List<AppointmentMeta> canceled,
-      @HiveField(2) required List<AppointmentMeta> closed}) = _AppointmentMetas;
+      @HiveField(2) required List<AppointmentMeta> closed,}) = _AppointmentMetas;
 
   factory AppointmentMetas.fromJson(Map<String, dynamic> json) =>
       _$AppointmentMetasFromJson(json);

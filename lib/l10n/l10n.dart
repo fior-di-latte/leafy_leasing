@@ -1,4 +1,4 @@
-import '../shared/base.dart';
+import 'package:leafy_leasing/shared/base.dart';
 
 export 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

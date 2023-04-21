@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
 class ProviderDisposeLogger extends ProviderObserver with NetworkLoggy {
@@ -31,14 +30,14 @@ class ProviderUpdateLogger extends ProviderObserver with NetworkLoggy {
     ProviderContainer container,
   ) {
     loggy.debug(
-        'P-Update of ${_getProviderName(provider)}:\n"New Value": "$newValue"');
+        'P-Update of ${_getProviderName(provider)}:\n"New Value": "$newValue"',);
   }
 }
 
 String _getProviderName(ProviderBase provider) {
   final name = provider.name ?? 'unnamedProvider';
-  final id = (provider.argument?.toString() ?? 'globalId');
-  return name + ' with ID ' + id;
+  final id = provider.argument?.toString() ?? 'globalId';
+  return '$name with ID $id';
 }
 
 final devProviderLoggers = <ProviderObserver>[

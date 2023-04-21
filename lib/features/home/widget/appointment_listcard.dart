@@ -1,7 +1,7 @@
 import 'package:leafy_leasing/shared/base.dart';
 
 class AppointmentListCard extends HookConsumerWidget with UiLoggy {
-  const AppointmentListCard(this.id, {Key? key}) : super(key: key);
+  const AppointmentListCard(this.id, {super.key});
   static const heightFactor = .25;
   final String id;
   @override
@@ -26,9 +26,9 @@ class AppointmentListCard extends HookConsumerWidget with UiLoggy {
                             .watch(customerProvider(appointment.customerId))
                             .whenFine((customer) => _InnerCard(
                                     appointment: appointment,
-                                    customer: customer)
+                                    customer: customer,)
                                 .animate()
-                                .fadeIn())),
+                                .fadeIn(),),),
                   ),
                 ),
               ),
@@ -38,7 +38,7 @@ class AppointmentListCard extends HookConsumerWidget with UiLoggy {
                 top: -12,
                 child: CompanyAvatar.fromAppointment(
                   appointmentId: id,
-                ))
+                ),)
           ],
         ),
       );
@@ -48,7 +48,6 @@ class _InnerCard extends StatelessWidget {
   const _InnerCard({
     required this.appointment,
     required this.customer,
-    super.key,
   });
 
   final Appointment appointment;
@@ -70,7 +69,6 @@ class _InnerCard extends StatelessWidget {
                     child: AutoSizeText(
                       customer.companyName,
                       style: ctx.tt.displayMedium!.copyWith(fontSize: 40),
-                      minFontSize: 12,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                     ),
@@ -81,14 +79,13 @@ class _InnerCard extends StatelessWidget {
               Row(
                 children: [
                   Icon(Icons.location_on_outlined,
-                      size: 40, color: ctx.thm.disabledColor),
+                      size: 40, color: ctx.thm.disabledColor,),
                   const Gap(8),
                   Expanded(
                     child: AutoSizeText(
                       customer.city,
                       style: ctx.tt.bodyMedium!
                           .copyWith(color: ctx.thm.disabledColor, fontSize: 25),
-                      minFontSize: 12,
                     ),
                   )
                 ],
@@ -112,10 +109,10 @@ class _InnerCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       ActionChip(
-                        labelStyle: TextStyle(color: Colors.black),
+                        labelStyle: const TextStyle(color: Colors.black),
                         elevation: 20,
                         surfaceTintColor: ctx.cs.secondary,
-                        avatar: Icon(
+                        avatar: const Icon(
                           Icons.calendar_month_outlined,
                         ),
                         label: Text(
@@ -126,18 +123,17 @@ class _InnerCard extends StatelessWidget {
                         alignment: Alignment.centerRight,
                         scale: .8,
                         child: ActionChip(
-                          avatar: Icon(
+                          avatar: const Icon(
                             Icons.timer_outlined,
                           ),
-                          label: Text(appointment.durationInMinutes.toString() +
-                              ' min'),
+                          label: Text('${appointment.durationInMinutes} min',),
                         ),
                       )
                     ],
                   ),
                 )
               ],
-            ))
+            ),)
       ],
     );
   }

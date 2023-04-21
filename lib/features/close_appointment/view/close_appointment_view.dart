@@ -1,12 +1,9 @@
+import 'package:leafy_leasing/features/close_appointment/widget/success_radiobuttons.dart';
 import 'package:leafy_leasing/shared/base.dart';
-
-import '../../../shared/widget/close_or_cancel_buttons.dart';
-import '../widget/success_radiobuttons.dart';
 
 @RoutePage()
 class CloseAppointmentScreen extends HookConsumerWidget with UiLoggy {
-  const CloseAppointmentScreen(@PathParam() this.id, {Key? key})
-      : super(key: key);
+  const CloseAppointmentScreen(@PathParam() this.id, {super.key});
 
   final String id;
 
@@ -33,7 +30,7 @@ class CloseAppointmentScreen extends HookConsumerWidget with UiLoggy {
                       curve: Curves.easeOut,
                       top: hasChosenAlready ? 0 : 200,
                       child: SuccessRadioButtons(
-                          canceledByCustomer: wasSuccessful),
+                          canceledByCustomer: wasSuccessful,),
                     ),
                     Positioned.fill(
                       child: Align(
@@ -50,7 +47,7 @@ class CloseAppointmentScreen extends HookConsumerWidget with UiLoggy {
                                     ctx.lc.wasAppointmentSuccessful,
                                     style: ctx.tt.headlineLarge!.copyWith(
                                         color: ctx.cs.onBackground,
-                                        fontStyle: FontStyle.italic),
+                                        fontStyle: FontStyle.italic,),
                                   ),
                           ),
                         ),
@@ -87,11 +84,11 @@ class CloseAppointmentScreen extends HookConsumerWidget with UiLoggy {
                         commentTextController: commentTextController,
                         newStatus: _getNewStatus(wasSuccessful.value),
                         isGreyedOut: !hasChosenAlready,
-                        id: id),
-                  )))
+                        id: id,),
+                  ),),)
             ],
           ),
-        ));
+        ),);
   }
 
   AppointmentStatus? _getNewStatus(bool? wasSuccessful) {

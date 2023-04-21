@@ -1,6 +1,4 @@
 import 'package:leafy_leasing/shared/base.dart';
-import 'package:leafy_leasing/shared/provider/appointment_provider.dart';
-import 'package:leafy_leasing/shared/provider/customer_provider.dart';
 
 class CompanyAvatar extends ConsumerWidget with UiLoggy {
   const CompanyAvatar({
@@ -17,7 +15,7 @@ class CompanyAvatar extends ConsumerWidget with UiLoggy {
             .whenFine((appointment) => CompanyAvatar(
                   customerId: appointment.customerId,
                   key: key,
-                )));
+                ),),);
   }
 
   @override
@@ -33,12 +31,12 @@ class CompanyAvatar extends ConsumerWidget with UiLoggy {
               child: InkWell(
                 customBorder: const CircleBorder(),
                 onTap: () => loggy.info(
-                    'This would direct you to the customer profile page '),
+                    'This would direct you to the customer profile page ',),
                 child: CircleAvatar(
                   backgroundColor: stringToColor(customer.companyName, ctx),
                   child: Text(customer.companyName.substring(0, 2)),
                 ),
               ),
-            )));
+            ),),);
   }
 }

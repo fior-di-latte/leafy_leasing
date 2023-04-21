@@ -34,7 +34,7 @@ Future<void> _fillBox<T>(
     {required String boxName,
     required T Function(Map<String, dynamic> json) fromJson,
     required String jsonPath,
-    bool singleKey = false}) async {
+    bool singleKey = false,}) async {
   final json = await rootBundle.loadString(jsonPath);
   final asMap = jsonDecode(json)[boxName];
   final list = asMap as List<dynamic>;

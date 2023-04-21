@@ -1,9 +1,9 @@
 import 'package:leafy_leasing/l10n/l10n.dart';
-import 'package:settings_ui/settings_ui.dart';
 import 'package:leafy_leasing/shared/base.dart';
+import 'package:settings_ui/settings_ui.dart';
 
 class LocaleSwitch extends HookConsumerWidget with UiLoggy {
-  const LocaleSwitch({Key? key}) : super(key: key);
+  const LocaleSwitch({super.key});
 
   @override
   Widget build(BuildContext ctx, WidgetRef ref) {
@@ -55,12 +55,12 @@ class LocaleSwitch extends HookConsumerWidget with UiLoggy {
                           groupValue: Localizations.localeOf(ctx).languageCode,
                           onChanged: (_) => _setLanguageAndPop(ref, entry, ctx),
                         ),
-                      )),
+                      ),),
                 ],
-              ))));
+              ),),),);
 
   void _setLanguageAndPop(
-      WidgetRef ref, MapEntry<String, String> entry, BuildContext ctx) {
+      WidgetRef ref, MapEntry<String, String> entry, BuildContext ctx,) {
     ctx.router.pop();
     Future.delayed(200.milliseconds, () => setLocale(ref, entry.key));
   }

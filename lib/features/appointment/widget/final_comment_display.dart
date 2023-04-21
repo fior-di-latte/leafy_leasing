@@ -26,7 +26,7 @@ class FinalCommentDisplay extends ConsumerWidget {
                       const Gap(sPadding),
                       Text(appointment.status.labelText(ctx),
                           textAlign: TextAlign.center,
-                          style: ctx.tt.labelLarge!.copyWith(fontSize: 15))
+                          style: ctx.tt.labelLarge!.copyWith(fontSize: 15),)
                     ],
                   ),
                 ),
@@ -44,15 +44,14 @@ class FinalCommentDisplay extends ConsumerWidget {
                         style: ctx.tt.bodyMedium!.copyWith(
                             color: appointment.hasComment
                                 ? ctx.thm.hintColor
-                                : ctx.thm.disabledColor),
+                                : ctx.thm.disabledColor,),
                         maxLines: 6,
-                        minFontSize: 12,
                         overflow: TextOverflow.ellipsis,
                       ),
-                    )),
+                    ),),
               ],
             ),
           ),
-        ));
+        ),);
   }
 }

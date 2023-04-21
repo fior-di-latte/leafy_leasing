@@ -5,8 +5,7 @@ class HomeScaffold extends StatelessWidget with UiLoggy {
       {required this.body,
       required this.title,
       this.hasFloatingButton = false,
-      Key? key})
-      : super(key: key);
+      super.key,});
 
   final Widget body;
   final String title;
@@ -27,7 +26,7 @@ class HomeScaffold extends StatelessWidget with UiLoggy {
             actions: [
               IconButton(
                   onPressed: () => ctx.router.push(const SettingsRoute()),
-                  icon: const Icon(Icons.more_vert_outlined)),
+                  icon: const Icon(Icons.more_vert_outlined),),
             ],
             leading: const Padding(
               padding: EdgeInsets.all(sPadding),
@@ -35,7 +34,7 @@ class HomeScaffold extends StatelessWidget with UiLoggy {
                 foregroundImage: AssetImage(AppAssets.logo),
               ),
             ),
-            title: Text(title)),
-        body: body);
+            title: Text(title),),
+        body: body,);
   }
 }

@@ -4,18 +4,18 @@ import 'package:leafy_leasing/shared/base.dart';
 
 const kSeedColor = Color(0xFF33A58A);
 const kAppBarColor = Color(0xFF77A28B);
-const kTextTheme = GoogleFonts.abrilFatfaceTextTheme;
+const kTextTheme = GoogleFonts.abhayaLibreTextTheme;
 
 final themeProvider = StateProvider<ThemeData>(
     name: 'ThemeProvider',
-    (ref) => _buildTheme(ref.watch(_brightnessProvider)));
+    (ref) => _buildTheme(ref.watch(_brightnessProvider)),);
 
 final themeModeProvider = StateProvider<ThemeMode>(
-    name: 'ThemeModeProvider', (ref) => ThemeMode.system);
+    name: 'ThemeModeProvider', (ref) => ThemeMode.system,);
 
 final _brightnessProvider = StateProvider<Brightness>(
     name: 'ThemeProvider',
-    (ref) => _brightnessFromThemeMode(ref.watch(themeModeProvider)));
+    (ref) => _brightnessFromThemeMode(ref.watch(themeModeProvider)),);
 
 Brightness _brightnessFromThemeMode(ThemeMode themeMode) {
   final themeModeToBrightness = {

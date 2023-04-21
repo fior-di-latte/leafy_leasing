@@ -4,7 +4,7 @@ import 'package:leafy_leasing/shared/base.dart';
 
 @RoutePage()
 class SettingsScreen extends HookConsumerWidget with UiLoggy {
-  const SettingsScreen({Key? key}) : super(key: key);
+  const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext ctx, WidgetRef ref) {
@@ -17,6 +17,6 @@ class SettingsScreen extends HookConsumerWidget with UiLoggy {
             BrightnessSwitches(),
             Expanded(child: LocaleSwitch())
           ],
-        ));
+        ),);
   }
 }

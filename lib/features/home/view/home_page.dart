@@ -1,4 +1,3 @@
-import 'package:leafy_leasing/features/home/provider/metas_provider.dart';
 import 'package:leafy_leasing/features/home/widget/navigation_badges.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
@@ -25,26 +24,26 @@ class HomeScreen extends HookConsumerWidget {
                     items: const <BottomNavigationBarItem>[
                       BottomNavigationBarItem(
                         icon: NavigationBadge(
-                          child: Icon(Icons.home),
                           forPending: true,
+                          child: Icon(Icons.home),
                         ),
                         label: 'Settings',
                       ),
                       BottomNavigationBarItem(
                         icon: NavigationBadge(
                             forClosed: true,
-                            child: Icon(Icons.check_box_outlined)),
+                            child: Icon(Icons.check_box_outlined),),
                         label: 'Home',
                       ),
                       BottomNavigationBarItem(
                         icon: NavigationBadge(
                             forCanceled: true,
-                            child: Icon(Icons.cancel_outlined)),
+                            child: Icon(Icons.cancel_outlined),),
                         label: 'Messages',
                       ),
                     ],
                     currentIndex: tabsRouter.activeIndex,
-                    onTap: (idx) => tabsRouter.setActiveIndex(idx)))
+                    onTap: tabsRouter.setActiveIndex,),)
           ],
         );
       },

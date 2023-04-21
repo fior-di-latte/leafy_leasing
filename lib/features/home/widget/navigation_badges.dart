@@ -8,8 +8,7 @@ class NavigationBadge extends HookConsumerWidget with UiLoggy {
       this.forClosed = false,
       this.forCanceled = false,
       required this.child,
-      Key? key})
-      : super(key: key);
+      super.key,});
   final Widget child;
   final bool forPending;
   final bool forClosed;
@@ -20,7 +19,7 @@ class NavigationBadge extends HookConsumerWidget with UiLoggy {
       final caption = _getCaption(metas);
       final isVisible = caption != '0';
       return Badge(
-          label: Text(caption), isLabelVisible: isVisible, child: child);
+          label: Text(caption), isLabelVisible: isVisible, child: child,);
     });
   }
 

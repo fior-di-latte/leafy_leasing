@@ -2,7 +2,6 @@ import 'package:leafy_leasing/l10n/l10n.dart';
 
 import 'package:leafy_leasing/shared/base.dart';
 
-import '../../shared/router/app_router.dart';
 
 class App extends ConsumerWidget {
   App({super.key});
@@ -12,14 +11,14 @@ class App extends ConsumerWidget {
     return MaterialApp.router(
       theme: ref.watch(themeProvider),
       locale: ref.watch(localeProvider),
-      localizationsDelegates: [
+      localizationsDelegates: const [
         ...AppLocalizations.localizationsDelegates,
         RelativeTimeLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
       routerConfig: _appRouter.config(
           navigatorObservers: () => [CustomRouteObserver()],
-          initialRoutes: [const HomeRoute()]),
+          initialRoutes: [const HomeRoute()],),
       // routerDelegate: _appRouter.delegate(),
       // routeInformationParser: _appRouter.defaultRouteParser(),
     );

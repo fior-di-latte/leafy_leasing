@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../base.dart';
+import 'package:leafy_leasing/shared/base.dart';
 
 part 'appointment.freezed.dart';
 part 'appointment.g.dart';
@@ -68,7 +68,7 @@ class Appointment with _$Appointment {
       @HiveField(2) required String customerId,
       @HiveField(3) required int durationInMinutes,
       @HiveField(4) required AppointmentStatus status,
-      @HiveField(5) required String? comment}) = _Appointment;
+      @HiveField(5) required String? comment,}) = _Appointment;
 
   factory Appointment.fromJson(Map<String, dynamic> json) =>
       _$AppointmentFromJson(json);

@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:leafy_leasing/shared/base.dart';
 
 class EmptyIterableInfo extends HookWidget {
-  const EmptyIterableInfo({required this.hintText, Key? key}) : super(key: key);
+  const EmptyIterableInfo({required this.hintText, super.key});
   final String hintText;
 
   @override
