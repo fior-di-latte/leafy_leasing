@@ -30,6 +30,7 @@ dependencies:
     sdk: flutter
   intl: ^0.17.0
   relative_time: ^3.0.0
+  flutter_dotenv: ^5.0.2
 
 dev_dependencies:
   bloc_test: ^9.1.1
@@ -47,8 +48,13 @@ flutter:
   uses-material-design: true
   generate: true
   assets:
-    - assets/logo.png
-    - assets/logo_v2.png
-    - assets/customers.json
-    - assets/appointments.json
-    - assets/appointment_metas.json
+    - assets/image/logo.png
+    - assets/image/logo_v2.png
+    - assets/mock_data/customers.json
+    - assets/mock_data/appointments.json
+    - assets/mock_data/appointment_metas.json
+    - dotenv/global.env
+    - dotenv/dev.env
+    - dotenv/production.env
+    - dotenv/staging.env
+

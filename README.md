@@ -1,4 +1,4 @@
-<img src="./assets/logo.png" width=180 height="180"/>
+<img src="assets/image/logo.png" width=180 height="180"/>
 
 # Leafy Leasing  🪴
 
@@ -11,13 +11,14 @@ _"A companion app for PaaS (_Plants as a Service_) companies."_
 
 ### Under the hood
 * 💅  Design System: Material 3 with a green seed color, incl. dark  and light mode
-* 🏄‍♂ ️State Management: `riverpod`: All AsyncStates _(loading, error, data)_ handled by UI
+* 🏄‍♂ ️State Management: `riverpod`: All _AsyncStates_ _(loading, error, data)_ handled by UI
 * ➡️ Monodirectional Data Flow: Data Service -> Repository -> StateNotifierProvider -> UI
 * 🪝 Local State Management: `flutter_hooks`
 * 🐝 Data Persistence: `hive`
 * 🧭 Navigation: `auto_route`
 * 🗣️ Internationalization: `flutter_localizations`
 * 📄 Declarative Logging: `loggy` with listeners on providers (BL), widget states and route changes.
+* 🤌 Lint Rules: `very_good_analysis`
 
 Mock backend via local NoSQL database (`hive`), initialized with json data & made pseudo async with a short network delay of 300 milliseconds.
 
@@ -62,7 +63,7 @@ _\*Leafy Leasing should work on iOS, Android, Web, and Windows._
 
 ---
 ## Commit Keys 🔑
-
+* **ICM**  Big new structure (e.g. new backend integration or project setup) (w/o features)
 * **FT**  New Feature
 * **REF**  Refactoring
 * **ENH**  Enhancement (w/o UI)
@@ -72,7 +73,7 @@ _\*Leafy Leasing should work on iOS, Android, Web, and Windows._
 * **IMG**  Images / Animation
 * **LOC**  Localization / Internationalization
 * **DEP**  Deployment
-* **ICM**  Big new stuff (e.g. new backend integration) (non-features)
+
 
 ---
 ## Running Tests 🧪 (Currently not integrated ❌) 

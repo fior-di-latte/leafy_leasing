@@ -5,20 +5,20 @@ import 'package:leafy_leasing/features/appointment/widget/final_comment_display.
 import 'package:leafy_leasing/shared/base.dart';
 
 @RoutePage()
-class AppointmentScreen extends StatelessWidget with UiLoggy {
+class AppointmentScreen extends ConsumerWidget with UiLoggy {
   const AppointmentScreen(@PathParam() this.id, {super.key});
 
   final String id;
 
   @override
-  Widget build(BuildContext ctx) => Scaffold(
+  Widget build(BuildContext ctx, WidgetRef ref) => Scaffold(
         appBar: AppBar(
           title: Row(
             children: [
               const Padding(
                 padding: EdgeInsets.all(sPadding),
                 child: CircleAvatar(
-                  foregroundImage: AssetImage(AppAssets.logo),
+                  foregroundImage: AssetImage(Assets.imageLogo),
                 ),
               ),
               Text(
@@ -38,40 +38,36 @@ class AppointmentScreen extends StatelessWidget with UiLoggy {
               CustomerContactCard.fromAppointment(id),
               const Gap(mPadding),
               Expanded(
-                child: Consumer(
-                  builder: (context, ref, _) {
-                    return ref.watch(appointmentProvider(id)).whenFine(
-                          (appointment) => Visibility(
-                            visible:
-                                appointment.status == AppointmentStatus.pending,
-                            replacement: FinalCommentDisplay(id),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Hero(
-                                    tag: kCancelButtonHeroTag,
-                                    child: AppointmentActionButton.cancel(
-                                      ctx,
-                                      id: id,
-                                    ),
-                                  ),
+                child: ref.watch(appointmentProvider(id)).whenFine(
+                      (appointment) => Visibility(
+                        visible:
+                            appointment.status == AppointmentStatus.pending,
+                        replacement: FinalCommentDisplay(id),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Hero(
+                                tag: kCancelButtonHeroTag,
+                                child: AppointmentActionButton.cancel(
+                                  ctx,
+                                  id: id,
                                 ),
-                                const Gap(lPadding),
-                                Expanded(
-                                  child: Hero(
-                                    tag: kCloseButtonHeroTag,
-                                    child: AppointmentActionButton.close(
-                                      ctx,
-                                      id: id,
-                                    ),
-                                  ),
-                                )
-                              ],
+                              ),
                             ),
-                          ),
-                        );
-                  },
-                ),
+                            const Gap(lPadding),
+                            Expanded(
+                              child: Hero(
+                                tag: kCloseButtonHeroTag,
+                                child: AppointmentActionButton.close(
+                                  ctx,
+                                  id: id,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
               ),
             ],
           ),

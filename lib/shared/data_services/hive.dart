@@ -30,15 +30,17 @@ Future<void> setupHive() async {
   await _fillCustomersBox();
 }
 
-Future<void> _fillBox<T>(
-    {required String boxName,
-    required T Function(Map<String, dynamic> json) fromJson,
-    required String jsonPath,
-    bool singleKey = false,}) async {
-  final json = await rootBundle.loadString(jsonPath);
-  final asMap = jsonDecode(json)[boxName];
-  final list = asMap as List<dynamic>;
+Future<void> _fillBox<T>({
+  required String boxName,
+  required T Function(Map<String, dynamic> json) fromJson,
+  required String jsonPath,
+  bool singleKey = false,
+}) async {
   final box = Hive.box<T>(boxName);
+
+  final json = await rootBundle.loadString(jsonPath);
+  final list = jsonDecode(json)[boxName] as List<dynamic>;
+
   for (final item in list) {
     final map = item as Map<String, dynamic>;
     final entity = fromJson(map);
@@ -52,7 +54,7 @@ Future<void> _fillMetaBox() async {
   await _fillBox(
     boxName: hiveMetas,
     fromJson: AppointmentMetas.fromJson,
-    jsonPath: AppAssets.appointmentMetas,
+    jsonPath: Assets.mockDataAppointmentMetas,
     singleKey: true,
   );
 }
@@ -62,7 +64,7 @@ Future<void> _fillAppointmentsBox() async {
   await _fillBox(
     boxName: hiveAppointments,
     fromJson: Appointment.fromJson,
-    jsonPath: AppAssets.appointments,
+    jsonPath: Assets.mockDataAppointments,
   );
 }
 
@@ -71,6 +73,6 @@ Future<void> _fillCustomersBox() async {
   await _fillBox(
     boxName: hiveCustomers,
     fromJson: Customer.fromJson,
-    jsonPath: AppAssets.customers,
+    jsonPath: Assets.mockDataCustomers,
   );
 }
