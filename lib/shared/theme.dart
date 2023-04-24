@@ -1,21 +1,19 @@
 /// Flow: ThemeMode -> Brightness -> Theme  (dark / light mode handling)
 import 'package:google_fonts/google_fonts.dart';
+import 'package:leafy_leasing/l10n/l10n.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
 const kSeedColor = Color(0xFF33A58A);
 const kAppBarColor = Color(0xFF77A28B);
 const kTextTheme = GoogleFonts.abhayaLibreTextTheme;
 
-final themeProvider = StateProvider<ThemeData>(
-    name: 'ThemeProvider',
-    (ref) => _buildTheme(ref.watch(_brightnessProvider)),);
-
-final themeModeProvider = StateProvider<ThemeMode>(
-    name: 'ThemeModeProvider', (ref) => ThemeMode.system,);
-
-final _brightnessProvider = StateProvider<Brightness>(
-    name: 'ThemeProvider',
-    (ref) => _brightnessFromThemeMode(ref.watch(themeModeProvider)),);
+final themeProvider =
+    StateProvider.autoDispose<ThemeData>(name: 'ThemeProvider', (ref) {
+  final themeMode =
+      ref.watch(settingsProvider.select((settings) => settings.themeMode));
+  final brightness = _brightnessFromThemeMode(themeMode ?? ThemeMode.system);
+  return _buildTheme(brightness);
+});
 
 Brightness _brightnessFromThemeMode(ThemeMode themeMode) {
   final themeModeToBrightness = {

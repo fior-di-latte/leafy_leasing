@@ -13,21 +13,33 @@ import 'package:leafy_leasing/shared/base.dart';
 const hiveMetas = 'hiveMetas';
 const hiveAppointments = 'hiveAppointments';
 const hiveCustomers = 'hiveCustomers';
+const hiveSettings = 'hiveSettings';
 
 Future<void> setupHive() async {
   await Hive.initFlutter();
+  await _maybeFlushHive();
   Hive
     ..registerAdapter(AppointmentMetasAdapter())
     ..registerAdapter(AppointmentMetaAdapter())
     ..registerAdapter(AppointmentStatusAdapter())
     ..registerAdapter(AppointmentAdapter())
-    ..registerAdapter(CustomerAdapter());
+    ..registerAdapter(CustomerAdapter())
+    ..registerAdapter(ThemeModeAdapter())
+    ..registerAdapter(SettingsAdapter());
   await Hive.openBox<AppointmentMetas>(hiveMetas);
   await Hive.openBox<Appointment>(hiveAppointments);
   await Hive.openBox<Customer>(hiveCustomers);
+  await Hive.openBox<Settings>(hiveSettings);
   await _fillMetaBox();
   await _fillAppointmentsBox();
   await _fillCustomersBox();
+}
+
+Future<void> _maybeFlushHive() async {
+  if (dotenv.get('FLUSH_HIVE') == 'true') {
+    logWarning('Flushing Hive...');
+    await Hive.deleteFromDisk();
+  }
 }
 
 Future<void> _fillBox<T>({
@@ -75,4 +87,19 @@ Future<void> _fillCustomersBox() async {
     fromJson: Customer.fromJson,
     jsonPath: Assets.mockDataCustomers,
   );
+}
+
+class ThemeModeAdapter extends TypeAdapter<ThemeMode> {
+  @override
+  final typeId = 6;
+
+  @override
+  ThemeMode read(BinaryReader reader) {
+    return ThemeMode.values[reader.read() as int];
+  }
+
+  @override
+  void write(BinaryWriter writer, ThemeMode themeMode) {
+    writer.write(ThemeMode.values.indexOf(themeMode));
+  }
 }

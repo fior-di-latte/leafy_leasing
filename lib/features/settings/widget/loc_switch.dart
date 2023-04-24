@@ -29,25 +29,26 @@ class LocaleSwitch extends HookConsumerWidget with UiLoggy {
   }
 
   void _showLanguagePicker(BuildContext ctx, WidgetRef ref) => showDialog(
-      barrierDismissible: true,
-      context: ctx,
-      builder: (ctx) => Container(
+        barrierDismissible: true,
+        context: ctx,
+        builder: (ctx) => Container(
           alignment: Alignment.center,
           height: ctx.height * .4,
           child: Material(
-              elevation: 8,
-              color: ctx.thm.scaffoldBackgroundColor.withOpacity(.7),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  const Gap(20),
-                  Text(
-                    ctx.lc.chooseLanguage,
-                    style: ctx.tt.headlineMedium,
-                  ),
-                  const Gap(20),
-                  ...localeTagToNameMap(ctx).entries.map((entry) => ListTile(
+            elevation: 8,
+            color: ctx.thm.scaffoldBackgroundColor.withOpacity(.7),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                const Gap(20),
+                Text(
+                  ctx.lc.chooseLanguage,
+                  style: ctx.tt.headlineMedium,
+                ),
+                const Gap(20),
+                ...localeTagToNameMap(ctx).entries.map(
+                      (entry) => ListTile(
                         onTap: () => _setLanguageAndPop(ref, entry, ctx),
                         title: Text(entry.value),
                         leading: Radio(
@@ -55,13 +56,21 @@ class LocaleSwitch extends HookConsumerWidget with UiLoggy {
                           groupValue: Localizations.localeOf(ctx).languageCode,
                           onChanged: (_) => _setLanguageAndPop(ref, entry, ctx),
                         ),
-                      ),),
-                ],
-              ),),),);
+                      ),
+                    ),
+              ],
+            ),
+          ),
+        ),
+      );
 
   void _setLanguageAndPop(
-      WidgetRef ref, MapEntry<String, String> entry, BuildContext ctx,) {
+    WidgetRef ref,
+    MapEntry<String, String> entry,
+    BuildContext ctx,
+  ) {
     ctx.router.pop();
-    Future.delayed(200.milliseconds, () => setLocale(ref, entry.key));
+    Future.delayed(200.milliseconds,
+        () => ref.read(settingsProvider.notifier).setLocale(entry.key));
   }
 }

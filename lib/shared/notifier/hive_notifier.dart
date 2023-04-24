@@ -1,3 +1,4 @@
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
 import 'package:leafy_leasing/shared/repository/abstract_repository.dart';
@@ -39,20 +40,28 @@ class HiveAsyncStateNotifier<T> extends StateNotifier<AsyncValue<T>>
   }
 }
 
-// TODO hook up settings (theme mode + loc) with this sync notifier
-// class HiveStateNotifier<T> extends StateNotifier<T> with NetworkLoggy {
-//   HiveStateNotifier(this.ref, {required String boxName, required this.key})
-//       : repository = HiveRepositoryImpl<T>(boxName, key: key),
-//         super(HiveRepositoryImpl<T>(boxName, key: key).syncGet() as T) {
-//     repository.keyObservable().listen((event) {
-//       loggy.info('Hive new event: $event');
-//       if (event.value != null) {
-//         state = event.value as T;
-//       }
-//     });
-//   }
-//
-//   final AutoDisposeRef ref;
-//   final HiveRepository<T> repository;
-//   final String key;
-// }
+class HiveNotifier<T> extends StateNotifier<T> with NetworkLoggy {
+  HiveNotifier(this.ref,
+      {required String boxName, required this.key, T? defaultValue})
+      : repository = HiveRepositoryImpl<T>(boxName, key: key),
+        super(Hive.box<T>(boxName).get(boxName, defaultValue: defaultValue)!) {
+    repository.keyObservable().listen((event) {
+      loggy.info('Hive Sync new event: $event');
+      if (event.value != null) {
+        state = event.value as T;
+      }
+    });
+  }
+
+  final AutoDisposeRef ref;
+  final HiveRepository<T> repository;
+  final String key;
+
+  Future<void> update(T item) async {
+    await repository.put(item);
+  }
+
+  Future<void> delete() async {
+    await repository.delete();
+  }
+}
