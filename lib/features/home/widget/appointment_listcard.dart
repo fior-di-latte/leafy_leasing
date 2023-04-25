@@ -11,34 +11,33 @@ class AppointmentListCard extends HookConsumerWidget with UiLoggy {
         child: Stack(
           clipBehavior: Clip.none,
           children: [
-            Material(
-              borderRadius: kBorderRadius,
+            Card(
+              shape: const RoundedRectangleBorder(borderRadius: kBorderRadius),
               child: InkWell(
                 borderRadius: kBorderRadius,
                 onTap: () => ctx.router.push(AppointmentRoute(id: id)),
-                child: Card(
-                  shape:
-                      const RoundedRectangleBorder(borderRadius: kBorderRadius),
-                  child: Padding(
-                    padding: const EdgeInsets.all(lPadding),
-                    child: ref.watch(appointmentProvider(id)).whenFine(
+                child: Padding(
+                  padding: const EdgeInsets.all(lPadding),
+                  child: ref.watch(appointmentProvider(id)).whenFine(
                         (appointment) => ref
                             .watch(customerProvider(appointment.customerId))
-                            .whenFine((customer) => _InnerCard(
-                                    appointment: appointment,
-                                    customer: customer,)
-                                .animate()
-                                .fadeIn(),),),
-                  ),
+                            .whenFine(
+                              (customer) => _InnerCard(
+                                appointment: appointment,
+                                customer: customer,
+                              ).animate().fadeIn(),
+                            ),
+                      ),
                 ),
               ),
             ),
             Positioned(
-                left: -12,
-                top: -12,
-                child: CompanyAvatar.fromAppointment(
-                  appointmentId: id,
-                ),)
+              left: -12,
+              top: -12,
+              child: CompanyAvatar.fromAppointment(
+                appointmentId: id,
+              ),
+            )
           ],
         ),
       );
@@ -78,8 +77,11 @@ class _InnerCard extends StatelessWidget {
               const Gap(12),
               Row(
                 children: [
-                  Icon(Icons.location_on_outlined,
-                      size: 40, color: ctx.thm.disabledColor,),
+                  Icon(
+                    Icons.location_on_outlined,
+                    size: 40,
+                    color: ctx.thm.disabledColor,
+                  ),
                   const Gap(8),
                   Expanded(
                     child: AutoSizeText(
@@ -99,41 +101,44 @@ class _InnerCard extends StatelessWidget {
           width: 20,
         ),
         Expanded(
-            flex: 2,
-            child: Stack(
-              children: [
-                Align(
-                  alignment: Alignment.topRight,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      ActionChip(
-                        labelStyle: const TextStyle(color: Colors.black),
-                        elevation: 20,
-                        surfaceTintColor: ctx.cs.secondary,
+          flex: 2,
+          child: Stack(
+            children: [
+              Align(
+                alignment: Alignment.topRight,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    ActionChip(
+                      labelStyle: const TextStyle(color: Colors.black),
+                      elevation: 20,
+                      surfaceTintColor: ctx.cs.secondary,
+                      avatar: const Icon(
+                        Icons.calendar_month_outlined,
+                      ),
+                      label: Text(
+                        RelativeTime(ctx).format(appointment.date),
+                      ),
+                    ),
+                    Transform.scale(
+                      alignment: Alignment.centerRight,
+                      scale: .8,
+                      child: ActionChip(
                         avatar: const Icon(
-                          Icons.calendar_month_outlined,
+                          Icons.timer_outlined,
                         ),
                         label: Text(
-                          RelativeTime(ctx).format(appointment.date),
+                          '${appointment.durationInMinutes} min',
                         ),
                       ),
-                      Transform.scale(
-                        alignment: Alignment.centerRight,
-                        scale: .8,
-                        child: ActionChip(
-                          avatar: const Icon(
-                            Icons.timer_outlined,
-                          ),
-                          label: Text('${appointment.durationInMinutes} min',),
-                        ),
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),)
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
+        )
       ],
     );
   }

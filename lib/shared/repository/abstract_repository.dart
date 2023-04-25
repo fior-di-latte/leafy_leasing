@@ -1,7 +1,7 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
 abstract class Repository<T> {
-  Future<void> put(T item);
+  Future<T> put(T item);
   Future<void> delete();
   Future<T?> get();
 }

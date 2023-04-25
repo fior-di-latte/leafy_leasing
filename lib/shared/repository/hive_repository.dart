@@ -16,7 +16,7 @@ class HiveRepositoryImpl<T> implements HiveRepository<T> {
 
   @override
   Future<void> delete() async {
-    await _box.delete(key);
+    await Future.delayed(kMockNetworkLag, () => _box.delete(key));
   }
 
   @override
@@ -25,8 +25,9 @@ class HiveRepositoryImpl<T> implements HiveRepository<T> {
   }
 
   @override
-  Future<void> put(T item) async {
-    await _box.put(key, item);
+  Future<T> put(T item) async {
+    await Future.delayed(kMockNetworkLag, () => _box.put(key, item));
+    return item;
   }
 
   @override

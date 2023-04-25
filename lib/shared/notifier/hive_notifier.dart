@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
@@ -13,6 +15,11 @@ class HiveAsyncStateNotifier<T> extends StateNotifier<AsyncValue<T>>
     // this is a little hacky because async initialization is a little troublesome
     // using the old riverpod providers. riverpod Notifier + code gen would fix that,
     // but not today! :)
+
+    // this is needed because sometimes a network call is awaited in
+    // the provider that finishes after the provider is disposed.
+    ref.disposeDelay(2.seconds);
+
     Future.delayed(kMockNetworkLag, () {
       final startValue = repository.syncGet();
       state = startValue != null
@@ -31,7 +38,7 @@ class HiveAsyncStateNotifier<T> extends StateNotifier<AsyncValue<T>>
   final HiveRepository<T> repository;
   final String key;
 
-  Future<void> update(T item) async {
+  Future<void> put(T item) async {
     await repository.put(item);
   }
 
@@ -63,5 +70,40 @@ class HiveNotifier<T> extends StateNotifier<T> with NetworkLoggy {
 
   Future<void> delete() async {
     await repository.delete();
+  }
+}
+
+class HiveAsyncNotifierV2<T> extends AsyncNotifier<T> with NetworkLoggy {
+  HiveAsyncNotifierV2({required String boxName, required this.key})
+      : repository = HiveRepositoryImpl<T>(boxName, key: key);
+  final HiveRepository<T> repository;
+  final String key;
+
+  Future<void> put(T item) async {
+    await repository.put(item);
+  }
+
+  Future<void> delete() async {
+    await repository.delete();
+  }
+
+  @override
+  FutureOr<T> build() {
+    // this is a little hacky because async initialization is a little troublesome
+    // using the old riverpod providers. riverpod Notifier + code gen would fix that,
+    // but not today! :)
+
+    // this is needed because sometimes a network call is awaited in
+    // the provider that finishes after the provider is disposed.
+    // ref.disposeDelay(2.seconds);
+
+    return Future.delayed(kMockNetworkLag, () {
+      repository.keyObservable().listen((event) {
+        loggy.info('Hive Async new event: $event');
+        // if (event.value != null) {
+        //   state = AsyncValue.data(event.value as T);
+      });
+      return repository.syncGet()!;
+    });
   }
 }

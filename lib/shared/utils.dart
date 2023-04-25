@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:leafy_leasing/l10n/l10n.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
@@ -20,21 +22,54 @@ extension AddConvenience on BuildContext {
   TextTheme get att => Theme.of(this).accentTextTheme;
 }
 
+extension TestExtension<T> on AutoDisposeRef<T> {
+  void disposeDelay(Duration duration) {
+    final link = keepAlive();
+    Timer? timer;
+
+    onCancel(() {
+      timer?.cancel();
+      timer = Timer(duration, link.close);
+    });
+
+    onDispose(() {
+      timer?.cancel();
+    });
+
+    onResume(() {
+      timer?.cancel();
+    });
+  }
+
+  void cacheFor(Duration duration) {
+    final link = keepAlive();
+    final timer = Timer(duration, link.close);
+
+    onDispose(timer.cancel);
+  }
+}
+
 extension AddCustomLoadingErrorWidgets<T> on AsyncValue<T> {
-  Widget whenFine(Widget Function(T data) data,
-      {String? info, bool hasShimmer = false,}) {
+  Widget whenFine(
+    Widget Function(T data) data, {
+    String? info,
+    bool hasShimmer = false,
+  }) {
     final placeholder = hasShimmer
         ? Container(color: Colors.grey)
             .animate(onInit: (c) => c.repeat())
             .shimmer()
         : const SizedBox.shrink();
     return when(
-        error: (e, __) => placeholder,
-        loading: () {
-          logDebug('Loading $T $info');
-          return placeholder;
-        },
-        data: data,);
+      skipLoadingOnRefresh: true,
+      skipLoadingOnReload: true,
+      error: (e, __) => placeholder,
+      loading: () {
+        logDebug('Loading $T $info');
+        return placeholder;
+      },
+      data: data,
+    );
   }
 }
 

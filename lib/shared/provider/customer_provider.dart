@@ -7,8 +7,16 @@ final customerProvider = StateNotifierProvider.autoDispose
   (ref, id) => CustomerNotifier(ref, id: id),
 );
 
+abstract class CustomerNotifier implements StateNotifier<AsyncValue<Customer>> {
+  factory CustomerNotifier(AutoDisposeRef ref, {required String id}) =>
+      dotenv.get('USE_HIVE_MOCK_BACKEND') == 'true'
+          ? CustomerHiveNotifier(ref, id: id)
+          : CustomerHiveNotifier(ref, id: id);
+}
+
 // This class extends a state notifier for a customer object stored in a Hive database, with a required ID parameter.
-class CustomerNotifier extends HiveAsyncStateNotifier<Customer> {
-  CustomerNotifier(super.ref, {required String id})
+class CustomerHiveNotifier extends HiveAsyncStateNotifier<Customer>
+    implements CustomerNotifier {
+  CustomerHiveNotifier(super.ref, {required String id})
       : super(boxName: hiveCustomers, key: id);
 }

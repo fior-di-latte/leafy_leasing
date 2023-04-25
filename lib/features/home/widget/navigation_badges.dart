@@ -3,12 +3,13 @@ import 'package:leafy_leasing/features/home/provider/metas_provider.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
 class NavigationBadge extends HookConsumerWidget with UiLoggy {
-  const NavigationBadge(
-      {this.forPending = false,
-      this.forClosed = false,
-      this.forCanceled = false,
-      required this.child,
-      super.key,});
+  const NavigationBadge({
+    this.forPending = false,
+    this.forClosed = false,
+    this.forCanceled = false,
+    required this.child,
+    super.key,
+  });
   final Widget child;
   final bool forPending;
   final bool forClosed;
@@ -19,7 +20,10 @@ class NavigationBadge extends HookConsumerWidget with UiLoggy {
       final caption = _getCaption(metas);
       final isVisible = caption != '0';
       return Badge(
-          label: Text(caption), isLabelVisible: isVisible, child: child,);
+        label: Text(caption),
+        isLabelVisible: isVisible,
+        child: child,
+      );
     });
   }
 
