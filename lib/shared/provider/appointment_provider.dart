@@ -25,7 +25,7 @@ abstract class AppointmentNotifier
   });
 }
 
-class AppointmentHiveNotifier extends HiveAsyncStateNotifier<Appointment>
+class AppointmentHiveNotifier extends HiveAsyncStreamNotifier<Appointment>
     implements AppointmentNotifier {
   AppointmentHiveNotifier(super.ref, {required String id})
       : super(boxName: hiveAppointments, key: id);

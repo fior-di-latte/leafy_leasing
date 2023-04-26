@@ -16,7 +16,7 @@ abstract class MetasNotifier
   Future<void> closeAppointment(String id);
 }
 
-class MetasHiveNotifier extends HiveAsyncStateNotifier<AppointmentMetas>
+class MetasHiveNotifier extends HiveAsyncStreamNotifier<AppointmentMetas>
     implements MetasNotifier {
   MetasHiveNotifier(super.ref) : super(boxName: hiveMetas, key: hiveMetas);
 

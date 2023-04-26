@@ -15,7 +15,7 @@ abstract class CustomerNotifier implements StateNotifier<AsyncValue<Customer>> {
 }
 
 // This class extends a state notifier for a customer object stored in a Hive database, with a required ID parameter.
-class CustomerHiveNotifier extends HiveAsyncStateNotifier<Customer>
+class CustomerHiveNotifier extends HiveAsyncStreamNotifier<Customer>
     implements CustomerNotifier {
   CustomerHiveNotifier(super.ref, {required String id})
       : super(boxName: hiveCustomers, key: id);

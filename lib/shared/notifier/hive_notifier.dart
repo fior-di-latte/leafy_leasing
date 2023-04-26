@@ -7,10 +7,11 @@ import 'package:leafy_leasing/shared/repository/abstract_repository.dart';
 import 'package:leafy_leasing/shared/repository/hive_repository.dart';
 
 /// This class mocks an async network call (like a REST API call)
-class HiveAsyncStateNotifier<T> extends StateNotifier<AsyncValue<T>>
+class HiveAsyncStreamNotifier<T> extends StateNotifier<AsyncValue<T>>
     with NetworkLoggy {
-  HiveAsyncStateNotifier(this.ref, {required String boxName, required this.key})
-      : repository = HiveRepositoryImpl<T>(boxName, key: key),
+  HiveAsyncStreamNotifier(this.ref,
+      {required String boxName, required this.key})
+      : repository = HiveRepositoryAsyncStreamImpl<T>(boxName, key: key),
         super(AsyncValue<T>.loading()) {
     // this is a little hacky because async initialization is a little troublesome
     // using the old riverpod providers. riverpod Notifier + code gen would fix that,
@@ -35,7 +36,7 @@ class HiveAsyncStateNotifier<T> extends StateNotifier<AsyncValue<T>>
   }
 
   final AutoDisposeRef ref;
-  final HiveRepository<T> repository;
+  final HiveAsyncStreamRepository<T> repository;
   final String key;
 
   Future<void> put(T item) async {
@@ -47,10 +48,10 @@ class HiveAsyncStateNotifier<T> extends StateNotifier<AsyncValue<T>>
   }
 }
 
-class HiveNotifier<T> extends StateNotifier<T> with NetworkLoggy {
-  HiveNotifier(this.ref,
+class HiveNotifierSyncNotifier<T> extends StateNotifier<T> with NetworkLoggy {
+  HiveNotifierSyncNotifier(this.ref,
       {required String boxName, required this.key, T? defaultValue})
-      : repository = HiveRepositoryImpl<T>(boxName, key: key),
+      : repository = HiveRepositorySyncImpl<T>(boxName, key: key),
         super(Hive.box<T>(boxName).get(boxName, defaultValue: defaultValue)!) {
     repository.keyObservable().listen((event) {
       loggy.info('Hive Sync new event: $event');
@@ -61,7 +62,7 @@ class HiveNotifier<T> extends StateNotifier<T> with NetworkLoggy {
   }
 
   final AutoDisposeRef ref;
-  final HiveRepository<T> repository;
+  final HiveSyncRepository<T> repository;
   final String key;
 
   Future<void> update(T item) async {
@@ -75,8 +76,8 @@ class HiveNotifier<T> extends StateNotifier<T> with NetworkLoggy {
 
 class HiveAsyncNotifierV2<T> extends AsyncNotifier<T> with NetworkLoggy {
   HiveAsyncNotifierV2({required String boxName, required this.key})
-      : repository = HiveRepositoryImpl<T>(boxName, key: key);
-  final HiveRepository<T> repository;
+      : repository = HiveRepositoryAsyncStreamImpl<T>(boxName, key: key);
+  final HiveAsyncStreamRepository<T> repository;
   final String key;
 
   Future<void> put(T item) async {

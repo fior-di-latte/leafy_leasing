@@ -13,7 +13,7 @@ final settingsProvider =
   SettingsNotifier.new,
 );
 
-class SettingsNotifier extends HiveNotifier<Settings> {
+class SettingsNotifier extends HiveNotifierSyncNotifier<Settings> {
   SettingsNotifier(
     super.ref,
   ) : super(boxName: hiveSettings, key: hiveSettings, defaultValue: Settings());
