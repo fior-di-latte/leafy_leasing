@@ -41,8 +41,8 @@ class _ThemeCard extends ConsumerWidget with UiLoggy {
 
   @override
   Widget build(BuildContext ctx, WidgetRef ref) {
-    final currentThemeMode =
-        ref.watch(settingsProvider.select((settings) => settings.themeMode));
+    final currentThemeMode = ref
+        .watch(settingsStateProvider.select((settings) => settings.themeMode));
     return Card(
       elevation: 2,
       color: currentThemeMode == themeMode ? ctx.cs.primary : ctx.thm.cardColor,
@@ -50,7 +50,7 @@ class _ThemeCard extends ConsumerWidget with UiLoggy {
       child: InkWell(
         onTap: () {
           loggy.info('Pushed button to set display mode to $themeMode');
-          ref.read(settingsProvider.notifier).setThemeMode(themeMode);
+          ref.read(settingsStateProvider.notifier).setThemeMode(themeMode);
         },
         borderRadius: kBorderRadius,
         child: Center(

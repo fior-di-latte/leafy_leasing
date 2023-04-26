@@ -8,6 +8,7 @@ export 'package:gap/gap.dart';
 export 'package:hooks_riverpod/hooks_riverpod.dart';
 export 'package:loggy/loggy.dart';
 export 'package:relative_time/relative_time.dart';
+export 'package:riverpod_annotation/riverpod_annotation.dart';
 
 export './notifier/notifier.dart';
 export './provider/provider.dart';

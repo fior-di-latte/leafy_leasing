@@ -10,7 +10,7 @@ const kTextTheme = GoogleFonts.abhayaLibreTextTheme;
 final themeProvider =
     StateProvider.autoDispose<ThemeData>(name: 'ThemeProvider', (ref) {
   final themeMode =
-      ref.watch(settingsProvider.select((settings) => settings.themeMode));
+      ref.watch(settingsStateProvider.select((settings) => settings.themeMode));
   final brightness = _brightnessFromThemeMode(themeMode ?? ThemeMode.system);
   return _buildTheme(brightness);
 });

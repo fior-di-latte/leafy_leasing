@@ -31,9 +31,7 @@ class HiveRepositoryAsyncStreamImpl<T> implements HiveAsyncStreamRepository<T> {
   }
 
   @override
-  Stream<BoxEvent> keyObservable() {
-    return _box.watch(key: key);
-  }
+  Stream<T> listenable() => _box.watch(key: key).map((_) => syncGet()!);
 
   @override
   Future<T?> get() => Future.delayed(kMockNetworkLag, syncGet);
@@ -59,11 +57,6 @@ class HiveRepositorySyncImpl<T> implements HiveSyncRepository<T> {
   Future<T> put(T item) async {
     await _box.put(key, item);
     return item;
-  }
-
-  @override
-  Stream<BoxEvent> keyObservable() {
-    return _box.watch(key: key);
   }
 
   @override

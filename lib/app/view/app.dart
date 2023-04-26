@@ -9,7 +9,8 @@ class App extends ConsumerWidget {
   Widget build(BuildContext ctx, WidgetRef ref) {
     return MaterialApp.router(
       theme: ref.watch(themeProvider),
-      locale: ref.watch(settingsProvider.select((settings) => settings.locale)),
+      locale: ref
+          .watch(settingsStateProvider.select((settings) => settings.locale)),
       localizationsDelegates: const [
         ...AppLocalizations.localizationsDelegates,
         RelativeTimeLocalizations.delegate,

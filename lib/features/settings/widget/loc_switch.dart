@@ -71,6 +71,6 @@ class LocaleSwitch extends HookConsumerWidget with UiLoggy {
   ) {
     ctx.router.pop();
     Future.delayed(200.milliseconds,
-        () => ref.read(settingsProvider.notifier).setLocale(entry.key));
+        () => ref.read(settingsStateProvider.notifier).setLocale(entry.key));
   }
 }

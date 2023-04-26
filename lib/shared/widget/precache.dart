@@ -1,7 +1,7 @@
 import 'package:leafy_leasing/features/home/provider/metas_provider.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
-class PrecacheProvider extends StatelessWidget {
+class PrecacheProvider extends ConsumerWidget {
   const PrecacheProvider({
     required this.child,
     required this.provider,
@@ -10,16 +10,16 @@ class PrecacheProvider extends StatelessWidget {
   final Widget child;
   final ProviderListenable<AsyncValue<Object?>> provider;
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    // ref.watch(provider);
+
     return Stack(
       children: [
-        Offstage(
-          child: Consumer(
-            builder: (_, ref, __) {
-              ref.watch(provider);
-              return const SizedBox.shrink();
-            },
-          ),
+        Consumer(
+          builder: (_, ref, __) {
+            ref.watch(provider);
+            return const SizedBox.shrink();
+          },
         ),
         child
       ],

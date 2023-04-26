@@ -16,11 +16,10 @@ abstract class HiveAsyncStreamRepository<T> extends AsyncRepository<T> {
   abstract final String boxName;
   abstract final String key;
   T? syncGet();
-  Stream<BoxEvent> keyObservable();
+  Stream<T> listenable();
 }
 
 abstract class HiveSyncRepository<T> extends SyncRepository<T> {
   abstract final String boxName;
   abstract final String key;
-  Stream<BoxEvent> keyObservable();
 }
