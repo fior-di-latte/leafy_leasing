@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:leafy_leasing/shared/base.dart';
 
 class EmptyIterableInfo extends HookWidget {
@@ -8,24 +6,26 @@ class EmptyIterableInfo extends HookWidget {
 
   @override
   Widget build(BuildContext ctx) {
-    final emoji =
-        useMemoized(() => kUnicodeFun[Random().nextInt(kUnicodeFun.length)]);
+    final emoji = useState(_getRandomEmoji());
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Center(
-          child: SizedBox(
-            height: 150,
-            width: 150,
-            child: FittedBox(
-              child: Text(emoji),
-            ),
-          ).animate().shake(
-                curve: Curves.easeOut,
-                delay: 180.milliseconds,
-                duration: 1.seconds,
-                hz: 2,
+          child: GestureDetector(
+            onTap: () => emoji.value = _getRandomEmoji(),
+            child: SizedBox(
+              height: 150,
+              width: 150,
+              child: FittedBox(
+                child: Text(emoji.value),
               ),
+            ).animate(key: ValueKey(emoji.value)).shake(
+                  curve: Curves.easeOut,
+                  delay: 180.milliseconds,
+                  duration: 1.seconds,
+                  hz: 2,
+                ),
+          ),
         ),
         Text(
           ctx.lc.noAppointmentFound,
@@ -39,4 +39,6 @@ class EmptyIterableInfo extends HookWidget {
       ],
     );
   }
+
+  String _getRandomEmoji() => kUnicodeFun[rnd.getInt(0, kUnicodeFun.length)];
 }
