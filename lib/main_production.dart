@@ -1,4 +1,3 @@
-import 'package:leafy_leasing/bootstrap_app.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
 Future<void> main() async {

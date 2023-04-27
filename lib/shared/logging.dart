@@ -30,14 +30,16 @@ class ProviderUpdateLogger extends ProviderObserver with NetworkLoggy {
     ProviderContainer container,
   ) {
     loggy.debug(
-        'P-Update of ${_getProviderName(provider)}:\n"New Value": "$newValue"',);
+      'P-Update of ${_getProviderName(provider)}:\n\t\t"New Value": "$newValue"'
+      '\n\t\t"Previous Value": "$previousValue"',
+    );
   }
 }
 
 String _getProviderName(ProviderBase provider) {
   final name = provider.name ?? 'unnamedProvider';
-  final id = provider.argument?.toString() ?? 'globalId';
-  return '$name with ID $id';
+  final id = provider.argument?.toString();
+  return '$name ${id != null ? '($id)' : ''}';
 }
 
 final devProviderLoggers = <ProviderObserver>[

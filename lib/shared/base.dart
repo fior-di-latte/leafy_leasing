@@ -14,6 +14,7 @@ export 'package:rnd/rnd.dart';
 export './notifier/notifier.dart';
 export './provider/provider.dart';
 export './widget/widget.dart';
+export '../app/app.dart';
 export '../features/features.dart';
 export 'assets.dart';
 export 'constants.dart';

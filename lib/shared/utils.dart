@@ -52,22 +52,22 @@ extension TestExtension<T> on AutoDisposeRef<T> {
 extension AddCustomLoadingErrorWidgets<T> on AsyncValue<T> {
   Widget whenFine(
     Widget Function(T data) data, {
-    String? info,
+    String? loadingInfo,
     bool hasShimmer = false,
+    bool skipLoadingOnRefresh = true,
+    bool skipLoadingOnReload = true,
+    bool skipError = false,
   }) {
     final placeholder = hasShimmer
         ? Container(color: Colors.grey)
             .animate(onInit: (c) => c.repeat())
             .shimmer()
         : const SizedBox.shrink();
-    return when(
-      skipLoadingOnRefresh: true,
-      skipLoadingOnReload: true,
-      error: (e, __) => placeholder,
-      loading: () {
-        logDebug('Loading $T $info');
-        return placeholder;
-      },
+    return maybeWhen(
+      skipLoadingOnRefresh: skipLoadingOnRefresh,
+      skipLoadingOnReload: skipLoadingOnReload,
+      skipError: skipError,
+      orElse: () => placeholder,
       data: data,
     );
   }
