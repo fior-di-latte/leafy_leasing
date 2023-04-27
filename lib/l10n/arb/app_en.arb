@@ -118,6 +118,10 @@
             "pendingAppointmentsHere": "You find all pending appointments here.",
                             "@pendingAppointmentsHere": {
                             "description": "You find all canceled appointments here."
-                        }
+                        },
+"somethingWentWrong": "Something went wrong.",
+                "@somethingWentWrong": {
+                "description": "Something went wrong."
+            }
 
 }

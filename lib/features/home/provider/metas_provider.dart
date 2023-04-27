@@ -1,51 +1,54 @@
 import 'package:leafy_leasing/features/home/model/appointment_meta.dart';
 import 'package:leafy_leasing/shared/base.dart';
 import 'package:leafy_leasing/shared/data_services/hive.dart';
+import 'package:leafy_leasing/shared/repository/abstract_repository.dart';
+import 'package:leafy_leasing/shared/repository/hive_repository.dart';
 
-final metasProvider = StateNotifierProvider.autoDispose<MetasNotifier,
-    AsyncValue<AppointmentMetas>>(name: 'MetasProvider', MetasNotifier.new);
+part 'metas_provider.g.dart';
 
-abstract class MetasNotifier
-    implements StateNotifier<AsyncValue<AppointmentMetas>> {
-  factory MetasNotifier(AutoDisposeRef ref) =>
-      dotenv.get('USE_HIVE_MOCK_BACKEND') == 'true'
-          ? MetasHiveNotifier(ref)
-          : MetasHiveNotifier(ref);
+typedef MetasRepository = HiveAsyncStreamRepository<AppointmentMetas>;
 
-  Future<void> cancelAppointment(String id);
-  Future<void> closeAppointment(String id);
+@riverpod
+MetasRepository metasRepository(
+  Ref ref, {
+  required String boxName,
+  required String key,
+}) {
+  return dotenv.get('USE_HIVE_MOCK_BACKEND') == 'true'
+      ? HiveRepositoryAsyncStreamImpl<AppointmentMetas>(boxName, key: key)
+      : HiveRepositoryAsyncStreamImpl<AppointmentMetas>(boxName, key: key);
 }
 
-class MetasHiveNotifier extends HiveAsyncStreamNotifier<AppointmentMetas>
-    implements MetasNotifier {
-  MetasHiveNotifier(super.ref) : super(boxName: hiveMetas, key: hiveMetas);
-
+@riverpod
+class MetasState extends _$MetasState
+    with AsyncRepositoryMixin<AppointmentMetas> {
   @override
-  Future<void> cancelAppointment(String id) async {
-    // add Meta to canceled, remove from pending
-    final date = ref.read(appointmentProvider(id)).value!.date;
+  FutureOr<AppointmentMetas> build() async {
+    repository =
+        ref.watch(metasRepositoryProvider(boxName: hiveMetas, key: hiveMetas));
+
+    return buildFromStream();
+  }
+
+  Future<void> cancelAppointment(String id) {
+    final date = ref.read(appointmentStateProvider(id)).value!.date;
     final newValue = state.value!.copyWith(
       canceled: [...state.value!.canceled, AppointmentMeta(id: id, date: date)],
       pending: [
         ...state.value!.pending.where((element) => element.id != id),
       ],
     );
-    logInfo('Optimistic update: Cancel Appointment: $newValue');
-    // todo triple update, not ideal: optimistic, in data source and manually after data write is successful
-    state = AsyncValue.data(newValue);
-    state = await AsyncValue.guard(() => repository.put(newValue));
+    return optimisticPut(newValue);
   }
 
-  @override
-  Future<void> closeAppointment(String id) async {
-    final date = ref.read(appointmentProvider(id)).value!.date;
-    await repository.put(
-      state.value!.copyWith(
-        closed: [...state.value!.closed, AppointmentMeta(id: id, date: date)],
-        pending: [
-          ...state.value!.pending.where((element) => element.id != id),
-        ],
-      ),
+  Future<void> closeAppointment(String id) {
+    final date = ref.read(appointmentStateProvider(id)).value!.date;
+    final newValue = state.value!.copyWith(
+      closed: [...state.value!.closed, AppointmentMeta(id: id, date: date)],
+      pending: [
+        ...state.value!.pending.where((element) => element.id != id),
+      ],
     );
+    return optimisticPut(newValue);
   }
 }

@@ -3,7 +3,10 @@ import 'package:hive_flutter/hive_flutter.dart';
 abstract class AsyncRepository<T> {
   Future<T> put(T item);
   Future<void> delete();
-  Future<T?> get();
+  Future<T> get();
+  Stream<T> listenable();
+
+  void dispose();
 }
 
 abstract class SyncRepository<T> {
@@ -15,11 +18,14 @@ abstract class SyncRepository<T> {
 abstract class HiveAsyncStreamRepository<T> extends AsyncRepository<T> {
   abstract final String boxName;
   abstract final String key;
-  T? syncGet();
-  Stream<T> listenable();
+  T syncGet();
 }
 
 abstract class HiveSyncRepository<T> extends SyncRepository<T> {
   abstract final String boxName;
   abstract final String key;
+}
+
+abstract class RepositoryBasedAsyncProvider<T> {
+  AsyncRepository<T> get _repository;
 }

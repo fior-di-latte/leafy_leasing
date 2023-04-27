@@ -16,7 +16,7 @@ class NavigationBadge extends HookConsumerWidget with UiLoggy {
   final bool forCanceled;
   @override
   Widget build(BuildContext ctx, WidgetRef ref) {
-    return ref.watch(metasProvider).whenFine((metas) {
+    return ref.watch(metasStateProvider).whenFine((metas) {
       final caption = _getCaption(metas);
       final isVisible = caption != '0';
       return Badge(

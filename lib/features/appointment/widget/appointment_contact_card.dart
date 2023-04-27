@@ -9,16 +9,18 @@ class CustomerContactCard extends HookConsumerWidget with UiLoggy {
   });
 
   static Widget fromAppointment(String id) => Consumer(
-        builder: (ctx, ref, _) => ref.watch(appointmentProvider(id)).whenFine(
-              (appointment) =>
-                  ref.watch(customerProvider(appointment.customerId)).whenFine(
+        builder: (ctx, ref, _) =>
+            ref.watch(appointmentStateProvider(id)).whenFine(
+                  (appointment) => ref
+                      .watch(customerStateProvider(appointment.customerId))
+                      .whenFine(
                         (customer) => CustomerContactCard(
                           name: customer.nameContact,
                           phone: customer.phone,
                           email: customer.email,
                         ),
                       ),
-            ),
+                ),
       );
 
   final String name;

@@ -20,8 +20,13 @@ class HiveRepositoryAsyncStreamImpl<T> implements HiveAsyncStreamRepository<T> {
   }
 
   @override
-  T? syncGet() {
-    return _box.get(key);
+  T syncGet() {
+    try {
+      return _box.get(key)!;
+    } catch (e) {
+      logWarning('Error');
+      rethrow;
+    }
   }
 
   @override
@@ -34,7 +39,10 @@ class HiveRepositoryAsyncStreamImpl<T> implements HiveAsyncStreamRepository<T> {
   Stream<T> listenable() => _box.watch(key: key).map((_) => syncGet()!);
 
   @override
-  Future<T?> get() => Future.delayed(kMockNetworkLag, syncGet);
+  Future<T> get() => Future.delayed(kMockNetworkLag, syncGet);
+
+  @override
+  void dispose() {}
 }
 
 class HiveRepositorySyncImpl<T> implements HiveSyncRepository<T> {

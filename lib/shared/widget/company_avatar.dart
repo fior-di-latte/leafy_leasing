@@ -10,19 +10,20 @@ class CompanyAvatar extends ConsumerWidget with UiLoggy {
 
   static Widget fromAppointment({required String appointmentId, Key? key}) {
     return Consumer(
-        builder: (ctx, ref, _) => ref
-            .watch(appointmentProvider(appointmentId))
-            .whenFine((appointment) => CompanyAvatar(
+      builder: (ctx, ref, _) =>
+          ref.watch(appointmentStateProvider(appointmentId)).whenFine(
+                (appointment) => CompanyAvatar(
                   customerId: appointment.customerId,
                   key: key,
-                ),),);
+                ),
+              ),
+    );
   }
 
   @override
   Widget build(BuildContext ctx, WidgetRef ref) {
-    return ref
-        .watch(customerProvider(customerId))
-        .whenFine((customer) => SizedBox(
+    return ref.watch(customerStateProvider(customerId)).whenFine(
+          (customer) => SizedBox(
             width: 72,
             height: 72,
             child: Material(
@@ -31,12 +32,15 @@ class CompanyAvatar extends ConsumerWidget with UiLoggy {
               child: InkWell(
                 customBorder: const CircleBorder(),
                 onTap: () => loggy.info(
-                    'This would direct you to the customer profile page ',),
+                  'This would direct you to the customer profile page ',
+                ),
                 child: CircleAvatar(
                   backgroundColor: stringToColor(customer.companyName, ctx),
                   child: Text(customer.companyName.substring(0, 2)),
                 ),
               ),
-            ),),);
+            ),
+          ),
+        );
   }
 }

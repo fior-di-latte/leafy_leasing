@@ -12,19 +12,23 @@ class EmptyIterableInfo extends HookWidget {
       children: [
         Center(
           child: GestureDetector(
-            onTap: () => emoji.value = _getRandomEmoji(),
+            onTap: () => emoji.value = _getRandomEmoji(emoji.value),
             child: SizedBox(
               height: 150,
               width: 150,
               child: FittedBox(
                 child: Text(emoji.value),
               ),
-            ).animate(key: ValueKey(emoji.value)).shake(
+            )
+                .animate(key: ValueKey(emoji.value))
+                .shake(
                   curve: Curves.easeOut,
                   delay: 180.milliseconds,
                   duration: 1.seconds,
                   hz: 2,
-                ),
+                )
+                .scaleXY(begin: .8)
+                .fadeIn(duration: 300.milliseconds),
           ),
         ),
         Text(
@@ -40,5 +44,6 @@ class EmptyIterableInfo extends HookWidget {
     );
   }
 
-  String _getRandomEmoji() => kUnicodeFun[rnd.getInt(0, kUnicodeFun.length)];
+  String _getRandomEmoji([String? current]) =>
+      rnd.getItem([...kUnicodeFun]..remove(current));
 }

@@ -15,7 +15,7 @@ Future<void> bootstrap() async {
   runApp(
     ProviderScope(
       observers: kDebugMode ? devProviderLoggers : null,
-      child: WarmUp(providers: [metasProvider], child: App()),
+      child: WarmUp(providers: [metasStateProvider], child: App()),
     ),
   );
 }

@@ -11,7 +11,7 @@ class DoneScreen extends HookConsumerWidget with UiLoggy {
   @override
   Widget build(BuildContext ctx, WidgetRef ref) {
     return HomeScaffold(
-      body: ref.watch(metasProvider).whenFine((metas) {
+      body: ref.watch(metasStateProvider).whenFine((metas) {
         return HookBuilder(
           builder: (ctx) {
             final sorted = useSortMetas(metas.closed);
@@ -29,17 +29,18 @@ class DoneScreen extends HookConsumerWidget with UiLoggy {
                       sorted[idx].id,
                     ),
                     const Positioned.fill(
-                        child: Align(
-                      alignment: Alignment.bottomRight,
-                      child: Padding(
-                        padding: EdgeInsets.all(lPadding * 2),
-                        child: Icon(
-                          Icons.check_circle_outline,
-                          size: 50,
-                          color: Colors.green,
+                      child: Align(
+                        alignment: Alignment.bottomRight,
+                        child: Padding(
+                          padding: EdgeInsets.all(lPadding * 2),
+                          child: Icon(
+                            Icons.check_circle_outline,
+                            size: 50,
+                            color: Colors.green,
+                          ),
                         ),
                       ),
-                    ),)
+                    )
                   ],
                 ),
               ).animate().fadeIn(),

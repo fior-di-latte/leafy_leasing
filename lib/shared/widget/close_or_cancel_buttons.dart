@@ -39,8 +39,8 @@ abstract class AppointmentActionButton extends StatelessWidget with UiLoggy {
             'Cancel appointment with id $id. New status $newStatus, Comment ${commentTextController.text}',
           );
 
-          ref.read(metasProvider.notifier).cancelAppointment(id);
-          ref.read(appointmentProvider(id).notifier).cancelAppointment(
+          ref.read(metasStateProvider.notifier).cancelAppointment(id);
+          ref.read(appointmentStateProvider(id).notifier).cancelAppointment(
                 newStatus: newStatus!,
                 comment: commentTextController.text,
               );
@@ -68,11 +68,11 @@ abstract class AppointmentActionButton extends StatelessWidget with UiLoggy {
           logInfo(
             'Cancel appointment with id $id. New status $newStatus, Comment ${commentTextController.text}',
           );
-          ref.read(appointmentProvider(id).notifier).closeAppointment(
+          ref.read(appointmentStateProvider(id).notifier).closeAppointment(
                 newStatus: newStatus!,
                 comment: commentTextController.text,
               );
-          ref.read(metasProvider.notifier).closeAppointment(id);
+          ref.read(metasStateProvider.notifier).closeAppointment(id);
           ctx.router.navigate(const HomeRoute());
         },
         isGreyedOut: isGreyedOut,

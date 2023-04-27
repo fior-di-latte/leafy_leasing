@@ -11,7 +11,7 @@ class PendingScreen extends HookConsumerWidget with UiLoggy {
 
   @override
   Widget build(BuildContext ctx, WidgetRef ref) => HomeScaffold(
-        body: ref.watch(metasProvider).whenFine((metas) {
+        body: ref.watch(metasStateProvider).whenFine((metas) {
           return HookBuilder(
             builder: (ctx) {
               final sorted = useSortMetas(metas.pending);
@@ -37,8 +37,11 @@ class PendingScreen extends HookConsumerWidget with UiLoggy {
 }
 
 List<AppointmentMeta> useSortMetas(List<AppointmentMeta> metas) {
-  return useMemoized(() {
-    final modifiable = [...metas];
-    return modifiable..sort((a, b) => a.date.compareTo(b.date));
-  }, [metas],);
+  return useMemoized(
+    () {
+      final modifiable = [...metas];
+      return modifiable..sort((a, b) => a.date.compareTo(b.date));
+    },
+    [metas],
+  );
 }

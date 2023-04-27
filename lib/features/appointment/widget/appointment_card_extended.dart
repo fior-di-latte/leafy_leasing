@@ -8,21 +8,28 @@ class AppointmentCardExtended extends HookConsumerWidget with UiLoggy {
         clipBehavior: Clip.none,
         children: [
           Card(
-              shape: const RoundedRectangleBorder(borderRadius: kBorderRadius),
-              child: Padding(
-                padding: const EdgeInsets.all(lPadding),
-                child: ref.watch(appointmentProvider(id)).whenFine(
+            shape: const RoundedRectangleBorder(borderRadius: kBorderRadius),
+            child: Padding(
+              padding: const EdgeInsets.all(lPadding),
+              child: ref.watch(appointmentStateProvider(id)).whenFine(
                     (appointment) => ref
-                        .watch(customerProvider(appointment.customerId))
-                        .whenFine((customer) => _InnerExtendedCard(
-                            appointment: appointment, customer: customer,),),),
-              ),),
+                        .watch(customerStateProvider(appointment.customerId))
+                        .whenFine(
+                          (customer) => _InnerExtendedCard(
+                            appointment: appointment,
+                            customer: customer,
+                          ),
+                        ),
+                  ),
+            ),
+          ),
           Positioned(
-              left: -12,
-              top: -12,
-              child: CompanyAvatar.fromAppointment(
-                appointmentId: id,
-              ),)
+            left: -12,
+            top: -12,
+            child: CompanyAvatar.fromAppointment(
+              appointmentId: id,
+            ),
+          )
         ],
       );
 }
@@ -60,8 +67,11 @@ class _InnerExtendedCard extends StatelessWidget {
           scale: .65,
           child: Row(
             children: [
-              Icon(Icons.location_on_outlined,
-                  size: kIconSizeOnCards, color: ctx.thm.disabledColor,),
+              Icon(
+                Icons.location_on_outlined,
+                size: kIconSizeOnCards,
+                color: ctx.thm.disabledColor,
+              ),
               const Gap(8),
               Expanded(
                 child: AutoSizeText(
@@ -93,15 +103,18 @@ class _InnerExtendedCard extends StatelessWidget {
             ),
             const Gap(lPadding),
             Expanded(
-                child: FittedBox(
-              child: ActionChip(
-                avatar: const Icon(
-                  Icons.timer_outlined,
+              child: FittedBox(
+                child: ActionChip(
+                  avatar: const Icon(
+                    Icons.timer_outlined,
+                  ),
+                  label: Text(
+                    '${appointment.durationInMinutes} min',
+                    style: const TextStyle(color: Colors.black),
+                  ),
                 ),
-                label: Text('${appointment.durationInMinutes} min',
-                    style: const TextStyle(color: Colors.black),),
               ),
-            ),),
+            ),
           ],
         )
       ],

@@ -1,22 +1,32 @@
 import 'package:leafy_leasing/shared/base.dart';
 import 'package:leafy_leasing/shared/data_services/hive.dart';
 
-final customerProvider = StateNotifierProvider.autoDispose
-    .family<CustomerNotifier, AsyncValue<Customer>, String>(
-  name: 'CustomerProvider',
-  (ref, id) => CustomerNotifier(ref, id: id),
-);
+import 'package:leafy_leasing/shared/repository/abstract_repository.dart';
+import 'package:leafy_leasing/shared/repository/hive_repository.dart';
 
-abstract class CustomerNotifier implements StateNotifier<AsyncValue<Customer>> {
-  factory CustomerNotifier(AutoDisposeRef ref, {required String id}) =>
-      dotenv.get('USE_HIVE_MOCK_BACKEND') == 'true'
-          ? CustomerHiveNotifier(ref, id: id)
-          : CustomerHiveNotifier(ref, id: id);
+part 'customer_provider.g.dart';
+
+typedef CustomerRepository = HiveAsyncStreamRepository<Customer>;
+
+@riverpod
+CustomerRepository customerRepository(
+  Ref ref, {
+  required String boxName,
+  required String key,
+}) {
+  return dotenv.get('USE_HIVE_MOCK_BACKEND') == 'true'
+      ? HiveRepositoryAsyncStreamImpl<Customer>(boxName, key: key)
+      : HiveRepositoryAsyncStreamImpl<Customer>(boxName, key: key);
 }
 
-// This class extends a state notifier for a customer object stored in a Hive database, with a required ID parameter.
-class CustomerHiveNotifier extends HiveAsyncStreamNotifier<Customer>
-    implements CustomerNotifier {
-  CustomerHiveNotifier(super.ref, {required String id})
-      : super(boxName: hiveCustomers, key: id);
+@riverpod
+class CustomerState extends _$CustomerState
+    with AsyncRepositoryMixin<Customer> {
+  @override
+  FutureOr<Customer> build(String id) async {
+    repository =
+        ref.watch(customerRepositoryProvider(boxName: hiveCustomers, key: id));
+
+    return buildFromStream();
+  }
 }

@@ -9,16 +9,18 @@ class CustomerAddressCard extends HookConsumerWidget with UiLoggy {
   });
 
   static Widget fromAppointment(String id) => Consumer(
-        builder: (ctx, ref, _) => ref.watch(appointmentProvider(id)).whenFine(
-              (appointment) =>
-                  ref.watch(customerProvider(appointment.customerId)).whenFine(
+        builder: (ctx, ref, _) =>
+            ref.watch(appointmentStateProvider(id)).whenFine(
+                  (appointment) => ref
+                      .watch(customerStateProvider(appointment.customerId))
+                      .whenFine(
                         (customer) => CustomerAddressCard(
                           address: customer.address,
                           city: customer.city,
                           zip: customer.zip,
                         ),
                       ),
-            ),
+                ),
       );
 
   final String address;

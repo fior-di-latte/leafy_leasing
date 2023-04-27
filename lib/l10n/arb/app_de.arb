@@ -119,6 +119,10 @@
 "pendingAppointmentsHere": "Hier findest du alle anstehenden Termine.",
                 "@pendingAppointmentsHere": {
                 "description": "Hier findest du alle anstehenden Termine."
+            },
+"somethingWentWrong": "Das hat nicht geklappt.",
+                "@somethingWentWrong": {
+                "description": "Das hat nicht geklappt."
             }
 
 

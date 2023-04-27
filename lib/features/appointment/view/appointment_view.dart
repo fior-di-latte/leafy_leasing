@@ -38,7 +38,7 @@ class AppointmentScreen extends ConsumerWidget with UiLoggy {
               CustomerContactCard.fromAppointment(id),
               const Gap(mPadding),
               Expanded(
-                child: ref.watch(appointmentProvider(id)).whenFine(
+                child: ref.watch(appointmentStateProvider(id)).whenFine(
                       (appointment) => Visibility(
                         visible:
                             appointment.status == AppointmentStatus.pending,

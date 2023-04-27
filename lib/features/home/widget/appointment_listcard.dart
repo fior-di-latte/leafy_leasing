@@ -18,9 +18,10 @@ class AppointmentListCard extends HookConsumerWidget with UiLoggy {
                 onTap: () => ctx.router.push(AppointmentRoute(id: id)),
                 child: Padding(
                   padding: const EdgeInsets.all(lPadding),
-                  child: ref.watch(appointmentProvider(id)).whenFine(
+                  child: ref.watch(appointmentStateProvider(id)).whenFine(
                         (appointment) => ref
-                            .watch(customerProvider(appointment.customerId))
+                            .watch(
+                                customerStateProvider(appointment.customerId))
                             .whenFine(
                               (customer) => _InnerCard(
                                 appointment: appointment,
