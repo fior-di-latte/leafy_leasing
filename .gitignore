@@ -9,7 +9,7 @@
 .buildlog/
 .history
 .svn/
-*.env
+# *.env <- these are used for unsensitive data only and are thus OK being uploaded to GitHub
 
 # IntelliJ related
 *.iml
