@@ -9,7 +9,7 @@ import 'package:leafy_leasing/shared/repository/hive_repository.dart';
 class HiveAsyncStreamNotifier<T> extends StateNotifier<AsyncValue<T>>
     with NetworkLoggy {
   HiveAsyncStreamNotifier(this.ref,
-      {required String boxName, required this.key})
+      {required String boxName, required this.key,})
       : repository = HiveRepositoryAsyncStreamImpl<T>(boxName, key: key),
         super(AsyncValue<T>.loading()) {
     // this is a little hacky because async initialization is a little troublesome

@@ -1,6 +1,5 @@
 /// Flow: ThemeMode -> Brightness -> Theme  (dark / light mode handling)
 import 'package:google_fonts/google_fonts.dart';
-import 'package:leafy_leasing/l10n/l10n.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
 const kSeedColor = Color(0xFF33A58A);

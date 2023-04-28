@@ -1,4 +1,3 @@
-import 'package:leafy_leasing/features/home/provider/metas_provider.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
 class PrecacheProvider extends ConsumerWidget {

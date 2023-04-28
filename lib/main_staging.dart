@@ -4,5 +4,5 @@ Future<void> main() async {
   final stagingEnv = DotEnv();
   await stagingEnv.load(fileName: Assets.dotenvStaging);
   await dotenv.load(fileName: Assets.dotenvGlobal, mergeWith: stagingEnv.env);
-  bootstrap();
+  await bootstrap();
 }

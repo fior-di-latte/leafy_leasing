@@ -10,10 +10,10 @@ const kCancelButtonHeroTag = 'cancelButton';
 const kCloseButtonHeroTag = 'closeButton';
 const kAppointmentCardHeroTagPrefix = 'appointmentHero';
 const kUnicodeFun = [
-  r'乁⁠༼⁠☯⁠。⁠☯⁠✿⁠༽⁠ㄏ',
+  '乁⁠༼⁠☯⁠。⁠☯⁠✿⁠༽⁠ㄏ',
   r'¯\_(ツ)_/¯',
   'ヽ(。_°)ノ',
   '(ಠ_ಠ)',
   '(≥o≤)',
-  r'┌(・。・)┘'
+  '┌(・。・)┘'
 ];

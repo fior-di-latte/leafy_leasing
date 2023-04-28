@@ -28,7 +28,7 @@ class LocaleSwitch extends HookConsumerWidget with UiLoggy {
     );
   }
 
-  void _showLanguagePicker(BuildContext ctx, WidgetRef ref) => showDialog(
+  void _showLanguagePicker(BuildContext ctx, WidgetRef ref) => showDialog<void>(
         barrierDismissible: true,
         context: ctx,
         builder: (ctx) => Container(
@@ -70,7 +70,9 @@ class LocaleSwitch extends HookConsumerWidget with UiLoggy {
     BuildContext ctx,
   ) {
     ctx.router.pop();
-    Future.delayed(200.milliseconds,
-        () => ref.read(settingsStateProvider.notifier).setLocale(entry.key));
+    Future.delayed(
+      200.milliseconds,
+      () => ref.read(settingsStateProvider.notifier).setLocale(entry.key),
+    );
   }
 }

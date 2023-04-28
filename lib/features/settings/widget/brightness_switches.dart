@@ -1,4 +1,3 @@
-import 'package:leafy_leasing/l10n/l10n.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
 class BrightnessSwitches extends StatelessWidget {

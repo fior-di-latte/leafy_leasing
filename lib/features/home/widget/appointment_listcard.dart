@@ -21,7 +21,7 @@ class AppointmentListCard extends HookConsumerWidget with UiLoggy {
                   child: ref.watch(appointmentStateProvider(id)).whenFine(
                         (appointment) => ref
                             .watch(
-                                customerStateProvider(appointment.customerId))
+                                customerStateProvider(appointment.customerId),)
                             .whenFine(
                               (customer) => _InnerCard(
                                 appointment: appointment,

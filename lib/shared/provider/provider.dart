@@ -43,7 +43,7 @@ mixin AsyncRepositoryMixin<T> {
     ErrorUiCallback? errorUiCallback,
     bool defaultCallback = true,
   }) async {
-    final oldValue = state.value!;
+    final oldValue = state.value as T;
     logInfo('Optimistic Update: $newValue');
     state = AsyncValue.data(newValue);
     try {

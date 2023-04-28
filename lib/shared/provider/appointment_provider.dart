@@ -4,7 +4,7 @@ import 'package:leafy_leasing/shared/base.dart';
 import 'package:leafy_leasing/shared/data_services/hive.dart';
 import 'package:leafy_leasing/shared/repository/abstract_repository.dart';
 
-import '../repository/hive_repository.dart';
+import 'package:leafy_leasing/shared/repository/hive_repository.dart';
 
 part 'appointment_provider.g.dart';
 
