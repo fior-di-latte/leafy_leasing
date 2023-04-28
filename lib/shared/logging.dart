@@ -31,8 +31,9 @@ class ProviderUpdateLogger extends ProviderObserver with NetworkLoggy {
     ProviderContainer container,
   ) {
     loggy.debug(
-      'P-Update of ${_getProviderName(provider)}:\n\t\t"New Value": "$newValue"'
-      '\n\t\t"Previous Value": "$previousValue"',
+      'P-Update of ${_getProviderName(provider)}:\n\t\t"Previous Value":'
+      ' "$previousValue"'
+      '\n\t\t"New Value": "$newValue"',
     );
   }
 }

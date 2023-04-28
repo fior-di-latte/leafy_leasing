@@ -19,6 +19,7 @@ export '../app/app.dart';
 export '../features/features.dart';
 export 'assets.dart';
 export 'constants.dart';
+export 'hooks.dart';
 export 'logging.dart';
 export 'model/model.dart';
 export 'router/app_router.dart';

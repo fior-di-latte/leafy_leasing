@@ -37,7 +37,8 @@ abstract class AppointmentActionButton extends StatelessWidget with UiLoggy {
         icon: Icons.cancel_outlined,
         onTap: () {
           logInfo(
-            'Cancel appointment with id $id. New status $newStatus, Comment ${commentTextController.text}',
+            'Cancel appointment with id $id. New status $newStatus,'
+            ' Comment ${commentTextController.text}',
           );
 
           ref.read(metasStateProvider.notifier).cancelAppointment(id);
