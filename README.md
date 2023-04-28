@@ -26,9 +26,6 @@ Developed using Flutter 3.7.8 and Dart 2.19.5, tested **only** on Android (API 3
 _No tests, no actively used flavors._
 ### Todos
 * Tests
-* Flavors for CI/CD
-* Proper abstraction of repositories (s.t. backend is easily _'pluggable'_)
-* Persistance of `ThemeMode`and `Locale` over app restarts with `hive`
 * Change App Logo to Leafy Leasing Logo.
 
 ---
@@ -66,13 +63,12 @@ _\*Leafy Leasing should work on iOS, Android, Web, and Windows._
 * **ICM**  Big new structure (e.g. new backend integration or project setup) (w/o features)
 * **FT**  New Feature
 * **REF**  Refactoring
-* **ENH**  Enhancement (w/o UI)
-* **UI**   User Interface Enhancement
+* **ENH**  Enhancement
 * **BFX**  Bugfix
 * **DAT**  Data (configs, dummy data)
-* **IMG**  Images / Animation
 * **LOC**  Localization / Internationalization
-* **DEP**  Deployment
+* **DEP**  Deployment (e.g. CI/CD)
+* **DOC**  Documentation (e.g. README, docstrings)
 
 
 ---
@@ -137,8 +133,7 @@ import 'package:leafy_leasing/l10n/l10n.dart';
 
 @override
 Widget build(BuildContext context) {
-  final l10n = context.l10n;
-  return Text(l10n.helloWorld);
+  return Text(context.lc.helloWorld);
 }
 ```
 
