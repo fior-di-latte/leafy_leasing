@@ -62,13 +62,14 @@ extension AddExtraInfo on AppointmentStatus {
 @freezed
 @HiveType(typeId: 2)
 class Appointment with _$Appointment {
-  factory Appointment(
-      {@HiveField(0) required String id,
-      @HiveField(1) required DateTime date,
-      @HiveField(2) required String customerId,
-      @HiveField(3) required int durationInMinutes,
-      @HiveField(4) required AppointmentStatus status,
-      @HiveField(5) required String? comment,}) = _Appointment;
+  factory Appointment({
+    @HiveField(0) required String id,
+    @HiveField(1) required DateTime date,
+    @HiveField(2) required String customerId,
+    @HiveField(3) required int durationInMinutes,
+    @HiveField(4) required AppointmentStatus status,
+    @HiveField(5) required String? comment,
+  }) = _Appointment;
 
   factory Appointment.fromJson(Map<String, dynamic> json) =>
       _$AppointmentFromJson(json);

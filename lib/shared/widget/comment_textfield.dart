@@ -10,11 +10,12 @@ class CommentTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-        controller: commentTextController,
-        maxLines: 4,
-        decoration: InputDecoration(
-            labelText: 'Comment (optional)',
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(8)),),);
+      controller: commentTextController,
+      maxLines: 4,
+      decoration: InputDecoration(
+        labelText: 'Comment (optional)',
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+      ),
+    );
   }
 }

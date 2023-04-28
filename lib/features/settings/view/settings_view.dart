@@ -9,14 +9,12 @@ class SettingsScreen extends HookConsumerWidget with UiLoggy {
   @override
   Widget build(BuildContext ctx, WidgetRef ref) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(ctx.lc.settings),
-        ),
-        body: Column(
-          children: const [
-            BrightnessSwitches(),
-            Expanded(child: LocaleSwitch())
-          ],
-        ),);
+      appBar: AppBar(
+        title: Text(ctx.lc.settings),
+      ),
+      body: Column(
+        children: const [BrightnessSwitches(), Expanded(child: LocaleSwitch())],
+      ),
+    );
   }
 }
