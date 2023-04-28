@@ -23,7 +23,8 @@ class SettingsState extends _$SettingsState {
   @override
   Settings build() {
     _repository = ref.watch(
-        settingsRepositoryProvider(key: hiveSettings, boxName: hiveSettings),);
+      settingsRepositoryProvider(key: hiveSettings, boxName: hiveSettings),
+    );
     return _repository.get()!;
   }
 

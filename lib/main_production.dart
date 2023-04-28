@@ -5,6 +5,8 @@ Future<void> main() async {
   final productionEnv = DotEnv();
   await productionEnv.load(fileName: Assets.dotenvProduction);
   await dotenv.load(
-      fileName: Assets.dotenvGlobal, mergeWith: productionEnv.env,);
+    fileName: Assets.dotenvGlobal,
+    mergeWith: productionEnv.env,
+  );
   await bootstrap();
 }
