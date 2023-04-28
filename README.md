@@ -63,6 +63,7 @@ _\*Leafy Leasing should work on iOS, Android, Web, and Windows._
 * **ICM**  Big new structure (e.g. new backend integration or project setup) (w/o features)
 * **FT**  New Feature
 * **REF**  Refactoring
+* **RM**   Removal
 * **ENH**  Enhancement
 * **BFX**  Bugfix
 * **DAT**  Data (configs, dummy data)
