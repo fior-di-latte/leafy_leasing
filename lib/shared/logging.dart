@@ -1,10 +1,11 @@
+// Project imports:
 import 'package:leafy_leasing/shared/base.dart';
 
 class ProviderDisposeLogger extends ProviderObserver with NetworkLoggy {
   @override
   void didDisposeProvider(
-    ProviderBase provider,
-    ProviderContainer containers,
+    ProviderBase<dynamic> provider,
+    ProviderContainer container,
   ) {
     loggy.debug('P-Dispose of ${_getProviderName(provider)}.');
   }
@@ -13,7 +14,7 @@ class ProviderDisposeLogger extends ProviderObserver with NetworkLoggy {
 class ProviderAddLogger extends ProviderObserver with NetworkLoggy {
   @override
   void didAddProvider(
-    ProviderBase provider,
+    ProviderBase<dynamic> provider,
     Object? value,
     ProviderContainer container,
   ) {
@@ -24,7 +25,7 @@ class ProviderAddLogger extends ProviderObserver with NetworkLoggy {
 class ProviderUpdateLogger extends ProviderObserver with NetworkLoggy {
   @override
   void didUpdateProvider(
-    ProviderBase provider,
+    ProviderBase<dynamic> provider,
     Object? previousValue,
     Object? newValue,
     ProviderContainer container,
@@ -36,7 +37,7 @@ class ProviderUpdateLogger extends ProviderObserver with NetworkLoggy {
   }
 }
 
-String _getProviderName(ProviderBase provider) {
+String _getProviderName(ProviderBase<dynamic> provider) {
   final name = provider.name ?? 'unnamedProvider';
   final id = provider.argument?.toString();
   return '$name ${id != null ? '($id)' : ''}';
@@ -50,7 +51,7 @@ final devProviderLoggers = <ProviderObserver>[
 
 class CustomRouteObserver extends AutoRouterObserver {
   @override
-  void didPush(Route route, Route? previousRoute) {
+  void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
     logInfo('New route pushed: ${route.settings.name}');
   }
 

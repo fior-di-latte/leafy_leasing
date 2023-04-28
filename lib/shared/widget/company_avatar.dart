@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:leafy_leasing/shared/base.dart';
 
 class CompanyAvatar extends ConsumerWidget with UiLoggy {
@@ -10,7 +11,7 @@ class CompanyAvatar extends ConsumerWidget with UiLoggy {
 
   static Widget fromAppointment({required String appointmentId, Key? key}) {
     return Consumer(
-      builder: (ctx, ref, _) =>
+      builder: (context, ref, _) =>
           ref.watch(appointmentStateProvider(appointmentId)).whenFine(
                 (appointment) => CompanyAvatar(
                   customerId: appointment.customerId,
@@ -21,7 +22,7 @@ class CompanyAvatar extends ConsumerWidget with UiLoggy {
   }
 
   @override
-  Widget build(BuildContext ctx, WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return ref.watch(customerStateProvider(customerId)).whenFine(
           (customer) => SizedBox(
             width: 72,
@@ -35,7 +36,7 @@ class CompanyAvatar extends ConsumerWidget with UiLoggy {
                   'This would direct you to the customer profile page ',
                 ),
                 child: CircleAvatar(
-                  backgroundColor: stringToColor(customer.companyName, ctx),
+                  backgroundColor: stringToColor(customer.companyName, context),
                   child: Text(customer.companyName.substring(0, 2)),
                 ),
               ),

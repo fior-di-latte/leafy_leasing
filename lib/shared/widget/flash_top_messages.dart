@@ -1,8 +1,11 @@
+// Package imports:
 import 'package:flash/flash.dart';
+
+// Project imports:
 import 'package:leafy_leasing/shared/base.dart';
 
 void showTopInfo(
-  BuildContext ctx, {
+  BuildContext context, {
   required Widget leading,
   required String title,
   Color? surfaceTintColor,
@@ -12,7 +15,7 @@ void showTopInfo(
   VoidCallback? onTap,
 }) {
   showFlash<bool>(
-    context: ctx,
+    context: context,
     transitionDuration: 460.milliseconds,
     reverseTransitionDuration: 350.milliseconds,
     duration: 3.seconds,
@@ -33,7 +36,7 @@ void showTopInfo(
         margin: const EdgeInsets.symmetric(horizontal: 50),
         icon: Padding(padding: const EdgeInsets.all(mPadding), child: leading),
         shouldIconPulse: false,
-        titleTextStyle: ctx.tt.titleLarge!.copyWith(color: textColor),
+        titleTextStyle: context.tt.titleLarge!.copyWith(color: textColor),
         title: Text(title),
         content: const SizedBox.shrink(),
       ),

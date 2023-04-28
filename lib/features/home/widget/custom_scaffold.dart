@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:leafy_leasing/shared/base.dart';
 
 class HomeScaffold extends StatelessWidget with UiLoggy {
@@ -13,9 +14,9 @@ class HomeScaffold extends StatelessWidget with UiLoggy {
   final bool hasFloatingButton;
 
   @override
-  Widget build(BuildContext ctx) {
+  Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ctx.thm.scaffoldBackgroundColor,
+      backgroundColor: context.thm.scaffoldBackgroundColor,
       floatingActionButton: hasFloatingButton
           ? FloatingActionButton(
               child: const Icon(Icons.add),
@@ -26,7 +27,7 @@ class HomeScaffold extends StatelessWidget with UiLoggy {
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () => ctx.router.push(const SettingsRoute()),
+            onPressed: () => context.router.push(const SettingsRoute()),
             icon: const Icon(Icons.more_vert_outlined),
           ),
         ],

@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:leafy_leasing/features/home/provider/metas_provider.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
@@ -7,7 +8,7 @@ class PlaygroundWidget extends HookConsumerWidget with UiLoggy {
   const PlaygroundWidget({super.key});
 
   @override
-  Widget build(BuildContext ctx, WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     logWarning('lol');
     return PrecacheProvider(
       provider: metasStateProvider,

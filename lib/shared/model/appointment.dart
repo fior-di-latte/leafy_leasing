@@ -1,6 +1,8 @@
+// Package imports:
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+// Project imports:
 import 'package:leafy_leasing/shared/base.dart';
 
 part 'appointment.freezed.dart';
@@ -41,20 +43,20 @@ extension AddExtraInfo on AppointmentStatus {
     }
   }
 
-  String labelText(BuildContext ctx) {
+  String labelText(BuildContext context) {
     switch (this) {
       case AppointmentStatus.pending:
         return 'pending'; // case not relevant in current UI
       case AppointmentStatus.doneSuccessful:
-        return ctx.lc.hasBeenSuccessful;
+        return context.lc.hasBeenSuccessful;
       case AppointmentStatus.doneAborted:
-        return ctx.lc.hasBeenAborted;
+        return context.lc.hasBeenAborted;
 
       case AppointmentStatus.canceledUs:
-        return ctx.lc.weHaveCanceled;
+        return context.lc.weHaveCanceled;
 
       case AppointmentStatus.canceledCustomer:
-        return ctx.lc.customerHasCanceled;
+        return context.lc.customerHasCanceled;
     }
   }
 }

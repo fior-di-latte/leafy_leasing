@@ -1,6 +1,8 @@
+// Package imports:
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:leafy_leasing/shared/base.dart';
 
+// Project imports:
+import 'package:leafy_leasing/shared/base.dart';
 import 'package:leafy_leasing/shared/repository/abstract_repository.dart';
 
 class HiveRepositoryAsyncStreamImpl<T> implements HiveAsyncStreamRepository<T> {

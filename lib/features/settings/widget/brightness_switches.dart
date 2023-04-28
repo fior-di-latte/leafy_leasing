@@ -1,10 +1,11 @@
+// Project imports:
 import 'package:leafy_leasing/shared/base.dart';
 
 class BrightnessSwitches extends StatelessWidget {
   const BrightnessSwitches({super.key});
 
   @override
-  Widget build(BuildContext ctx) => GridView.count(
+  Widget build(BuildContext context) => GridView.count(
         physics: const NeverScrollableScrollPhysics(),
         padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
         shrinkWrap: true,
@@ -39,12 +40,14 @@ class _ThemeCard extends ConsumerWidget with UiLoggy {
   final ThemeMode themeMode;
 
   @override
-  Widget build(BuildContext ctx, WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final currentThemeMode = ref
         .watch(settingsStateProvider.select((settings) => settings.themeMode));
     return Card(
       elevation: 2,
-      color: currentThemeMode == themeMode ? ctx.cs.primary : ctx.thm.cardColor,
+      color: currentThemeMode == themeMode
+          ? context.cs.primary
+          : context.thm.cardColor,
       shape: const RoundedRectangleBorder(borderRadius: kBorderRadius),
       child: InkWell(
         onTap: () {
@@ -56,8 +59,9 @@ class _ThemeCard extends ConsumerWidget with UiLoggy {
           child: Icon(
             icon,
             size: 18,
-            color:
-                currentThemeMode != themeMode ? ctx.cs.primary : Colors.white,
+            color: currentThemeMode != themeMode
+                ? context.cs.primary
+                : Colors.white,
           ),
         ),
       ),

@@ -1,7 +1,8 @@
-
+// Package imports:
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+// Project imports:
 import 'package:leafy_leasing/shared/base.dart';
 
 part 'settings.freezed.dart';

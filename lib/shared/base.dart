@@ -4,14 +4,15 @@ export 'package:flutter/material.dart';
 export 'package:flutter_animate/flutter_animate.dart';
 export 'package:flutter_dotenv/flutter_dotenv.dart';
 export 'package:flutter_hooks/flutter_hooks.dart';
+export 'package:flutter_loggy/flutter_loggy.dart';
 export 'package:gap/gap.dart';
 export 'package:hooks_riverpod/hooks_riverpod.dart';
 export 'package:loggy/loggy.dart';
 export 'package:relative_time/relative_time.dart';
+// ignore: invalid_export_of_internal_element
 export 'package:riverpod_annotation/riverpod_annotation.dart';
 export 'package:rnd/rnd.dart';
 
-export './notifier/notifier.dart';
 export './provider/provider.dart';
 export './widget/widget.dart';
 export '../app/app.dart';

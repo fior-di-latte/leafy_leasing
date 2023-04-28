@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:leafy_leasing/shared/base.dart';
 
 class CustomerAddressCard extends HookConsumerWidget with UiLoggy {
@@ -9,7 +10,7 @@ class CustomerAddressCard extends HookConsumerWidget with UiLoggy {
   });
 
   static Widget fromAppointment(String id) => Consumer(
-        builder: (ctx, ref, _) =>
+        builder: (context, ref, _) =>
             ref.watch(appointmentStateProvider(id)).whenFine(
                   (appointment) => ref
                       .watch(customerStateProvider(appointment.customerId))
@@ -28,9 +29,9 @@ class CustomerAddressCard extends HookConsumerWidget with UiLoggy {
   final String zip;
 
   @override
-  Widget build(BuildContext ctx, WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox(
-      height: ctx.height * .1,
+      height: context.height * .1,
       child: Card(
         child: InkWell(
           borderRadius: kBorderRadius,
@@ -45,7 +46,7 @@ class CustomerAddressCard extends HookConsumerWidget with UiLoggy {
                   child: FittedBox(
                     child: Text(
                       '$address, $zip $city',
-                      style: ctx.tt.displayMedium,
+                      style: context.tt.displayMedium,
                     ),
                   ),
                 )

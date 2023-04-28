@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:leafy_leasing/shared/base.dart';
 
 extension AsyncValueUI on AsyncValue<Object> {
@@ -15,5 +16,5 @@ typedef SnackbarBuilder = void Function(BuildContext context);
 
 final notificationProvider = StateProvider<SnackbarBuilder>(
   name: 'NotificationProvider',
-  (ref) => (ctx) {},
+  (ref) => (context) {},
 );

@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:leafy_leasing/shared/base.dart';
 
 class AppointmentListCard extends HookConsumerWidget with UiLoggy {
@@ -5,9 +6,9 @@ class AppointmentListCard extends HookConsumerWidget with UiLoggy {
   static const heightFactor = .25;
   final String id;
   @override
-  Widget build(BuildContext ctx, WidgetRef ref) => Container(
+  Widget build(BuildContext context, WidgetRef ref) => Container(
         margin: const EdgeInsets.all(lPadding),
-        height: ctx.height * heightFactor,
+        height: context.height * heightFactor,
         child: Stack(
           clipBehavior: Clip.none,
           children: [
@@ -15,13 +16,14 @@ class AppointmentListCard extends HookConsumerWidget with UiLoggy {
               shape: const RoundedRectangleBorder(borderRadius: kBorderRadius),
               child: InkWell(
                 borderRadius: kBorderRadius,
-                onTap: () => ctx.router.push(AppointmentRoute(id: id)),
+                onTap: () => context.router.push(AppointmentRoute(id: id)),
                 child: Padding(
                   padding: const EdgeInsets.all(lPadding),
                   child: ref.watch(appointmentStateProvider(id)).whenFine(
                         (appointment) => ref
                             .watch(
-                                customerStateProvider(appointment.customerId),)
+                              customerStateProvider(appointment.customerId),
+                            )
                             .whenFine(
                               (customer) => _InnerCard(
                                 appointment: appointment,
@@ -53,7 +55,7 @@ class _InnerCard extends StatelessWidget {
   final Appointment appointment;
   final Customer customer;
   @override
-  Widget build(BuildContext ctx) {
+  Widget build(BuildContext context) {
     return Row(
       children: [
         Expanded(
@@ -68,7 +70,7 @@ class _InnerCard extends StatelessWidget {
                   Expanded(
                     child: AutoSizeText(
                       customer.companyName,
-                      style: ctx.tt.displayMedium!.copyWith(fontSize: 40),
+                      style: context.tt.displayMedium!.copyWith(fontSize: 40),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                     ),
@@ -81,14 +83,16 @@ class _InnerCard extends StatelessWidget {
                   Icon(
                     Icons.location_on_outlined,
                     size: 40,
-                    color: ctx.thm.disabledColor,
+                    color: context.thm.disabledColor,
                   ),
                   const Gap(8),
                   Expanded(
                     child: AutoSizeText(
                       customer.city,
-                      style: ctx.tt.bodyMedium!
-                          .copyWith(color: ctx.thm.disabledColor, fontSize: 25),
+                      style: context.tt.bodyMedium!.copyWith(
+                        color: context.thm.disabledColor,
+                        fontSize: 25,
+                      ),
                     ),
                   )
                 ],
@@ -114,12 +118,12 @@ class _InnerCard extends StatelessWidget {
                     ActionChip(
                       labelStyle: const TextStyle(color: Colors.black),
                       elevation: 20,
-                      surfaceTintColor: ctx.cs.secondary,
+                      surfaceTintColor: context.cs.secondary,
                       avatar: const Icon(
                         Icons.calendar_month_outlined,
                       ),
                       label: Text(
-                        RelativeTime(ctx).format(appointment.date),
+                        RelativeTime(context).format(appointment.date),
                       ),
                     ),
                     Transform.scale(
