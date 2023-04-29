@@ -1,4 +1,6 @@
 #name: leafy_leasing
+"reusable workflows should be referenced at the top-level `jobs.*.uses' key, not within steps"
+
 
 concurrency:
   group: $-$
@@ -21,8 +23,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
       - name: Decode base64 secrets
+        uses: actions/checkout@v2
         run: |
           echo $SECRETS_FILE_CONTENTS | base64 -d > lib/shared/secrets.dart
           echo $SECRETS_FILE_CONTENTS
