@@ -1,4 +1,4 @@
-name: leafy_leasing
+#name: leafy_leasing
 
 concurrency:
   group: $-$
@@ -13,11 +13,26 @@ on: [push]
 #      - main
 
 jobs:
+# create a job that echos a GitHub secret
+
   semantic-pull-request:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/semantic_pull_request.yml@v1
 
   build:
-    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Decode base64 secrets
+        run: |
+          echo $SECRETS_FILE_CONTENTS | base64 -d > lib/shared/secrets.dart
+          echo $SECRETS_FILE_CONTENTS
+        env:
+          SECRETS_FILE_CONTENTS: ${{ secrets.SECRETS_FILE_CONTENTS }}
+
+      - name: Very Good Stuff
+        uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
+
+
     with:
       flutter_channel: stable
 
