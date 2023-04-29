@@ -129,3 +129,4 @@ app.*.map.json
 !.idea/dictionaries/
 !.idea/runConfigurations/!/lib/shared/secrets.dart
 !/lib/shared/secrets.dart
+!/lib/shared/secrets.dart
