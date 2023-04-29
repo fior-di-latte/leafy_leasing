@@ -1,3 +1,5 @@
+# Secrets
+/lib/shared/secrets.dart
 # Miscellaneous
 *.class
 *.lock
@@ -125,4 +127,5 @@ app.*.map.json
 !.vscode/launch.json
 !.idea/codeStyles/
 !.idea/dictionaries/
-!.idea/runConfigurations/
+!.idea/runConfigurations/!/lib/shared/secrets.dart
+!/lib/shared/secrets.dart

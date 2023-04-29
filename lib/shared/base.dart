@@ -24,5 +24,6 @@ export 'hooks.dart';
 export 'logging.dart';
 export 'model/model.dart';
 export 'router/app_router.dart';
+export 'secrets.dart';
 export 'theme.dart';
 export 'utils.dart';
