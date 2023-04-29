@@ -23,9 +23,7 @@ jobs:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
     with:
       flutter_channel: stable
-      setup : |
-        echo $SECRETS_FILE_CONTENTS | base64 -d > lib/shared/secrets.dart
-        echo $SECRETS_FILE_CONTENTS
+      setup : echo $SECRETS_FILE_CONTENTS
 
 #  spell-check:
 #    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/spell_check.yml@v1
