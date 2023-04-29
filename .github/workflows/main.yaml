@@ -12,7 +12,8 @@ on: [push]
 #    branches:
 #      - main
 
-
+env:
+  MY_ENV_VAR: my_value
 
 jobs:
   semantic-pull-request:
@@ -21,10 +22,8 @@ jobs:
   build:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
     with:
-      env:
-        MY_ENV_VAR: rofl2withoutleftrightgaensefuesschen
       flutter_channel: stable
-      setup : echo $MY_ENV_VAR
+      setup : echo ${{ env.MY_ENV_VAR }}
 
 #  spell-check:
 #    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/spell_check.yml@v1
