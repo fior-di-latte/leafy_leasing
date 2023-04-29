@@ -1,6 +1,4 @@
 #name: leafy_leasing
-"reusable workflows should be referenced at the top-level `jobs.*.uses' key, not within steps"
-
 
 concurrency:
   group: $-$
@@ -33,10 +31,8 @@ jobs:
 
       - name: Very Good Stuff
         uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
-
-
-    with:
-      flutter_channel: stable
+        with:
+          flutter_channel: stable
 
 #  spell-check:
 #    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/spell_check.yml@v1
