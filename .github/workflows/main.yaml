@@ -1,8 +1,5 @@
 name: leafy_leasing
 
-env:
-  MY_ENV_VAR: JUICE
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -24,6 +21,8 @@ jobs:
   build:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
     with:
+      env:
+        MY_ENV_VAR: 'lol'
       flutter_channel: stable
       setup : echo "$MY_ENV_VAR"
 
