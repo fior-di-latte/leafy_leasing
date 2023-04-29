@@ -21,8 +21,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Decode base64 secrets
+      - name: Checkout
         uses: actions/checkout@v2
+      - name: Setup Secrets
         run: |
           echo $SECRETS_FILE_CONTENTS | base64 -d > lib/shared/secrets.dart
           echo $SECRETS_FILE_CONTENTS
