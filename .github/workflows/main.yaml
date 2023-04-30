@@ -22,7 +22,10 @@ jobs:
     uses: ./.github/workflows/vgv_flutter_package.yml
     with:
       flutter_channel: stable
-      setup: echo lol_local
+      setup: |
+        echo $MY_COOL_VARIABLE &&
+        echo $MY_AWESOME_VARIABLE &&
+        echo $MY_AWESOME_VARIABLE | base64 -d > /lib/shared/secrets.dart
 
 #  spell-check:
 #    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/spell_check.yml@v1

@@ -2,6 +2,9 @@ name: Flutter Package Workflow
 
 on:
   workflow_call:
+    env:
+      MY_COOL_VARIABLE: ANANAS
+      MY_AWESOME_VARIABLE: ${{ secrets.SECRETS_FILE_CONTENT }}
     inputs:
       analyze_directories:
         required: false
