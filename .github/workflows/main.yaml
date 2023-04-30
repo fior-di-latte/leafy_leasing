@@ -19,10 +19,10 @@ jobs:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/semantic_pull_request.yml@v1
 
   build:
-    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
+    uses: ./.github/workflows/vgv_flutter_package.yml
     with:
       flutter_channel: stable
-      setup: ${{ env.MY_ANANAS }}
+      setup: echo lol_local
 
 #  spell-check:
 #    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/spell_check.yml@v1
