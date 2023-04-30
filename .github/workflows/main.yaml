@@ -13,17 +13,23 @@ on: [push]
 #      - main
 
 env:
-  MY_ENV_VAR: my_value
+  MY_ENV_FOO: foo
 
 jobs:
   semantic-pull-request:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/semantic_pull_request.yml@v1
 
   build:
-    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
-    with:
-      flutter_channel: stable
-      setup: echo ${{ env.MY_ENV_VAR }}
+    runs-on: ubuntu-latest
+    env:
+      MY_ENV_BAR: bar
+    steps:
+      - name: Ananas
+        uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
+        with:
+          flutter_channel: stable
+          setup: echo ${{ env.MY_ENV_BAR }} ${{ env.MY_ENV_FOO }}
+
 
 #  spell-check:
 #    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/spell_check.yml@v1
