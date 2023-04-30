@@ -1,7 +1,7 @@
 name: leafy_leasing
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: $-$
   cancel-in-progress: true
 
 on: [push]
@@ -11,25 +11,17 @@ on: [push]
 #  pull_request:
 #    branches:
 #      - main
-
 env:
-  MY_ENV_FOO: foo
-
+  MY_ANANAS: "ANANAS"
 jobs:
   semantic-pull-request:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/semantic_pull_request.yml@v1
 
   build:
-    runs-on: ubuntu-latest
-    env:
-      MY_ENV_BAR: bar
-    steps:
-      - name: Ananas
-        uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
-        with:
-          flutter_channel: stable
-          setup: echo ${{ env.MY_ENV_BAR }} ${{ env.MY_ENV_FOO }}
-
+    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
+    with:
+      flutter_channel: stable
+      setup: echo ${{ env.MY_ANANAS }}
 
 #  spell-check:
 #    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/spell_check.yml@v1
