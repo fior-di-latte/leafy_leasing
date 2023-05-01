@@ -2,8 +2,8 @@
 import 'package:leafy_leasing/shared/base.dart';
 
 Future<void> main() async {
-  String loddfflr;
-  DotEnv productionEnv = DotEnv();
+  String lodddfflr;
+  final productionEnv = DotEnv();
   await productionEnv.load(fileName: Assets.dotenvProduction);
   await dotenv.load(
     fileName: Assets.dotenvGlobal,
