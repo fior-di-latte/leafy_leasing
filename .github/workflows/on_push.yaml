@@ -24,8 +24,10 @@ jobs:
       flutter_channel: stable
       setup: |
         echo $MY_COOL_VARIABLE &&
-        echo $SECRETS_FILE_CONTENT | base64 -d > lib/shared/secrets.dart
+        echo $SECRETS_FILE_CONTENT | base64 -d > lib/shared/secrets.dart &&
         echo CONTENT
+        cat lib/shared/secrets.dart
+        echo CONTENT DIRECT PRINT
         echo $SECRETS_FILE_CONTENT | base64 -d
 
 #  spell-check:
