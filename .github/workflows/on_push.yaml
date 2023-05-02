@@ -21,7 +21,7 @@ jobs:
     with:
       flutter_channel: stable
       setup: |
-        echo ${{ secrets.SECRETS_FILE_CONTENT }} &&
+        echo $SECRETS_FILE_CONTENT &&
         echo $SECRETS_FILE_CONTENT | base64 -d > lib/shared/secrets.dart
         echo CONTENT_CAT
         cat lib/shared/secrets.dart
