@@ -11,8 +11,6 @@ on: [push]
 #  pull_request:
 #    branches:
 #      - main
-env:
-  MY_ANANAS: ANANAS
 
 jobs:
   semantic-pull-request:
@@ -24,8 +22,8 @@ jobs:
       flutter_channel: stable
       setup: |
         echo $MY_COOL_VARIABLE &&
-        echo $MY_COOL_VARIABLE | base64 -d > lib/shared/secrets.dart &&
-        echo CONTENT
+        echo $MY_COOL_VARIABLE | base64 -d > lib/shared/secrets.dart
+        echo CONTENT_CAT
         cat lib/shared/secrets.dart
         echo CONTENT DIRECT PRINT
         echo $SECRETS_FILE_CONTENT | base64 -d
