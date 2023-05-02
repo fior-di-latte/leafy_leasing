@@ -90,6 +90,7 @@ jobs:
       - name: ✨ Check Formatting
         run: dart format --set-exit-if-changed lib test
 
+      # This one is after formatting because the secret file that is injected in this step is not formatted correctly
       - name: ⚙️ Run Setup
         if: "${{inputs.setup != ''}}"
         run: ${{inputs.setup}}
