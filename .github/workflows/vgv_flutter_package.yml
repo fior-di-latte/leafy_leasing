@@ -86,15 +86,16 @@ jobs:
           very_good --analytics false
           very_good packages get --recursive --ignore=${{inputs.package_get_excludes}}
 
-      - name: ⚙️ Run Setup
-        if: "${{inputs.setup != ''}}"
-        run: ${{inputs.setup}}
 
       - name: ✨ Check Formatting
         run: dart format --set-exit-if-changed lib test
 
       - name: 🕵️ Analyze
         run: flutter analyze ${{inputs.analyze_directories}}
+
+      - name: ⚙️ Run Setup
+        if: "${{inputs.setup != ''}}"
+        run: ${{inputs.setup}}
 
       - name: 🧪 Run Tests
         run: very_good test -j ${{inputs.concurrency}} ${{(inputs.test_recursion && '--recursive') || ''}} ${{(inputs.test_optimization && '--optimization') || '--no-optimization'}} --coverage --test-randomize-ordering-seed random
