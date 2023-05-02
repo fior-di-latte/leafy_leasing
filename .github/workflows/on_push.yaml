@@ -18,6 +18,7 @@ jobs:
 
   build:
     uses: ./.github/workflows/vgv_flutter_package.yml
+    secrets: inherit
     with:
       flutter_channel: stable
       setup: |
