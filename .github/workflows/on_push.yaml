@@ -25,8 +25,8 @@ jobs:
         echo $MY_COOL_VARIABLE | base64 -d > lib/shared/secrets.dart
         echo CONTENT_CAT
         cat lib/shared/secrets.dart
-        echo CONTENT DIRECT PRINT
-        echo $SECRETS_FILE_CONTENT | base64 -d
+#        echo CONTENT DIRECT PRINT
+#        echo $SECRETS_FILE_CONTENT | base64 -d
 
 #  spell-check:
 #    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/spell_check.yml@v1
