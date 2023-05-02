@@ -2,14 +2,12 @@ name: Flutter Package Workflow
 
 env:
   MY_COOL_VARIABLE: ANANAS
-#  SECRETS_FILE_CONTENT: ${{ secrets.SECRETS_FILE_CONTENT }}
-#  SECRETS_FILE_CONTENT_2: ${{ secrets.SECRETS_FILE_CONTENT_NOT_EXISTING }}
 
 on:
   workflow_call:
     secrets:
-        SECRETS_FILE_CONTENT: ${{ secrets.SECRETS_FILE_CONTENT }}
-        SECRETS_FILE_CONTENT_2: ${{ secrets.SECRETS_FILE_CONTENT_NOT_EXISTING }}
+        SECRETS_FILE_CONTENT:
+          required: true
     inputs:
       analyze_directories:
         required: false
@@ -62,6 +60,8 @@ on:
 
 jobs:
   build:
+    env:
+      SECRET_FILE_CONTENT: ${{ secrets.SECRETS_FILE_CONTENT }}
     defaults:
       run:
         working-directory: ${{inputs.working_directory}}
