@@ -6,7 +6,7 @@ part of 'metas_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$metasRepositoryHash() => r'a60be348473d2ac28e88e971fc7d18a9fd6bb526';
+String _$metasRepositoryHash() => r'cc0f7a4ac5e96af25f835cee9e9f7d2372a815c0';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -30,7 +30,7 @@ class _SystemHash {
 }
 
 typedef MetasRepositoryRef
-    = AutoDisposeProviderRef<HiveAsyncStreamRepository<AppointmentMetas>>;
+    = AutoDisposeProviderRef<HiveAsyncRepository<AppointmentMetas>>;
 
 /// See also [metasRepository].
 @ProviderFor(metasRepository)
@@ -38,7 +38,7 @@ const metasRepositoryProvider = MetasRepositoryFamily();
 
 /// See also [metasRepository].
 class MetasRepositoryFamily
-    extends Family<HiveAsyncStreamRepository<AppointmentMetas>> {
+    extends Family<HiveAsyncRepository<AppointmentMetas>> {
   /// See also [metasRepository].
   const MetasRepositoryFamily();
 
@@ -80,7 +80,7 @@ class MetasRepositoryFamily
 
 /// See also [metasRepository].
 class MetasRepositoryProvider
-    extends AutoDisposeProvider<HiveAsyncStreamRepository<AppointmentMetas>> {
+    extends AutoDisposeProvider<HiveAsyncRepository<AppointmentMetas>> {
   /// See also [metasRepository].
   MetasRepositoryProvider({
     required this.boxName,

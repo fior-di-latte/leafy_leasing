@@ -7,7 +7,7 @@ import 'package:leafy_leasing/shared/repository/hive_repository.dart';
 
 part 'metas_provider.g.dart';
 
-typedef MetasRepository = HiveAsyncStreamRepository<AppointmentMetas>;
+typedef MetasRepository = HiveAsyncRepository<AppointmentMetas>;
 
 @riverpod
 MetasRepository metasRepository(
@@ -16,8 +16,8 @@ MetasRepository metasRepository(
   required String key,
 }) {
   return dotenv.get('USE_HIVE_MOCK_BACKEND') == 'true'
-      ? HiveRepositoryAsyncStreamImpl<AppointmentMetas>(boxName, key: key)
-      : HiveRepositoryAsyncStreamImpl<AppointmentMetas>(boxName, key: key);
+      ? HiveAsyncRepositoryImpl<AppointmentMetas>(boxName, key: key)
+      : HiveAsyncRepositoryImpl<AppointmentMetas>(boxName, key: key);
 }
 
 @riverpod

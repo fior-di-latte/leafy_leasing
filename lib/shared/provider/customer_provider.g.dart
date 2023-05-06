@@ -7,7 +7,7 @@ part of 'customer_provider.dart';
 // **************************************************************************
 
 String _$customerRepositoryHash() =>
-    r'e1c88ab58051c5c77f4a58e96e769199938385c6';
+    r'9150e7469448d916e9d67881ceec26b9d2cd577c';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -31,15 +31,14 @@ class _SystemHash {
 }
 
 typedef CustomerRepositoryRef
-    = AutoDisposeProviderRef<HiveAsyncStreamRepository<Customer>>;
+    = AutoDisposeProviderRef<HiveAsyncRepository<Customer>>;
 
 /// See also [customerRepository].
 @ProviderFor(customerRepository)
 const customerRepositoryProvider = CustomerRepositoryFamily();
 
 /// See also [customerRepository].
-class CustomerRepositoryFamily
-    extends Family<HiveAsyncStreamRepository<Customer>> {
+class CustomerRepositoryFamily extends Family<HiveAsyncRepository<Customer>> {
   /// See also [customerRepository].
   const CustomerRepositoryFamily();
 
@@ -81,7 +80,7 @@ class CustomerRepositoryFamily
 
 /// See also [customerRepository].
 class CustomerRepositoryProvider
-    extends AutoDisposeProvider<HiveAsyncStreamRepository<Customer>> {
+    extends AutoDisposeProvider<HiveAsyncRepository<Customer>> {
   /// See also [customerRepository].
   CustomerRepositoryProvider({
     required this.boxName,

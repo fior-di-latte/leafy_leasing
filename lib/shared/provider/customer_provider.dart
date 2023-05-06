@@ -6,7 +6,7 @@ import 'package:leafy_leasing/shared/repository/hive_repository.dart';
 
 part 'customer_provider.g.dart';
 
-typedef CustomerRepository = HiveAsyncStreamRepository<Customer>;
+typedef CustomerRepository = HiveAsyncRepository<Customer>;
 
 @riverpod
 CustomerRepository customerRepository(
@@ -15,8 +15,8 @@ CustomerRepository customerRepository(
   required String key,
 }) {
   return dotenv.get('USE_HIVE_MOCK_BACKEND') == 'true'
-      ? HiveRepositoryAsyncStreamImpl<Customer>(boxName, key: key)
-      : HiveRepositoryAsyncStreamImpl<Customer>(boxName, key: key);
+      ? HiveAsyncRepositoryImpl<Customer>(boxName, key: key)
+      : HiveAsyncRepositoryImpl<Customer>(boxName, key: key);
 }
 
 @riverpod
