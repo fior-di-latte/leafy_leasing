@@ -196,6 +196,13 @@ The logo is designed with some help from [BlueWillow AI](https://www.bluewillow.
 * To initialize a new splash screen, use
 ```flutter pub run flutter_native_splash:create --path=flutter_native_splash.yaml```.
 
+## Secrets
+The developer has access to a file `lib/shared/secrets.dart` which is not pushed to the repository. It is the place for
+API keys and other access tokens. When a _Github workflow_ is triggered, it will create the file on the fly by accessing
+the Github Secrets and injecting them into the file. The file is then used by the app to access the secrets.
+The single _Github Repository Secret_ is called `SECRETS_FILE_CONTENT` and it contains the entire file content of `lib/secrets.dart`.
+
+It is saved as _base64_ and needs to be kept up to date: `base64 -i lib/shared/secrets.dart` is pasted into it.
 
 [coverage_badge]: coverage_badge.svg
 [flutter_localizations_link]: https://api.flutter.dev/flutter/flutter_localizations/flutter_localizations-library.html
