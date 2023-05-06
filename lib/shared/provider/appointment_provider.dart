@@ -1,19 +1,19 @@
+// Dart imports:
 import 'dart:async';
 
+// Project imports:
 import 'package:leafy_leasing/shared/base.dart';
 import 'package:leafy_leasing/shared/data_services/hive.dart';
 import 'package:leafy_leasing/shared/repository/abstract_repository.dart';
-
-import '../repository/hive_repository.dart';
+import 'package:leafy_leasing/shared/repository/hive_repository.dart';
 
 part 'appointment_provider.g.dart';
 
 typedef AppointmentRepository = HiveAsyncStreamRepository<Appointment>;
-
-/// TODO newer riverpod version will allow for generic families.
-/// which will allow to remove this boilerplate
-/// also, the ref.onDispose in [AppointmentState] below will be obsolete
-/// because it can also be handled in the generic family
+// TODO(Felix):  Newer riverpod version will allow for generic families.
+// which will allow to remove this boilerplate
+// also, the ref.onDispose in [AppointmentState] below will be obsolete
+// because it can also be handled in the generic family
 @riverpod
 AppointmentRepository appointmentRepository(
   Ref ref, {

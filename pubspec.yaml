@@ -1,60 +1,55 @@
 name: leafy_leasing
-description: A companion app for PaaS (Plants as a Service) companies.
 version: 1.0.0+1
 publish_to: none
-
-environment:
-  sdk: ">=2.18.0 <3.0.0"
-
-dependencies:
-  google_fonts: 2.2.0
-  freezed: ^2.1.0
-  flutter_hooks: ^0.18.6
-  gap: ^2.0.0
+description: A companion app for PaaS (Plants as a Service) companies.
+environment: 
+  sdk: '>=2.18.0 <3.0.0'
+dependencies: 
+  auto_route: ^6.4.0
   auto_size_text: ^3.0.0
-  hive_flutter:
-  # flutter_dotenv: ^5.0.2
-  hooks_riverpod: ^2.3.6
-  riverpod_annotation: ^2.1.1
   dartx: ^1.1.0
-  json_annotation: ^4.8.0
-  hive_generator:
-  flutter_animate: 4.1.1+1
-  auto_route: ^6.0.5
-  flutter_native_splash: ^2.1.6
-  settings_ui: ^2.0.2
-  flutter_loggy: ^2.0.1
-
-  # standard
-  flutter:
-    sdk: flutter
-  flutter_localizations:
-    sdk: flutter
-  intl: ^0.17.0
-  relative_time: ^3.0.0
-  flutter_dotenv: ^5.0.2
+  easy_debounce: ^2.0.3
   flash: ^3.0.3
+  flutter_animate: 4.1.1+1
+  flutter_dotenv: ^5.0.2
+  flutter_hooks: ^0.18.6
+  flutter_loggy: ^2.0.2
+  flutter_native_splash: ^2.1.6
+  freezed: ^2.1.0
+  freezed_annotation: ^2.2.0
+  gap: ^2.0.0
+  google_fonts: 2.2.0
+  hive_flutter: any
+  hive_generator: any
+  hooks_riverpod: ^2.3.6
+  intl: ^0.17.0
+  json_annotation: ^4.8.0
+  loggy: ^2.0.1
+  relative_time: ^3.0.0
+  riverpod_annotation: ^2.1.1
   rnd: ^0.2.0
+  settings_ui: ^2.0.2
 
-dev_dependencies:
-  bloc_test: ^9.1.1
-  flutter_test:
+  flutter: 
     sdk: flutter
-  mocktail: ^0.3.0
-  very_good_analysis: ^3.1.0
+  flutter_localizations: 
+    sdk: flutter
+  retry: ^3.1.1
+dev_dependencies: 
+  auto_route_generator: ^6.2.0
   build_runner: ^2.1.7
-  json_serializable:
+  custom_lint: any
   flutter_launcher_icons: ^0.13.1
-  auto_route_generator: 6.0.3
-  custom_lint:
+  json_serializable: any
+  mocktail: ^0.3.0
+  pubspec_dependency_sorter: ^1.0.3
   riverpod_generator: ^2.2.1
   riverpod_lint: ^1.3.1
-
-
-flutter:
-  uses-material-design: true
-  generate: true
-  assets:
+  very_good_analysis: ^3.1.0
+  flutter_test: 
+    sdk: flutter
+flutter: 
+  assets: 
     - assets/image/logo.png
     - assets/image/logo_v2.png
     - assets/mock_data/customers.json
@@ -64,4 +59,5 @@ flutter:
     - dotenv/dev.env
     - dotenv/production.env
     - dotenv/staging.env
-
+  uses-material-design: true
+  generate: true

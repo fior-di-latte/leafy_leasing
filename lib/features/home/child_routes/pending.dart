@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:leafy_leasing/features/home/model/appointment_meta.dart';
 import 'package:leafy_leasing/features/home/provider/metas_provider.dart';
 import 'package:leafy_leasing/features/home/widget/appointment_listcard.dart';
@@ -10,20 +11,20 @@ class PendingScreen extends HookConsumerWidget with UiLoggy {
   const PendingScreen({super.key});
 
   @override
-  Widget build(BuildContext ctx, WidgetRef ref) => HomeScaffold(
+  Widget build(BuildContext context, WidgetRef ref) => HomeScaffold(
         body: ref.watch(metasStateProvider).whenFine((metas) {
           return HookBuilder(
-            builder: (ctx) {
+            builder: (context) {
               final sorted = useSortMetas(metas.pending);
               return Visibility(
                 visible: sorted.isNotEmpty,
                 replacement: EmptyIterableInfo(
-                  hintText: ctx.lc.pendingAppointmentsHere,
+                  hintText: context.lc.pendingAppointmentsHere,
                 ),
                 child: ListView.builder(
                   cacheExtent: 8000,
                   itemCount: sorted.length,
-                  itemBuilder: (ctx, idx) => AppointmentListCard(
+                  itemBuilder: (context, idx) => AppointmentListCard(
                     sorted[idx].id,
                   ),
                 ).animate().fadeIn(),
@@ -31,7 +32,7 @@ class PendingScreen extends HookConsumerWidget with UiLoggy {
             },
           );
         }),
-        title: ctx.lc.appTitle,
+        title: context.lc.appTitle,
         hasFloatingButton: true,
       );
 }

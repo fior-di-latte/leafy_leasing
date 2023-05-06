@@ -1,0 +1,37 @@
+name: leafy_leasing
+
+concurrency:
+  group: $-$
+  cancel-in-progress: true
+
+on: [push]
+#  push:
+#    branches:
+#      - main
+#  pull_request:
+#    branches:
+#      - main
+
+jobs:
+  semantic-pull-request:
+    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/semantic_pull_request.yml@v1
+
+  build:
+    uses: ./.github/workflows/vgv_flutter_package.yml
+    secrets: inherit
+    with:
+      flutter_channel: stable
+      setup: |
+        echo $SECRETS_FILE_CONTENT &&
+        echo $SECRETS_FILE_CONTENT | base64 -d > lib/shared/secrets.dart
+        echo CONTENT_CAT
+        cat lib/shared/secrets.dart
+#        echo CONTENT DIRECT PRINT
+#        echo $SECRETS_FILE_CONTENT | base64 -d
+
+#  spell-check:
+#    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/spell_check.yml@v1
+#    with:
+#      includes: |
+#        **/*.md
+#      modified_files_only: false

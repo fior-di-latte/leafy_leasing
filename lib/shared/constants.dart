@@ -1,6 +1,7 @@
+// Project imports:
 import 'package:leafy_leasing/shared/base.dart';
 
-final kMockNetworkLag = 1800.milliseconds;
+final kMockNetworkLag = 300.milliseconds;
 const sPadding = 8.0;
 const mPadding = 12.0;
 const lPadding = 16.0;
@@ -10,10 +11,10 @@ const kCancelButtonHeroTag = 'cancelButton';
 const kCloseButtonHeroTag = 'closeButton';
 const kAppointmentCardHeroTagPrefix = 'appointmentHero';
 const kUnicodeFun = [
-  r'乁⁠༼⁠☯⁠。⁠☯⁠✿⁠༽⁠ㄏ',
+  '乁⁠༼⁠☯⁠。⁠☯⁠✿⁠༽⁠ㄏ',
   r'¯\_(ツ)_/¯',
   'ヽ(。_°)ノ',
   '(ಠ_ಠ)',
   '(≥o≤)',
-  r'┌(・。・)┘'
+  '┌(・。・)┘'
 ];

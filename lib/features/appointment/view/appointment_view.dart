@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:leafy_leasing/features/appointment/widget/appointment_address_card.dart';
 import 'package:leafy_leasing/features/appointment/widget/appointment_card_extended.dart';
 import 'package:leafy_leasing/features/appointment/widget/appointment_contact_card.dart';
@@ -11,7 +12,7 @@ class AppointmentScreen extends ConsumerWidget with UiLoggy {
   final String id;
 
   @override
-  Widget build(BuildContext ctx, WidgetRef ref) => Scaffold(
+  Widget build(BuildContext context, WidgetRef ref) => Scaffold(
         appBar: AppBar(
           title: Row(
             children: [
@@ -22,7 +23,7 @@ class AppointmentScreen extends ConsumerWidget with UiLoggy {
                 ),
               ),
               Text(
-                ctx.lc.appointmentTitle,
+                context.lc.appointmentTitle,
               )
             ],
           ),
@@ -49,7 +50,7 @@ class AppointmentScreen extends ConsumerWidget with UiLoggy {
                               child: Hero(
                                 tag: kCancelButtonHeroTag,
                                 child: AppointmentActionButton.cancel(
-                                  ctx,
+                                  context,
                                   id: id,
                                 ),
                               ),
@@ -59,7 +60,7 @@ class AppointmentScreen extends ConsumerWidget with UiLoggy {
                               child: Hero(
                                 tag: kCloseButtonHeroTag,
                                 child: AppointmentActionButton.close(
-                                  ctx,
+                                  context,
                                   id: id,
                                 ),
                               ),

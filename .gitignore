@@ -1,3 +1,5 @@
+# Secrets
+/lib/shared/secrets.dart
 # Miscellaneous
 *.class
 *.lock
@@ -9,7 +11,7 @@
 .buildlog/
 .history
 .svn/
-*.env
+# *.env <- these are used for unsensitive data only and are thus OK being uploaded to GitHub
 
 # IntelliJ related
 *.iml
@@ -92,7 +94,6 @@ unlinked_spec.ds
 **/ios/Flutter/Generated.xcconfig
 **/ios/Flutter/app.flx
 **/ios/Flutter/app.zip
-**/ios/Flutter/.last_build_id
 **/ios/Flutter/flutter_assets/
 **/ios/Flutter/flutter_export_environment.sh
 **/ios/ServiceDefinitions.json
@@ -125,4 +126,4 @@ app.*.map.json
 !.vscode/launch.json
 !.idea/codeStyles/
 !.idea/dictionaries/
-!.idea/runConfigurations/
+!.idea/runConfigurations/!/lib/shared/secrets.dart

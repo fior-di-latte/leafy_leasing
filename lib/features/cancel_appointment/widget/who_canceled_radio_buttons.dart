@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:leafy_leasing/shared/base.dart';
 
 class WhoCanceledRadioButtons extends StatelessWidget {
@@ -9,10 +10,10 @@ class WhoCanceledRadioButtons extends StatelessWidget {
   final ValueNotifier<bool?> canceledByCustomer;
 
   @override
-  Widget build(BuildContext ctx) {
+  Widget build(BuildContext context) {
     return Container(
       height: 200,
-      width: ctx.width * .9,
+      width: context.width * .9,
       alignment: Alignment.center,
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -23,8 +24,8 @@ class WhoCanceledRadioButtons extends StatelessWidget {
             },
             subtitle: Text(
               '(Name of customer as subtitle)',
-              style: ctx.tt.bodySmall!.copyWith(
-                color: ctx.cs.onBackground.withOpacity(.7),
+              style: context.tt.bodySmall!.copyWith(
+                color: context.cs.onBackground.withOpacity(.7),
               ),
             ),
             title: const Text('Customer canceled'),

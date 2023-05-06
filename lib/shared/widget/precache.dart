@@ -1,4 +1,4 @@
-import 'package:leafy_leasing/features/home/provider/metas_provider.dart';
+// Project imports:
 import 'package:leafy_leasing/shared/base.dart';
 
 class PrecacheProvider extends ConsumerWidget {
@@ -32,8 +32,8 @@ class SnackbarListener extends ConsumerWidget with UiLoggy {
 
   final Widget child;
   @override
-  Widget build(BuildContext ctx, WidgetRef ref) {
-    ref.listen(notificationProvider, (_, cb) => cb(ctx));
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen(notificationProvider, (_, cb) => cb(context));
     return child;
   }
 }
@@ -45,7 +45,7 @@ class WarmUp extends ConsumerWidget with UiLoggy {
   final Widget child;
 
   @override
-  Widget build(BuildContext ctx, WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     if (providers == null) {
       return child;
     }

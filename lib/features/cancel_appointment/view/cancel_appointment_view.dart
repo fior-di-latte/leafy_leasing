@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:leafy_leasing/features/cancel_appointment/widget/who_canceled_radio_buttons.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
@@ -8,13 +9,13 @@ class CancelAppointmentScreen extends HookConsumerWidget with UiLoggy {
   final String id;
 
   @override
-  Widget build(BuildContext ctx, WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final canceledByCustomer = useLoggedState<bool?>(null);
     final hasChosenAlready = canceledByCustomer.value != null;
     final commentTextController = useTextEditingController();
     return Scaffold(
       appBar: AppBar(
-        title: Text(ctx.lc.cancelAppointmentTitle),
+        title: Text(context.lc.cancelAppointmentTitle),
       ),
       body: Padding(
         padding: const EdgeInsets.all(lPadding),
@@ -45,8 +46,8 @@ class CancelAppointmentScreen extends HookConsumerWidget with UiLoggy {
                               ? const SizedBox.shrink()
                               : Text(
                                   'Who canceled\nthe appointment?',
-                                  style: ctx.tt.headlineLarge!.copyWith(
-                                    color: ctx.cs.onBackground,
+                                  style: context.tt.headlineLarge!.copyWith(
+                                    color: context.cs.onBackground,
                                     fontStyle: FontStyle.italic,
                                   ),
                                 ),
@@ -64,7 +65,8 @@ class CancelAppointmentScreen extends HookConsumerWidget with UiLoggy {
                           duration: 260.milliseconds,
                           child: hasChosenAlready
                               ?
-                              // Textfield with input decoration and caption: 'Comment (optional')
+                              // Textfield with input decoration and caption:
+                              // 'Comment (optional')
                               CommentTextField(commentTextController)
                               : const SizedBox.shrink(),
                         ),
@@ -81,7 +83,7 @@ class CancelAppointmentScreen extends HookConsumerWidget with UiLoggy {
                 child: Hero(
                   tag: kCancelButtonHeroTag,
                   child: AppointmentActionButton.cancelFinalize(
-                    ctx,
+                    context,
                     ref,
                     commentTextController: commentTextController,
                     newStatus: _getNewStatus(canceledByCustomer.value),

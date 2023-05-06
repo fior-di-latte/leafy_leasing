@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:leafy_leasing/features/home/model/appointment_meta.dart';
 import 'package:leafy_leasing/features/home/provider/metas_provider.dart';
 import 'package:leafy_leasing/shared/base.dart';
@@ -15,7 +16,7 @@ class NavigationBadge extends HookConsumerWidget with UiLoggy {
   final bool forClosed;
   final bool forCanceled;
   @override
-  Widget build(BuildContext ctx, WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return ref.watch(metasStateProvider).whenFine((metas) {
       final caption = _getCaption(metas);
       final isVisible = caption != '0';

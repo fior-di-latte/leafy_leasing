@@ -1,14 +1,16 @@
+// Dart imports:
 import 'dart:async';
 
+// Project imports:
 import 'package:leafy_leasing/shared/base.dart';
-
 import 'package:leafy_leasing/shared/repository/abstract_repository.dart';
+
 export 'appointment_provider.dart';
 export 'customer_provider.dart';
 export 'notification_provider.dart';
 export 'settings_provider.dart';
 
-typedef ErrorUiCallback = void Function(BuildContext ctx);
+typedef ErrorUiCallback = void Function(BuildContext context);
 
 mixin AsyncRepositoryMixin<T> {
   late AsyncRepository<T> repository;
@@ -43,7 +45,7 @@ mixin AsyncRepositoryMixin<T> {
     ErrorUiCallback? errorUiCallback,
     bool defaultCallback = true,
   }) async {
-    final oldValue = state.value!;
+    final oldValue = state;
     logInfo('Optimistic Update: $newValue');
     state = AsyncValue.data(newValue);
     try {
@@ -57,7 +59,7 @@ mixin AsyncRepositoryMixin<T> {
       } else if (defaultCallback) {
         notifications.state = _defaultErrorCallback;
       }
-      state = AsyncValue.data(oldValue);
+      state = oldValue;
     } finally {
       if (invalidateFinally) {
         ref.invalidateSelf();
@@ -65,13 +67,13 @@ mixin AsyncRepositoryMixin<T> {
     }
   }
 
-  void _defaultErrorCallback(BuildContext ctx) => showTopInfo(
-        ctx,
-        textColor: ctx.cs.error,
+  void _defaultErrorCallback(BuildContext context) => showTopInfo(
+        context,
+        textColor: context.cs.error,
         leading: Icon(
           Icons.error_outline_outlined,
-          color: ctx.cs.error,
+          color: context.cs.error,
         ),
-        title: ctx.lc.somethingWentWrong,
+        title: context.lc.somethingWentWrong,
       );
 }

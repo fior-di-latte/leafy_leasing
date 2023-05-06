@@ -1,7 +1,10 @@
+// Dart imports:
 import 'dart:async';
 
+// Flutter imports:
 import 'package:flutter/foundation.dart';
-import 'package:leafy_leasing/app/view/app.dart';
+
+// Project imports:
 import 'package:leafy_leasing/features/home/provider/metas_provider.dart';
 import 'package:leafy_leasing/shared/base.dart';
 import 'package:leafy_leasing/shared/data_services/hive.dart';

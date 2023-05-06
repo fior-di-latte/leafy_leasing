@@ -1,16 +1,9 @@
+// Dart imports:
 import 'dart:async';
 
+// Project imports:
 import 'package:leafy_leasing/l10n/l10n.dart';
 import 'package:leafy_leasing/shared/base.dart';
-
-ValueNotifier<T> useLoggedState<T>(T initialData) {
-  final result = useState<T>(initialData);
-  useValueChanged<T, Object>(result.value, (_, __) {
-    logInfo('Local state changed to: ${result.value}');
-    return null;
-  });
-  return result;
-}
 
 extension AddConvenience on BuildContext {
   AppLocalizations get lc => AppLocalizations.of(this);
@@ -19,7 +12,6 @@ extension AddConvenience on BuildContext {
   ThemeData get thm => Theme.of(this);
   ColorScheme get cs => Theme.of(this).colorScheme;
   TextTheme get tt => Theme.of(this).textTheme;
-  TextTheme get att => Theme.of(this).accentTextTheme;
 }
 
 extension TestExtension<T> on AutoDisposeRef<T> {
@@ -74,11 +66,11 @@ extension AddCustomLoadingErrorWidgets<T> on AsyncValue<T> {
 }
 
 // generate a color from a string in a deterministic manner
-Color stringToColor(String str, BuildContext ctx) {
+Color stringToColor(String str, BuildContext context) {
   final hash = str.hashCode;
   final r = (hash & 0xFF0000) >> 16;
   final g = (hash & 0x00FF00) >> 8;
   final b = hash & 0x0000FF;
-  return Color.lerp(Color.fromARGB(255, r, g, b), ctx.cs.primary, .5)!
+  return Color.lerp(Color.fromARGB(255, r, g, b), context.cs.primary, .5)!
       .withOpacity(.5);
 }

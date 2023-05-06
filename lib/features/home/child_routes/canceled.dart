@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:leafy_leasing/features/home/provider/metas_provider.dart';
 import 'package:leafy_leasing/features/home/widget/appointment_listcard.dart';
 import 'package:leafy_leasing/features/home/widget/custom_scaffold.dart';
@@ -9,21 +10,21 @@ class CanceledScreen extends HookConsumerWidget with UiLoggy {
   const CanceledScreen({super.key});
 
   @override
-  Widget build(BuildContext ctx, WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return HomeScaffold(
       body: ref.watch(metasStateProvider).whenFine((metas) {
         return HookBuilder(
-          builder: (ctx) {
+          builder: (context) {
             final sorted = useSortMetas(metas.canceled);
             return Visibility(
               visible: sorted.isNotEmpty,
               replacement: EmptyIterableInfo(
-                hintText: ctx.lc.canceledAppointmentsHere,
+                hintText: context.lc.canceledAppointmentsHere,
               ),
               child: ListView.builder(
                 cacheExtent: 8000,
                 itemCount: sorted.length,
-                itemBuilder: (ctx, idx) => Stack(
+                itemBuilder: (context, idx) => Stack(
                   children: [
                     AppointmentListCard(
                       sorted[idx].id,
@@ -48,7 +49,7 @@ class CanceledScreen extends HookConsumerWidget with UiLoggy {
           },
         );
       }),
-      title: ctx.lc.canceledTitle,
+      title: context.lc.canceledTitle,
     );
   }
 }

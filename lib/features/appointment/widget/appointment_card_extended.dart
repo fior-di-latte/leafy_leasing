@@ -1,10 +1,11 @@
+// Project imports:
 import 'package:leafy_leasing/shared/base.dart';
 
 class AppointmentCardExtended extends HookConsumerWidget with UiLoggy {
   const AppointmentCardExtended(this.id, {super.key});
   final String id;
   @override
-  Widget build(BuildContext ctx, WidgetRef ref) => Stack(
+  Widget build(BuildContext context, WidgetRef ref) => Stack(
         clipBehavior: Clip.none,
         children: [
           Card(
@@ -43,7 +44,7 @@ class _InnerExtendedCard extends StatelessWidget {
   final Customer customer;
 
   @override
-  Widget build(BuildContext ctx) {
+  Widget build(BuildContext context) {
     return Column(
       children: [
         const Gap(40),
@@ -54,7 +55,7 @@ class _InnerExtendedCard extends StatelessWidget {
             Expanded(
               child: AutoSizeText(
                 customer.companyName,
-                style: ctx.tt.displayMedium,
+                style: context.tt.displayMedium,
                 maxLines: 2,
                 maxFontSize: 34,
               ),
@@ -70,14 +71,14 @@ class _InnerExtendedCard extends StatelessWidget {
               Icon(
                 Icons.location_on_outlined,
                 size: kIconSizeOnCards,
-                color: ctx.thm.disabledColor,
+                color: context.thm.disabledColor,
               ),
               const Gap(8),
               Expanded(
                 child: AutoSizeText(
                   customer.city,
-                  style: ctx.tt.bodyMedium!
-                      .copyWith(color: ctx.thm.disabledColor, fontSize: 45),
+                  style: context.tt.bodyMedium!
+                      .copyWith(color: context.thm.disabledColor, fontSize: 45),
                   maxLines: 1,
                   maxFontSize: 45,
                 ),
@@ -95,7 +96,7 @@ class _InnerExtendedCard extends StatelessWidget {
                     Icons.calendar_month_outlined,
                   ),
                   label: Text(
-                    RelativeTime(ctx).format(appointment.date),
+                    RelativeTime(context).format(appointment.date),
                     style: const TextStyle(color: Colors.black),
                   ),
                 ),

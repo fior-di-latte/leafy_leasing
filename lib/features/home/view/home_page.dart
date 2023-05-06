@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:leafy_leasing/features/home/widget/navigation_badges.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
@@ -5,20 +6,20 @@ import 'package:leafy_leasing/shared/base.dart';
 class HomeScreen extends HookConsumerWidget {
   const HomeScreen({super.key});
   @override
-  Widget build(BuildContext ctx, WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     // return PlaygroundWidget();
     return SnackbarListener(
       child: AutoTabsRouter.tabBar(
         routes: const [PendingRoute(), DoneRoute(), CanceledRoute()],
-        builder: (ctx, child, _) {
-          final tabsRouter = AutoTabsRouter.of(ctx);
+        builder: (context, child, _) {
+          final tabsRouter = AutoTabsRouter.of(context);
           return Column(
             children: [
               Expanded(child: child),
               SizedBox(
                 height: 60,
                 child: BottomNavigationBar(
-                  backgroundColor: ctx.thm.scaffoldBackgroundColor,
+                  backgroundColor: context.thm.scaffoldBackgroundColor,
                   iconSize: 20,
                   showSelectedLabels: false,
                   elevation: 4,

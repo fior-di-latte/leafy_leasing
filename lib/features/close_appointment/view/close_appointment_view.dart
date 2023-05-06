@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:leafy_leasing/features/close_appointment/widget/success_radiobuttons.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
@@ -8,13 +9,13 @@ class CloseAppointmentScreen extends HookConsumerWidget with UiLoggy {
   final String id;
 
   @override
-  Widget build(BuildContext ctx, WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final wasSuccessful = useLoggedState<bool?>(null);
     final hasChosenAlready = wasSuccessful.value != null;
     final commentTextController = useTextEditingController();
     return Scaffold(
       appBar: AppBar(
-        title: Text(ctx.lc.closeAppointmentTitle),
+        title: Text(context.lc.closeAppointmentTitle),
       ),
       body: Padding(
         padding: const EdgeInsets.all(lPadding),
@@ -44,9 +45,9 @@ class CloseAppointmentScreen extends HookConsumerWidget with UiLoggy {
                           child: hasChosenAlready
                               ? const SizedBox.shrink()
                               : Text(
-                                  ctx.lc.wasAppointmentSuccessful,
-                                  style: ctx.tt.headlineLarge!.copyWith(
-                                    color: ctx.cs.onBackground,
+                                  context.lc.wasAppointmentSuccessful,
+                                  style: context.tt.headlineLarge!.copyWith(
+                                    color: context.cs.onBackground,
                                     fontStyle: FontStyle.italic,
                                   ),
                                 ),
@@ -64,7 +65,8 @@ class CloseAppointmentScreen extends HookConsumerWidget with UiLoggy {
                           duration: 260.milliseconds,
                           child: hasChosenAlready
                               ?
-                              // Textfield with input decoration and caption: 'Comment (optional')
+                              // Textfield with input decoration and caption:
+                              // 'Comment (optional')
                               CommentTextField(commentTextController)
                               : const SizedBox.shrink(),
                         ),
@@ -81,7 +83,7 @@ class CloseAppointmentScreen extends HookConsumerWidget with UiLoggy {
                 child: Hero(
                   tag: kCloseButtonHeroTag,
                   child: AppointmentActionButton.closeFinalize(
-                    ctx,
+                    context,
                     ref,
                     commentTextController: commentTextController,
                     newStatus: _getNewStatus(wasSuccessful.value),

@@ -1,5 +1,3 @@
-import 'package:hive_flutter/hive_flutter.dart';
-
 abstract class AsyncRepository<T> {
   Future<T> put(T item);
   Future<void> delete();
@@ -24,8 +22,4 @@ abstract class HiveAsyncStreamRepository<T> extends AsyncRepository<T> {
 abstract class HiveSyncRepository<T> extends SyncRepository<T> {
   abstract final String boxName;
   abstract final String key;
-}
-
-abstract class RepositoryBasedAsyncProvider<T> {
-  AsyncRepository<T> get _repository;
 }

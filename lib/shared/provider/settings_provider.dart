@@ -1,9 +1,8 @@
+// Project imports:
 import 'package:leafy_leasing/shared/base.dart';
-
+import 'package:leafy_leasing/shared/data_services/hive.dart';
 import 'package:leafy_leasing/shared/repository/abstract_repository.dart';
 import 'package:leafy_leasing/shared/repository/hive_repository.dart';
-
-import '../data_services/hive.dart';
 
 part 'settings_provider.g.dart';
 
@@ -24,7 +23,8 @@ class SettingsState extends _$SettingsState {
   @override
   Settings build() {
     _repository = ref.watch(
-        settingsRepositoryProvider(key: hiveSettings, boxName: hiveSettings));
+      settingsRepositoryProvider(key: hiveSettings, boxName: hiveSettings),
+    );
     return _repository.get()!;
   }
 

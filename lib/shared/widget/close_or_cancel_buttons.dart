@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:leafy_leasing/features/home/provider/metas_provider.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
@@ -11,20 +12,20 @@ abstract class AppointmentActionButton extends StatelessWidget with UiLoggy {
     super.key,
   });
   factory AppointmentActionButton.cancel(
-    BuildContext ctx, {
+    BuildContext context, {
     required String id,
     Key? key,
   }) =>
       _Button(
-        onTap: () => ctx.router.push(CancelAppointmentRoute(id: id)),
+        onTap: () => context.router.push(CancelAppointmentRoute(id: id)),
         icon: Icons.cancel_outlined,
-        foregroundColor: ctx.cs.error,
-        labelText: ctx.lc.cancelAppointment,
+        foregroundColor: context.cs.error,
+        labelText: context.lc.cancelAppointment,
         key: key,
       );
 
   factory AppointmentActionButton.cancelFinalize(
-    BuildContext ctx,
+    BuildContext context,
     WidgetRef ref, {
     required String id,
     required AppointmentStatus? newStatus,
@@ -36,7 +37,8 @@ abstract class AppointmentActionButton extends StatelessWidget with UiLoggy {
         icon: Icons.cancel_outlined,
         onTap: () {
           logInfo(
-            'Cancel appointment with id $id. New status $newStatus, Comment ${commentTextController.text}',
+            'Cancel appointment with id $id. New status $newStatus,'
+            ' Comment ${commentTextController.text}',
           );
 
           ref.read(metasStateProvider.notifier).cancelAppointment(id);
@@ -44,17 +46,16 @@ abstract class AppointmentActionButton extends StatelessWidget with UiLoggy {
                 newStatus: newStatus!,
                 comment: commentTextController.text,
               );
-          // ctx.router.navigate(const HomeRoute());
-          ctx.router.pop();
+          context.router.navigate(const HomeRoute());
         },
-        foregroundColor: ctx.cs.error,
-        labelText: ctx.lc.cancelAppointmentNow,
+        foregroundColor: context.cs.error,
+        labelText: context.lc.cancelAppointmentNow,
         isGreyedOut: isGreyedOut,
         key: key,
       );
 
   factory AppointmentActionButton.closeFinalize(
-    BuildContext ctx,
+    BuildContext context,
     WidgetRef ref, {
     required String id,
     required TextEditingController commentTextController,
@@ -66,31 +67,32 @@ abstract class AppointmentActionButton extends StatelessWidget with UiLoggy {
         icon: Icons.check_circle_outline,
         onTap: () {
           logInfo(
-            'Cancel appointment with id $id. New status $newStatus, Comment ${commentTextController.text}',
+            'Cancel appointment with id $id. New status $newStatus,'
+            ' Comment ${commentTextController.text}',
           );
           ref.read(appointmentStateProvider(id).notifier).closeAppointment(
                 newStatus: newStatus!,
                 comment: commentTextController.text,
               );
           ref.read(metasStateProvider.notifier).closeAppointment(id);
-          ctx.router.navigate(const HomeRoute());
+          context.router.navigate(const HomeRoute());
         },
         isGreyedOut: isGreyedOut,
-        foregroundColor: ctx.cs.primary,
-        labelText: ctx.lc.closeAppointmentNow,
+        foregroundColor: context.cs.primary,
+        labelText: context.lc.closeAppointmentNow,
         key: key,
       );
 
   factory AppointmentActionButton.close(
-    BuildContext ctx, {
+    BuildContext context, {
     required String id,
     Key? key,
   }) =>
       _Button(
         icon: Icons.check_circle_outline,
-        onTap: () => ctx.router.push(CloseAppointmentRoute(id: id)),
-        foregroundColor: ctx.cs.primary,
-        labelText: ctx.lc.closeAppointment,
+        onTap: () => context.router.push(CloseAppointmentRoute(id: id)),
+        foregroundColor: context.cs.primary,
+        labelText: context.lc.closeAppointment,
         key: key,
       );
 
@@ -101,7 +103,7 @@ abstract class AppointmentActionButton extends StatelessWidget with UiLoggy {
   final String labelText;
 
   @override
-  Widget build(BuildContext ctx) {
+  Widget build(BuildContext context) {
     Widget current = OutlinedButton(
       style: OutlinedButton.styleFrom(
         foregroundColor: foregroundColor,
@@ -117,7 +119,7 @@ abstract class AppointmentActionButton extends StatelessWidget with UiLoggy {
               child: Text(
                 labelText,
                 textAlign: TextAlign.center,
-                style: ctx.tt.labelSmall,
+                style: context.tt.labelSmall,
               ),
             ),
           ),

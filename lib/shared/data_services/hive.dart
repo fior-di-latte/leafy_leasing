@@ -1,8 +1,13 @@
+// Dart imports:
 import 'dart:convert';
 
+// Flutter imports:
 import 'package:flutter/services.dart';
+
+// Package imports:
 import 'package:hive_flutter/hive_flutter.dart';
 
+// Project imports:
 import 'package:leafy_leasing/features/home/model/appointment_meta.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
@@ -51,7 +56,7 @@ Future<void> _fillBox<T>({
   final box = Hive.box<T>(boxName);
 
   final json = await rootBundle.loadString(jsonPath);
-  final list = jsonDecode(json)[boxName] as List<dynamic>;
+  final list = (jsonDecode(json) as Map)[boxName] as List<dynamic>;
 
   for (final item in list) {
     final map = item as Map<String, dynamic>;
@@ -99,7 +104,7 @@ class ThemeModeAdapter extends TypeAdapter<ThemeMode> {
   }
 
   @override
-  void write(BinaryWriter writer, ThemeMode themeMode) {
-    writer.write(ThemeMode.values.indexOf(themeMode));
+  void write(BinaryWriter writer, ThemeMode obj) {
+    writer.write(ThemeMode.values.indexOf(obj));
   }
 }

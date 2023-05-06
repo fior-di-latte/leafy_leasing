@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:leafy_leasing/shared/base.dart';
 
 class FinalCommentDisplay extends ConsumerWidget {
@@ -7,7 +8,7 @@ class FinalCommentDisplay extends ConsumerWidget {
   });
   final String id;
   @override
-  Widget build(BuildContext ctx, WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return ref.watch(appointmentStateProvider(id)).whenFine(
           (appointment) => Card(
             child: Padding(
@@ -27,9 +28,9 @@ class FinalCommentDisplay extends ConsumerWidget {
                         ),
                         const Gap(sPadding),
                         Text(
-                          appointment.status.labelText(ctx),
+                          appointment.status.labelText(context),
                           textAlign: TextAlign.center,
-                          style: ctx.tt.labelLarge!.copyWith(fontSize: 15),
+                          style: context.tt.labelLarge!.copyWith(fontSize: 15),
                         )
                       ],
                     ),
@@ -44,11 +45,11 @@ class FinalCommentDisplay extends ConsumerWidget {
                       child: AutoSizeText(
                         appointment.hasComment
                             ? appointment.comment!
-                            : ctx.lc.noCommentFound,
-                        style: ctx.tt.bodyMedium!.copyWith(
+                            : context.lc.noCommentFound,
+                        style: context.tt.bodyMedium!.copyWith(
                           color: appointment.hasComment
-                              ? ctx.thm.hintColor
-                              : ctx.thm.disabledColor,
+                              ? context.thm.hintColor
+                              : context.thm.disabledColor,
                         ),
                         maxLines: 6,
                         overflow: TextOverflow.ellipsis,

@@ -12,23 +12,20 @@ _"A companion app for PaaS (_Plants as a Service_) companies."_
 ### Under the hood
 * 💅  Design System: Material 3 with a green seed color, incl. dark  and light mode
 * 🏄‍♂ ️State Management: `riverpod`: All _AsyncStates_ _(loading, error, data)_ handled by UI
-* ➡️ Monodirectional Data Flow: Data Service -> Repository -> StateNotifierProvider -> UI
+* ➡️ Mono-directional Data Flow: Data Service -> Repository -> AsyncNotifierProvider -> UI
 * 🪝 Local State Management: `flutter_hooks`
 * 🐝 Data Persistence: `hive`
 * 🧭 Navigation: `auto_route`
 * 🗣️ Internationalization: `flutter_localizations`
 * 📄 Declarative Logging: `loggy` with listeners on providers (BL), widget states and route changes.
 * 🤌 Lint Rules: `very_good_analysis`
+* 🏭 Continuous Integration: `Github Action` with a `very good workflow` as the base
 
 Mock backend via local NoSQL database (`hive`), initialized with json data & made pseudo async with a short network delay of 300 milliseconds.
 
 Developed using Flutter 3.7.8 and Dart 2.19.5, tested **only** on Android (API 31, Pixel 4a Emulator).
-_No tests, no actively used flavors._
 ### Todos
 * Tests
-* Flavors for CI/CD
-* Proper abstraction of repositories (s.t. backend is easily _'pluggable'_)
-* Persistance of `ThemeMode`and `Locale` over app restarts with `hive`
 * Change App Logo to Leafy Leasing Logo.
 
 ---
@@ -59,20 +56,20 @@ $ flutter run --flavor production --target lib/main_production.dart
 _\*Leafy Leasing should work on iOS, Android, Web, and Windows._
 
 
-**All those flavors are currently pointing to the same bootstrap function.** 
+**All those flavors are pointing to the same bootstrap function but have different `dotenvs`.** 
 
 ---
 ## Commit Keys 🔑
 * **ICM**  Big new structure (e.g. new backend integration or project setup) (w/o features)
 * **FT**  New Feature
 * **REF**  Refactoring
-* **ENH**  Enhancement (w/o UI)
-* **UI**   User Interface Enhancement
+* **RM**   Removal
+* **ENH**  Enhancement
 * **BFX**  Bugfix
 * **DAT**  Data (configs, dummy data)
-* **IMG**  Images / Animation
 * **LOC**  Localization / Internationalization
-* **DEP**  Deployment
+* **DEP**  Deployment (e.g. CI/CD)
+* **DOC**  Documentation (e.g. README, docstrings)
 
 
 ---
@@ -137,8 +134,7 @@ import 'package:leafy_leasing/l10n/l10n.dart';
 
 @override
 Widget build(BuildContext context) {
-  final l10n = context.l10n;
-  return Text(l10n.helloWorld);
+  return Text(context.lc.helloWorld);
 }
 ```
 
@@ -200,6 +196,13 @@ The logo is designed with some help from [BlueWillow AI](https://www.bluewillow.
 * To initialize a new splash screen, use
 ```flutter pub run flutter_native_splash:create --path=flutter_native_splash.yaml```.
 
+## Secrets
+The developer has access to a file `lib/shared/secrets.dart` which is not pushed to the repository. It is the place for
+API keys and other access tokens. When a _Github workflow_ is triggered, it will create the file on the fly by accessing
+the Github Secrets and injecting them into the file. The file is then used by the app to access the secrets.
+The single _Github Repository Secret_ is called `SECRETS_FILE_CONTENT` and it contains the entire file content of `lib/secrets.dart`.
+
+It is saved as _base64_ and needs to be kept up to date: `base64 -i lib/shared/secrets.dart` is pasted into it.
 
 [coverage_badge]: coverage_badge.svg
 [flutter_localizations_link]: https://api.flutter.dev/flutter/flutter_localizations/flutter_localizations-library.html

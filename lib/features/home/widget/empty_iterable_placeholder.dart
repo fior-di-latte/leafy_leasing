@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:leafy_leasing/shared/base.dart';
 
 class EmptyIterableInfo extends HookWidget {
@@ -5,7 +6,7 @@ class EmptyIterableInfo extends HookWidget {
   final String hintText;
 
   @override
-  Widget build(BuildContext ctx) {
+  Widget build(BuildContext context) {
     final emoji = useState(_getRandomEmoji());
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -32,13 +33,13 @@ class EmptyIterableInfo extends HookWidget {
           ),
         ),
         Text(
-          ctx.lc.noAppointmentFound,
-          style: ctx.tt.bodyLarge,
+          context.lc.noAppointmentFound,
+          style: context.tt.bodyLarge,
         ),
         const Gap(mPadding),
         Text(
           hintText,
-          style: TextStyle(color: ctx.thm.hintColor),
+          style: TextStyle(color: context.thm.hintColor),
         )
       ],
     );
