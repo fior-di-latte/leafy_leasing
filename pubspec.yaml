@@ -21,6 +21,8 @@ dependencies:
   google_fonts: 2.2.0
   hive_flutter: any
   hive_generator: any
+  path_provider: ^2.0.14
+  isar_flutter_libs: ^3.1.0+1
   hooks_riverpod: ^2.3.6
   intl: ^0.17.0
   json_annotation: ^4.8.0
@@ -35,6 +37,7 @@ dependencies:
   flutter_localizations: 
     sdk: flutter
   retry: ^3.1.1
+  stash_isar: ^4.6.3
 dev_dependencies: 
   auto_route_generator: ^6.2.0
   build_runner: ^2.1.7

@@ -7,7 +7,7 @@ part of 'appointment_provider.dart';
 // **************************************************************************
 
 String _$appointmentRepositoryHash() =>
-    r'411a0235425efcd70c3b7adb42be7db7337eec51';
+    r'05ec42b3ce52dd6ddc143cde7888152ad17d7e20';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -31,7 +31,7 @@ class _SystemHash {
 }
 
 typedef AppointmentRepositoryRef
-    = AutoDisposeProviderRef<HiveAsyncStreamRepository<Appointment>>;
+    = AutoDisposeFutureProviderRef<HiveAsyncCachedRepository<Appointment>>;
 
 /// See also [appointmentRepository].
 @ProviderFor(appointmentRepository)
@@ -39,7 +39,7 @@ const appointmentRepositoryProvider = AppointmentRepositoryFamily();
 
 /// See also [appointmentRepository].
 class AppointmentRepositoryFamily
-    extends Family<HiveAsyncStreamRepository<Appointment>> {
+    extends Family<AsyncValue<HiveAsyncCachedRepository<Appointment>>> {
   /// See also [appointmentRepository].
   const AppointmentRepositoryFamily();
 
@@ -81,7 +81,7 @@ class AppointmentRepositoryFamily
 
 /// See also [appointmentRepository].
 class AppointmentRepositoryProvider
-    extends AutoDisposeProvider<HiveAsyncStreamRepository<Appointment>> {
+    extends AutoDisposeFutureProvider<HiveAsyncCachedRepository<Appointment>> {
   /// See also [appointmentRepository].
   AppointmentRepositoryProvider({
     required this.boxName,
@@ -123,7 +123,7 @@ class AppointmentRepositoryProvider
   }
 }
 
-String _$appointmentStateHash() => r'5bc2dcad5e49f7e26c5316956f3a678344c237dd';
+String _$appointmentStateHash() => r'21b4d93c90f9c73fe538967fe3995107b39d0470';
 
 abstract class _$AppointmentState
     extends BuildlessAutoDisposeAsyncNotifier<Appointment> {

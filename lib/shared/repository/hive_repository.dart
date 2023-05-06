@@ -4,9 +4,29 @@ import 'package:hive_flutter/hive_flutter.dart';
 // Project imports:
 import 'package:leafy_leasing/shared/base.dart';
 import 'package:leafy_leasing/shared/repository/abstract_repository.dart';
+import 'package:stash/src/api/cache/cache.dart';
 
-class HiveRepositoryAsyncStreamImpl<T> implements HiveAsyncStreamRepository<T> {
-  HiveRepositoryAsyncStreamImpl(this.boxName, {required this.key})
+class HiveAsyncCachedRepositoryImpl<T> extends HiveAsyncRepositoryImpl<T>
+    implements HiveAsyncCachedRepository<T> {
+  HiveAsyncCachedRepositoryImpl(
+    super.boxName, {
+    required this.cache,
+    required super.key,
+  });
+
+  @override
+  final Cache<T> cache;
+
+  @override
+  Future<T> put(T item) async {
+    await cache.put(key, item);
+    logInfo('putting $item in cache');
+    return super.put(item);
+  }
+}
+
+class HiveAsyncRepositoryImpl<T> implements HiveAsyncRepository<T> {
+  HiveAsyncRepositoryImpl(this.boxName, {required this.key})
       : _box = Hive.box<T>(boxName);
 
   @override
