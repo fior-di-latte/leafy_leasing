@@ -6,7 +6,7 @@ import 'package:leafy_leasing/shared/repository/hive_repository.dart';
 
 part 'customer_provider.g.dart';
 
-typedef CustomerRepository = HiveAsyncRepository<Customer>;
+typedef CustomerRepository = AsyncRepository<Customer>;
 
 @riverpod
 CustomerRepository customerRepository(

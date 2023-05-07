@@ -11,10 +11,11 @@ import 'package:leafy_leasing/shared/data_services/hive.dart';
 
 Future<void> bootstrap() async {
   Loggy.initLoggy();
-  await setupHive();
   if (kDebugMode) {
     logWarning('Starting with DotEnv: ${dotenv.env}');
   }
+  await setupHive();
+  logWarning('lol');
   runApp(
     ProviderScope(
       observers: kDebugMode ? devProviderLoggers : null,
