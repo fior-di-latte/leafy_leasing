@@ -7,7 +7,7 @@ part of 'customer_provider.dart';
 // **************************************************************************
 
 String _$customerRepositoryHash() =>
-    r'9150e7469448d916e9d67881ceec26b9d2cd577c';
+    r'49138ef1e3022b7f50551a9458d8fbc4622a814a';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -31,24 +31,22 @@ class _SystemHash {
 }
 
 typedef CustomerRepositoryRef
-    = AutoDisposeProviderRef<HiveAsyncRepository<Customer>>;
+    = AutoDisposeProviderRef<AsyncRepository<Customer>>;
 
 /// See also [customerRepository].
 @ProviderFor(customerRepository)
 const customerRepositoryProvider = CustomerRepositoryFamily();
 
 /// See also [customerRepository].
-class CustomerRepositoryFamily extends Family<HiveAsyncRepository<Customer>> {
+class CustomerRepositoryFamily extends Family<AsyncRepository<Customer>> {
   /// See also [customerRepository].
   const CustomerRepositoryFamily();
 
   /// See also [customerRepository].
   CustomerRepositoryProvider call({
-    required String boxName,
     required String key,
   }) {
     return CustomerRepositoryProvider(
-      boxName: boxName,
       key: key,
     );
   }
@@ -58,7 +56,6 @@ class CustomerRepositoryFamily extends Family<HiveAsyncRepository<Customer>> {
     covariant CustomerRepositoryProvider provider,
   ) {
     return call(
-      boxName: provider.boxName,
       key: provider.key,
     );
   }
@@ -80,15 +77,13 @@ class CustomerRepositoryFamily extends Family<HiveAsyncRepository<Customer>> {
 
 /// See also [customerRepository].
 class CustomerRepositoryProvider
-    extends AutoDisposeProvider<HiveAsyncRepository<Customer>> {
+    extends AutoDisposeProvider<AsyncRepository<Customer>> {
   /// See also [customerRepository].
   CustomerRepositoryProvider({
-    required this.boxName,
     required this.key,
   }) : super.internal(
           (ref) => customerRepository(
             ref,
-            boxName: boxName,
             key: key,
           ),
           from: customerRepositoryProvider,
@@ -102,27 +97,23 @@ class CustomerRepositoryProvider
               CustomerRepositoryFamily._allTransitiveDependencies,
         );
 
-  final String boxName;
   final String key;
 
   @override
   bool operator ==(Object other) {
-    return other is CustomerRepositoryProvider &&
-        other.boxName == boxName &&
-        other.key == key;
+    return other is CustomerRepositoryProvider && other.key == key;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, boxName.hashCode);
     hash = _SystemHash.combine(hash, key.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
-String _$customerStateHash() => r'fd4f2d1bf47ce59f52318cad23ae0f1a0cf6ccf5';
+String _$customerStateHash() => r'af3b1bde736b46ccc94a7c39fba9357154d4f3ba';
 
 abstract class _$CustomerState
     extends BuildlessAutoDisposeAsyncNotifier<Customer> {

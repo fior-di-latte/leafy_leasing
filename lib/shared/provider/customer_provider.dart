@@ -11,12 +11,11 @@ typedef CustomerRepository = AsyncRepository<Customer>;
 @riverpod
 CustomerRepository customerRepository(
   Ref ref, {
-  required String boxName,
   required String key,
 }) {
   return dotenv.get('USE_HIVE_MOCK_BACKEND') == 'true'
-      ? HiveAsyncRepositoryImpl<Customer>(boxName, key: key)
-      : HiveAsyncRepositoryImpl<Customer>(boxName, key: key);
+      ? HiveAsyncRepositoryImpl<Customer>(hiveCustomers, key: key)
+      : HiveAsyncRepositoryImpl<Customer>(hiveCustomers, key: key);
 }
 
 @riverpod
@@ -24,8 +23,7 @@ class CustomerState extends _$CustomerState
     with AsyncRepositoryMixin<Customer> {
   @override
   FutureOr<Customer> build(String id) async {
-    repository =
-        ref.watch(customerRepositoryProvider(boxName: hiveCustomers, key: id));
+    repository = ref.watch(customerRepositoryProvider(key: id));
 
     return buildFromStream();
   }

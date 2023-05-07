@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:stash/stash_api.dart';
 
 abstract class AsyncRepository<T> {
@@ -14,8 +16,8 @@ abstract class AsyncCachedRepository<T> implements AsyncRepository<T> {
 }
 
 abstract class SyncRepository<T> {
-  Future<T> put(T item);
-  Future<void> delete();
+  FutureOr<T> put(T item);
+  FutureOr<void> delete();
   T? get();
 }
 

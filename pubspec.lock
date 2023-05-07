@@ -987,7 +987,7 @@ packages:
     source: hosted
     version: "1.11.0"
   stash:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: stash
       sha256: "4a9b765eef4890b8032c1c440464f71ca45f7a68c1b91c7db07165bc5accdf73"

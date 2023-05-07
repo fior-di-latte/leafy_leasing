@@ -10,8 +10,8 @@ class HiveAsyncCachedRepositoryImpl<T> extends HiveAsyncRepositoryImpl<T>
     implements HiveAsyncCachedRepository<T> {
   HiveAsyncCachedRepositoryImpl(
     super.boxName, {
-    required this.cache,
     required super.key,
+    required this.cache,
   });
 
   @override
@@ -19,9 +19,34 @@ class HiveAsyncCachedRepositoryImpl<T> extends HiveAsyncRepositoryImpl<T>
 
   @override
   Future<T> put(T item) async {
-    await cache.put(key, item);
-    logInfo('putting $item in cache');
+    // always update on original 'get' method. After a put,
+    // the repository (see optimistic put) is usually invalidated,
+    // meaning the data is fetched again from the backend.
+
+    // logInfo('putting $item in cache');
+    // await cache.put(key, item);
     return super.put(item);
+  }
+
+  @override
+  Future<T> get() async {
+    try {
+      final incomingValue = await super.get();
+      // update cache
+      await cache.put(key, incomingValue);
+      return incomingValue;
+    } catch (e) {
+      // check if cache fallback is available
+      final cachedFallback = await cache.get(key);
+      if (cachedFallback != null) {
+        logInfo('found $key in cache, returning $cachedFallback');
+        return cachedFallback;
+      }
+
+      // no incoming value && no cache fallback -> rethrow Error
+      logWarning('No incoming value and no cache fallback for $key');
+      rethrow;
+    }
   }
 }
 

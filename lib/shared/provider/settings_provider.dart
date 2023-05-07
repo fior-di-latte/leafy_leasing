@@ -6,7 +6,7 @@ import 'package:leafy_leasing/shared/repository/hive_repository.dart';
 
 part 'settings_provider.g.dart';
 
-typedef SettingsRepository = HiveSyncRepository<Settings>;
+typedef SettingsRepository = SyncRepository<Settings>;
 
 @riverpod
 SettingsRepository settingsRepository(
@@ -29,7 +29,6 @@ class SettingsState extends _$SettingsState {
     _repository = ref.watch(
       settingsRepositoryProvider(key: hiveSettings, boxName: hiveSettings),
     );
-    logWarning('LOGVAR _repository.get()! ${_repository.get()}');
     return _repository.get() ?? defaultSettings;
   }
 

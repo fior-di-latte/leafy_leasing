@@ -11,19 +11,7 @@ part 'isar_cache.g.dart';
 Future<IsarCacheStore> isarCacheStore(IsarCacheStoreRef ref) async {
   await _maybeFlushIsar();
   final dir = await getApplicationDocumentsDirectory();
-  final store = await newIsarLocalCacheStore(path: dir.path);
-  return store;
-}
-
-@riverpod
-Future<Cache<Appointment>> appointmentCache(AppointmentCacheRef ref) async {
-  final store = await ref.watch(isarCacheStoreProvider.future);
-  return store.cache<Appointment>(
-    fromEncodable: Appointment.fromJson,
-    name: 'Appointment',
-    maxEntries: 3,
-    eventListenerMode: EventListenerMode.synchronous,
-  );
+  return newIsarLocalCacheStore(path: dir.path);
 }
 
 // delete everything from Isar database
@@ -32,5 +20,20 @@ Future<void> _maybeFlushIsar() async {
     logWarning('Flushing Isar...');
     final dir = await getApplicationDocumentsDirectory();
     await Directory(dir.path).delete(recursive: true);
+  }
+}
+
+extension AddLoggedCache on IsarCacheStore {
+  Future<Cache<T>> createLoggedCache<T>(
+      {required T Function(Map<String, dynamic>) fromJson,
+      String? name}) async {
+    final usedName = name ?? T.toString();
+    final newCache = await cache<T>(
+        fromEncodable: fromJson,
+        name: usedName,
+        maxEntries: kNumberOfCacheItems,
+        eventListenerMode: EventListenerMode.synchronous);
+
+    return addLoggersToIsarCache(newCache, name: usedName);
   }
 }
