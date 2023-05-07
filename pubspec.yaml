@@ -5,7 +5,7 @@ description: A companion app for PaaS (Plants as a Service) companies.
 environment: 
   sdk: '>=2.18.0 <3.0.0'
 dependencies: 
-  auto_route: ^6.4.0
+  auto_route: ^7.1.0
   auto_size_text: ^3.0.0
   dartx: ^1.1.0
   easy_debounce: ^2.0.3
@@ -36,7 +36,7 @@ dependencies:
     sdk: flutter
   retry: ^3.1.1
 dev_dependencies: 
-  auto_route_generator: ^6.2.0
+  auto_route_generator: ^7.0.0
   build_runner: ^2.1.7
   custom_lint: any
   flutter_launcher_icons: ^0.13.1
@@ -48,7 +48,7 @@ dev_dependencies:
   very_good_analysis: ^3.1.0
   flutter_test: 
     sdk: flutter
-flutter: 
+flutter:
   assets: 
     - assets/image/logo.png
     - assets/image/logo_v2.png

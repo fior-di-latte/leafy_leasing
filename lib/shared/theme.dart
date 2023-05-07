@@ -6,17 +6,21 @@ import 'package:google_fonts/google_fonts.dart';
 // Project imports:
 import 'package:leafy_leasing/shared/base.dart';
 
+part 'theme.g.dart';
+
 const kSeedColor = Color(0xFF33A58A);
 const kAppBarColor = Color(0xFF77A28B);
 const kTextTheme = GoogleFonts.abhayaLibreTextTheme;
 
-final themeProvider =
-    StateProvider.autoDispose<ThemeData>(name: 'ThemeProvider', (ref) {
+@riverpod
+ThemeData theme(ThemeRef ref) {
   final themeMode =
       ref.watch(settingsStateProvider.select((settings) => settings.themeMode));
+
   final brightness = _brightnessFromThemeMode(themeMode ?? ThemeMode.system);
+
   return _buildTheme(brightness);
-});
+}
 
 Brightness _brightnessFromThemeMode(ThemeMode themeMode) {
   final themeModeToBrightness = {

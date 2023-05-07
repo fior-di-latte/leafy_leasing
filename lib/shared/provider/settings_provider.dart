@@ -19,13 +19,18 @@ SettingsRepository settingsRepository(
 
 @riverpod
 class SettingsState extends _$SettingsState {
+  static final defaultSettings =
+      Settings(themeMode: ThemeMode.system, localeTag: null);
+
   late SettingsRepository _repository;
   @override
   Settings build() {
+    logWarning('lol');
     _repository = ref.watch(
       settingsRepositoryProvider(key: hiveSettings, boxName: hiveSettings),
     );
-    return _repository.get()!;
+    logWarning('LOGVAR _repository.get()! ${_repository.get()}');
+    return _repository.get() ?? defaultSettings;
   }
 
   void setLocale(String localeTag) {
