@@ -1,4 +1,5 @@
 // Project imports:
+import 'package:easy_debounce/easy_throttle.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
 class PrecacheProvider extends ConsumerWidget {
@@ -33,7 +34,14 @@ class SnackbarListener extends ConsumerWidget with UiLoggy {
   final Widget child;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen(notificationProvider, (_, cb) => cb(context));
+    ref.listen(
+      notificationProvider,
+      (_, snackbarBuilder) => EasyThrottle.throttle(
+        snackbarBuilder.type.toString(),
+        snackbarBuilder.type.throttleDuration,
+        () => snackbarBuilder.builder(context),
+      ),
+    );
     return child;
   }
 }

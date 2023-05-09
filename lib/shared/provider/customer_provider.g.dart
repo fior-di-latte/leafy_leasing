@@ -6,8 +6,24 @@ part of 'customer_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+String _$customerCacheHash() => r'83753eb1fe13e88061bd313378fec4123e3f544c';
+
+/// See also [customerCache].
+@ProviderFor(customerCache)
+final customerCacheProvider =
+    AutoDisposeFutureProvider<Cache<Customer>>.internal(
+  customerCache,
+  name: r'customerCacheProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$customerCacheHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef CustomerCacheRef = AutoDisposeFutureProviderRef<Cache<Customer>>;
 String _$customerRepositoryHash() =>
-    r'49138ef1e3022b7f50551a9458d8fbc4622a814a';
+    r'6380c76df075a5e45a6e8b72673a121de4c46704';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -31,14 +47,15 @@ class _SystemHash {
 }
 
 typedef CustomerRepositoryRef
-    = AutoDisposeProviderRef<AsyncRepository<Customer>>;
+    = AutoDisposeFutureProviderRef<AsyncRepository<Customer>>;
 
 /// See also [customerRepository].
 @ProviderFor(customerRepository)
 const customerRepositoryProvider = CustomerRepositoryFamily();
 
 /// See also [customerRepository].
-class CustomerRepositoryFamily extends Family<AsyncRepository<Customer>> {
+class CustomerRepositoryFamily
+    extends Family<AsyncValue<AsyncRepository<Customer>>> {
   /// See also [customerRepository].
   const CustomerRepositoryFamily();
 
@@ -77,7 +94,7 @@ class CustomerRepositoryFamily extends Family<AsyncRepository<Customer>> {
 
 /// See also [customerRepository].
 class CustomerRepositoryProvider
-    extends AutoDisposeProvider<AsyncRepository<Customer>> {
+    extends AutoDisposeFutureProvider<AsyncRepository<Customer>> {
   /// See also [customerRepository].
   CustomerRepositoryProvider({
     required this.key,
@@ -113,7 +130,7 @@ class CustomerRepositoryProvider
   }
 }
 
-String _$customerStateHash() => r'af3b1bde736b46ccc94a7c39fba9357154d4f3ba';
+String _$customerStateHash() => r'5246dc6abdbc5cc207a51faff6c5ae4174b8c60e';
 
 abstract class _$CustomerState
     extends BuildlessAutoDisposeAsyncNotifier<Customer> {

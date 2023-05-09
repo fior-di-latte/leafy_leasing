@@ -2,6 +2,8 @@
 import 'package:leafy_leasing/shared/base.dart';
 
 final kMockNetworkLag = 300.milliseconds;
+const kNumberGetRetries = 8;
+const kNumberPutRetries = 2;
 const kNumberOfCacheItems = 15;
 const sPadding = 8.0;
 const mPadding = 12.0;

@@ -6,7 +6,22 @@ part of 'metas_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$metasRepositoryHash() => r'cc0f7a4ac5e96af25f835cee9e9f7d2372a815c0';
+String _$metasCacheHash() => r'696ec465d2d62201d4586e166b2361ee041e6302';
+
+/// See also [metasCache].
+@ProviderFor(metasCache)
+final metasCacheProvider =
+    AutoDisposeFutureProvider<Cache<AppointmentMetas>>.internal(
+  metasCache,
+  name: r'metasCacheProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$metasCacheHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef MetasCacheRef = AutoDisposeFutureProviderRef<Cache<AppointmentMetas>>;
+String _$metasRepositoryHash() => r'687d0bf935e4dc886e4b32b2677b8e7ca393afba';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -30,7 +45,7 @@ class _SystemHash {
 }
 
 typedef MetasRepositoryRef
-    = AutoDisposeProviderRef<HiveAsyncRepository<AppointmentMetas>>;
+    = AutoDisposeFutureProviderRef<AsyncRepository<AppointmentMetas>>;
 
 /// See also [metasRepository].
 @ProviderFor(metasRepository)
@@ -38,7 +53,7 @@ const metasRepositoryProvider = MetasRepositoryFamily();
 
 /// See also [metasRepository].
 class MetasRepositoryFamily
-    extends Family<HiveAsyncRepository<AppointmentMetas>> {
+    extends Family<AsyncValue<AsyncRepository<AppointmentMetas>>> {
   /// See also [metasRepository].
   const MetasRepositoryFamily();
 
@@ -80,7 +95,7 @@ class MetasRepositoryFamily
 
 /// See also [metasRepository].
 class MetasRepositoryProvider
-    extends AutoDisposeProvider<HiveAsyncRepository<AppointmentMetas>> {
+    extends AutoDisposeFutureProvider<AsyncRepository<AppointmentMetas>> {
   /// See also [metasRepository].
   MetasRepositoryProvider({
     required this.boxName,
@@ -122,7 +137,7 @@ class MetasRepositoryProvider
   }
 }
 
-String _$metasStateHash() => r'c85516a0bfc50b8db21ae9fd6102df7508e37aef';
+String _$metasStateHash() => r'3653bd7d666a3774b0ffc33114b30c15131d467f';
 
 /// See also [MetasState].
 @ProviderFor(MetasState)

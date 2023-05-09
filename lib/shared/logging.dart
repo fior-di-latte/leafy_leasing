@@ -81,3 +81,7 @@ Cache<T> addLoggersToIsarCache<T>(Cache<T> cache, {required String name}) =>
           (event) => logDebug('IsarCache $name: "${event.entry.key}" expired'))
       ..on<CacheEntryEvictedEvent<T>>().listen(
           (event) => logDebug('IsarCache $name: "${event.entry.key}" evicted'));
+
+void logOnNetworkRetry<T>(String id, Exception e, {bool isPut = false}) =>
+    logWarning('Network Error: Retrying to ${isPut ? 'put' : 'fetch'} $T id.'
+        ' Exception $e');

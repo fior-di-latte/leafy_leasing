@@ -4,6 +4,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 // Project imports:
 import 'package:leafy_leasing/shared/base.dart';
 import 'package:leafy_leasing/shared/repository/abstract_repository.dart';
+import 'package:retry/retry.dart';
 import 'package:stash/src/api/cache/cache.dart';
 
 class HiveAsyncCachedRepositoryImpl<T> extends HiveAsyncRepositoryImpl<T>
@@ -78,7 +79,12 @@ class HiveAsyncRepositoryImpl<T> implements HiveAsyncRepository<T> {
 
   @override
   Future<T> put(T item) async {
-    await Future.delayed(kMockNetworkLag, () => _box.put(key, item));
+    // throw Exception;
+    await retry(
+      () => Future.delayed(kMockNetworkLag, () => _box.put(key, item)),
+      maxAttempts: kNumberPutRetries,
+      onRetry: (e) => logOnNetworkRetry<T>(key, e),
+    );
     return item;
   }
 
@@ -86,7 +92,11 @@ class HiveAsyncRepositoryImpl<T> implements HiveAsyncRepository<T> {
   Stream<T> listenable() => _box.watch(key: key).map((_) => syncGet()!);
 
   @override
-  Future<T> get() => Future.delayed(kMockNetworkLag, syncGet);
+  Future<T> get() => retry(
+        () => Future.delayed(kMockNetworkLag, syncGet),
+        maxAttempts: kNumberGetRetries,
+        onRetry: (e) => logOnNetworkRetry<T>(key, e),
+      );
 
   @override
   void dispose() {}

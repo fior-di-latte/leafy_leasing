@@ -1,6 +1,5 @@
 // Project imports:
 import 'package:leafy_leasing/shared/base.dart';
-import 'package:leafy_leasing/shared/data_services/hive.dart';
 import 'package:leafy_leasing/shared/repository/abstract_repository.dart';
 import 'package:leafy_leasing/shared/repository/hive_repository.dart';
 
@@ -9,13 +8,22 @@ part 'customer_provider.g.dart';
 typedef CustomerRepository = AsyncRepository<Customer>;
 
 @riverpod
-CustomerRepository customerRepository(
-  Ref ref, {
+Future<Cache<Customer>> customerCache(CustomerCacheRef ref) async {
+  final store = await ref.watch(isarCacheStoreProvider.future);
+  return store.createLoggedCache(fromJson: Customer.fromJson);
+}
+
+@riverpod
+Future<CustomerRepository> customerRepository(
+  CustomerRepositoryRef ref, {
   required String key,
-}) {
+}) async {
+  final cache = await ref.watch(customerCacheProvider.future);
   return dotenv.get('USE_HIVE_MOCK_BACKEND') == 'true'
-      ? HiveAsyncRepositoryImpl<Customer>(hiveCustomers, key: key)
-      : HiveAsyncRepositoryImpl<Customer>(hiveCustomers, key: key);
+      ? HiveAsyncCachedRepositoryImpl<Customer>(hiveCustomers,
+          key: key, cache: cache)
+      : HiveAsyncCachedRepositoryImpl<Customer>(hiveCustomers,
+          key: key, cache: cache);
 }
 
 @riverpod
@@ -23,7 +31,7 @@ class CustomerState extends _$CustomerState
     with AsyncRepositoryMixin<Customer> {
   @override
   FutureOr<Customer> build(String id) async {
-    repository = ref.watch(customerRepositoryProvider(key: id));
+    repository = await ref.watch(customerRepositoryProvider(key: id).future);
 
     return buildFromStream();
   }
