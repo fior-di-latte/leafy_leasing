@@ -6,8 +6,24 @@ part of 'appointment_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+String _$appointmentCacheHash() => r'10506a1dab9300e1d789315e8de72dcec3a4ab98';
+
+/// See also [appointmentCache].
+@ProviderFor(appointmentCache)
+final appointmentCacheProvider =
+    AutoDisposeFutureProvider<Cache<Appointment>>.internal(
+  appointmentCache,
+  name: r'appointmentCacheProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$appointmentCacheHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef AppointmentCacheRef = AutoDisposeFutureProviderRef<Cache<Appointment>>;
 String _$appointmentRepositoryHash() =>
-    r'411a0235425efcd70c3b7adb42be7db7337eec51';
+    r'2706f18fdf73207eae13c55544853992315edb65';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -31,7 +47,7 @@ class _SystemHash {
 }
 
 typedef AppointmentRepositoryRef
-    = AutoDisposeProviderRef<HiveAsyncStreamRepository<Appointment>>;
+    = AutoDisposeFutureProviderRef<AsyncCachedRepository<Appointment>>;
 
 /// See also [appointmentRepository].
 @ProviderFor(appointmentRepository)
@@ -39,17 +55,15 @@ const appointmentRepositoryProvider = AppointmentRepositoryFamily();
 
 /// See also [appointmentRepository].
 class AppointmentRepositoryFamily
-    extends Family<HiveAsyncStreamRepository<Appointment>> {
+    extends Family<AsyncValue<AsyncCachedRepository<Appointment>>> {
   /// See also [appointmentRepository].
   const AppointmentRepositoryFamily();
 
   /// See also [appointmentRepository].
   AppointmentRepositoryProvider call({
-    required String boxName,
     required String key,
   }) {
     return AppointmentRepositoryProvider(
-      boxName: boxName,
       key: key,
     );
   }
@@ -59,7 +73,6 @@ class AppointmentRepositoryFamily
     covariant AppointmentRepositoryProvider provider,
   ) {
     return call(
-      boxName: provider.boxName,
       key: provider.key,
     );
   }
@@ -81,15 +94,13 @@ class AppointmentRepositoryFamily
 
 /// See also [appointmentRepository].
 class AppointmentRepositoryProvider
-    extends AutoDisposeProvider<HiveAsyncStreamRepository<Appointment>> {
+    extends AutoDisposeFutureProvider<AsyncCachedRepository<Appointment>> {
   /// See also [appointmentRepository].
   AppointmentRepositoryProvider({
-    required this.boxName,
     required this.key,
   }) : super.internal(
           (ref) => appointmentRepository(
             ref,
-            boxName: boxName,
             key: key,
           ),
           from: appointmentRepositoryProvider,
@@ -103,27 +114,23 @@ class AppointmentRepositoryProvider
               AppointmentRepositoryFamily._allTransitiveDependencies,
         );
 
-  final String boxName;
   final String key;
 
   @override
   bool operator ==(Object other) {
-    return other is AppointmentRepositoryProvider &&
-        other.boxName == boxName &&
-        other.key == key;
+    return other is AppointmentRepositoryProvider && other.key == key;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, boxName.hashCode);
     hash = _SystemHash.combine(hash, key.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
-String _$appointmentStateHash() => r'5bc2dcad5e49f7e26c5316956f3a678344c237dd';
+String _$appointmentStateHash() => r'de15d990015244f19ec8a91ec4b4fa44b1d9d1f7';
 
 abstract class _$AppointmentState
     extends BuildlessAutoDisposeAsyncNotifier<Appointment> {

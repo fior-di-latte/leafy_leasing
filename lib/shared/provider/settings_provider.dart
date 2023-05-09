@@ -1,12 +1,11 @@
 // Project imports:
 import 'package:leafy_leasing/shared/base.dart';
-import 'package:leafy_leasing/shared/data_services/hive.dart';
 import 'package:leafy_leasing/shared/repository/abstract_repository.dart';
 import 'package:leafy_leasing/shared/repository/hive_repository.dart';
 
 part 'settings_provider.g.dart';
 
-typedef SettingsRepository = HiveSyncRepository<Settings>;
+typedef SettingsRepository = SyncRepository<Settings>;
 
 @riverpod
 SettingsRepository settingsRepository(
@@ -19,8 +18,7 @@ SettingsRepository settingsRepository(
 
 @riverpod
 class SettingsState extends _$SettingsState {
-  static final defaultSettings =
-      Settings(themeMode: ThemeMode.system, localeTag: null);
+  static final defaultSettings = Settings(themeMode: ThemeMode.system);
 
   late SettingsRepository _repository;
   @override
@@ -29,7 +27,6 @@ class SettingsState extends _$SettingsState {
     _repository = ref.watch(
       settingsRepositoryProvider(key: hiveSettings, boxName: hiveSettings),
     );
-    logWarning('LOGVAR _repository.get()! ${_repository.get()}');
     return _repository.get() ?? defaultSettings;
   }
 

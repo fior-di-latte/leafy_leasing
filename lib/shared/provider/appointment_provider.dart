@@ -3,26 +3,40 @@ import 'dart:async';
 
 // Project imports:
 import 'package:leafy_leasing/shared/base.dart';
-import 'package:leafy_leasing/shared/data_services/hive.dart';
 import 'package:leafy_leasing/shared/repository/abstract_repository.dart';
 import 'package:leafy_leasing/shared/repository/hive_repository.dart';
 
 part 'appointment_provider.g.dart';
 
-typedef AppointmentRepository = HiveAsyncStreamRepository<Appointment>;
+typedef AppointmentRepository = AsyncCachedRepository<Appointment>;
 // TODO(Felix):  Newer riverpod version will allow for generic families.
 // which will allow to remove this boilerplate
 // also, the ref.onDispose in [AppointmentState] below will be obsolete
 // because it can also be handled in the generic family
+
 @riverpod
-AppointmentRepository appointmentRepository(
-  Ref ref, {
-  required String boxName,
+Future<Cache<Appointment>> appointmentCache(AppointmentCacheRef ref) async {
+  final store = await ref.watch(isarCacheStoreProvider.future);
+  return store.createLoggedCache(fromJson: Appointment.fromJson);
+}
+
+@riverpod
+Future<AppointmentRepository> appointmentRepository(
+  AppointmentRepositoryRef ref, {
   required String key,
-}) {
+}) async {
+  final cache = await ref.watch(appointmentCacheProvider.future);
   return dotenv.get('USE_HIVE_MOCK_BACKEND') == 'true'
-      ? HiveRepositoryAsyncStreamImpl<Appointment>(boxName, key: key)
-      : HiveRepositoryAsyncStreamImpl<Appointment>(boxName, key: key);
+      ? HiveAsyncCachedRepositoryImpl<Appointment>(
+          hiveAppointments,
+          key: key,
+          cache: cache,
+        )
+      : HiveAsyncCachedRepositoryImpl<Appointment>(
+          hiveAppointments,
+          key: key,
+          cache: cache,
+        );
 }
 
 @riverpod
@@ -30,8 +44,8 @@ class AppointmentState extends _$AppointmentState
     with AsyncRepositoryMixin<Appointment> {
   @override
   FutureOr<Appointment> build(String id) async {
-    repository = ref.watch(
-      appointmentRepositoryProvider(boxName: hiveAppointments, key: id),
+    repository = await ref.watch(
+      appointmentRepositoryProvider(key: id).future,
     );
     ref.onDispose(() => repository.dispose());
 

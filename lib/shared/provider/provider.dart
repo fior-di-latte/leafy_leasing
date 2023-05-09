@@ -18,7 +18,10 @@ mixin AsyncRepositoryMixin<T> {
   AutoDisposeAsyncNotifierProviderRef<T> get ref;
   late final notifications = ref.read(notificationProvider.notifier);
 
-  Future<T> buildFromPolling({int intervalInMilliseconds = 5000}) {
+  Future<T> buildFromPolling({
+    int intervalInMilliseconds = 5000,
+    ErrorUiCallback? errorUiCallback,
+  }) {
     Timer.periodic(intervalInMilliseconds.milliseconds, (_) async {
       try {
         final newValue = await repository.get();
@@ -32,7 +35,9 @@ mixin AsyncRepositoryMixin<T> {
     return repository.get();
   }
 
-  Future<T> buildFromStream() {
+  Future<T> buildFromStream({
+    ErrorUiCallback? errorUiCallback,
+  }) {
     repository.listenable().listen((appointment) {
       state = AsyncValue.data(appointment);
     });
@@ -43,7 +48,7 @@ mixin AsyncRepositoryMixin<T> {
     T newValue, {
     bool invalidateFinally = false,
     ErrorUiCallback? errorUiCallback,
-    bool defaultCallback = true,
+    bool showErrorUiCallback = true,
   }) async {
     final oldValue = state;
     logInfo('Optimistic Update: $newValue');
@@ -54,10 +59,8 @@ mixin AsyncRepositoryMixin<T> {
       logWarning('Successful network update.');
     } catch (e) {
       logError('NetworkError | Naive optimism: $e');
-      if (errorUiCallback != null) {
-        notifications.state = errorUiCallback;
-      } else if (defaultCallback) {
-        notifications.state = _defaultErrorCallback;
+      if (showErrorUiCallback) {
+        notifications.state = _getErrorSnackbarBuilder(errorUiCallback);
       }
       state = oldValue;
     } finally {
@@ -76,4 +79,10 @@ mixin AsyncRepositoryMixin<T> {
         ),
         title: context.lc.somethingWentWrong,
       );
+
+  SnackbarBuilder _getErrorSnackbarBuilder(ErrorUiCallback? errorUiCallback) {
+    return errorUiCallback == null
+        ? SnackbarBuilder(_defaultErrorCallback, type: SnackbarType.error)
+        : SnackbarBuilder(errorUiCallback, type: SnackbarType.error);
+  }
 }

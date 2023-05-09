@@ -1,12 +1,61 @@
 // Package imports:
+import 'dart:async';
+
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 // Project imports:
 import 'package:leafy_leasing/shared/base.dart';
 import 'package:leafy_leasing/shared/repository/abstract_repository.dart';
+import 'package:retry/retry.dart';
 
-class HiveRepositoryAsyncStreamImpl<T> implements HiveAsyncStreamRepository<T> {
-  HiveRepositoryAsyncStreamImpl(this.boxName, {required this.key})
+class HiveAsyncCachedRepositoryImpl<T> extends HiveAsyncRepositoryImpl<T>
+    implements HiveAsyncCachedRepository<T> {
+  HiveAsyncCachedRepositoryImpl(
+    super.boxName, {
+    required super.key,
+    required this.cache,
+  });
+
+  @override
+  final Cache<T> cache;
+
+  @override
+  Future<T> put(T item) async {
+    // always update on original 'get' method. After a put,
+    // the repository (see optimistic put) is usually invalidated,
+    // meaning the data is fetched again from the backend.
+
+    // logInfo('putting $item in cache');
+    // await cache.put(key, item);
+    return super.put(item);
+  }
+
+  @override
+  Future<T> get() async {
+    try {
+      final incomingValue = await super.get();
+      // update cache
+      await cache.put(key, incomingValue);
+      return incomingValue;
+    } catch (e) {
+      // check if cache fallback is available
+      final cachedFallback = await cache.get(key);
+      if (cachedFallback != null) {
+        logInfo(
+            '😅 Cache Fallback Used! Found $key in cache, returning $cachedFallback');
+        return cachedFallback;
+      }
+
+      // no incoming value && no cache fallback -> rethrow Error
+      logWarning('No incoming value and no cache fallback for $key');
+      rethrow;
+    }
+  }
+}
+
+class HiveAsyncRepositoryImpl<T> implements HiveAsyncRepository<T> {
+  HiveAsyncRepositoryImpl(this.boxName, {required this.key})
       : _box = Hive.box<T>(boxName);
 
   @override
@@ -33,7 +82,12 @@ class HiveRepositoryAsyncStreamImpl<T> implements HiveAsyncStreamRepository<T> {
 
   @override
   Future<T> put(T item) async {
-    await Future.delayed(kMockNetworkLag, () => _box.put(key, item));
+    await throwTimeOutErrorWhenManualInternetCheckFails();
+    await retry(
+      () => Future.delayed(kMockNetworkLag, () => _box.put(key, item)),
+      maxAttempts: kNumberPutRetries,
+      onRetry: (e) => logOnNetworkRetry<T>(key, e),
+    );
     return item;
   }
 
@@ -41,10 +95,25 @@ class HiveRepositoryAsyncStreamImpl<T> implements HiveAsyncStreamRepository<T> {
   Stream<T> listenable() => _box.watch(key: key).map((_) => syncGet()!);
 
   @override
-  Future<T> get() => Future.delayed(kMockNetworkLag, syncGet);
+  Future<T> get() async {
+    await throwTimeOutErrorWhenManualInternetCheckFails();
+    return retry(
+      () => Future.delayed(kMockNetworkLag, syncGet),
+      maxAttempts: kNumberGetRetries,
+      onRetry: (e) => logOnNetworkRetry<T>(key, e),
+    );
+  }
 
   @override
   void dispose() {}
+
+  static Future<void> throwTimeOutErrorWhenManualInternetCheckFails() async {
+    final connectionStatus = await InternetConnectionChecker().connectionStatus;
+    if (connectionStatus == InternetConnectionStatus.disconnected) {
+      logWarning('Manual check: No internet connection');
+      throw TimeoutException('Manual check: No internet!');
+    }
+  }
 }
 
 class HiveRepositorySyncImpl<T> implements HiveSyncRepository<T> {

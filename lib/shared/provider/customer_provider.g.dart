@@ -6,8 +6,24 @@ part of 'customer_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+String _$customerCacheHash() => r'83753eb1fe13e88061bd313378fec4123e3f544c';
+
+/// See also [customerCache].
+@ProviderFor(customerCache)
+final customerCacheProvider =
+    AutoDisposeFutureProvider<Cache<Customer>>.internal(
+  customerCache,
+  name: r'customerCacheProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$customerCacheHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef CustomerCacheRef = AutoDisposeFutureProviderRef<Cache<Customer>>;
 String _$customerRepositoryHash() =>
-    r'e1c88ab58051c5c77f4a58e96e769199938385c6';
+    r'6380c76df075a5e45a6e8b72673a121de4c46704';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -31,7 +47,7 @@ class _SystemHash {
 }
 
 typedef CustomerRepositoryRef
-    = AutoDisposeProviderRef<HiveAsyncStreamRepository<Customer>>;
+    = AutoDisposeFutureProviderRef<AsyncRepository<Customer>>;
 
 /// See also [customerRepository].
 @ProviderFor(customerRepository)
@@ -39,17 +55,15 @@ const customerRepositoryProvider = CustomerRepositoryFamily();
 
 /// See also [customerRepository].
 class CustomerRepositoryFamily
-    extends Family<HiveAsyncStreamRepository<Customer>> {
+    extends Family<AsyncValue<AsyncRepository<Customer>>> {
   /// See also [customerRepository].
   const CustomerRepositoryFamily();
 
   /// See also [customerRepository].
   CustomerRepositoryProvider call({
-    required String boxName,
     required String key,
   }) {
     return CustomerRepositoryProvider(
-      boxName: boxName,
       key: key,
     );
   }
@@ -59,7 +73,6 @@ class CustomerRepositoryFamily
     covariant CustomerRepositoryProvider provider,
   ) {
     return call(
-      boxName: provider.boxName,
       key: provider.key,
     );
   }
@@ -81,15 +94,13 @@ class CustomerRepositoryFamily
 
 /// See also [customerRepository].
 class CustomerRepositoryProvider
-    extends AutoDisposeProvider<HiveAsyncStreamRepository<Customer>> {
+    extends AutoDisposeFutureProvider<AsyncRepository<Customer>> {
   /// See also [customerRepository].
   CustomerRepositoryProvider({
-    required this.boxName,
     required this.key,
   }) : super.internal(
           (ref) => customerRepository(
             ref,
-            boxName: boxName,
             key: key,
           ),
           from: customerRepositoryProvider,
@@ -103,27 +114,23 @@ class CustomerRepositoryProvider
               CustomerRepositoryFamily._allTransitiveDependencies,
         );
 
-  final String boxName;
   final String key;
 
   @override
   bool operator ==(Object other) {
-    return other is CustomerRepositoryProvider &&
-        other.boxName == boxName &&
-        other.key == key;
+    return other is CustomerRepositoryProvider && other.key == key;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, boxName.hashCode);
     hash = _SystemHash.combine(hash, key.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
-String _$customerStateHash() => r'fd4f2d1bf47ce59f52318cad23ae0f1a0cf6ccf5';
+String _$customerStateHash() => r'5246dc6abdbc5cc207a51faff6c5ae4174b8c60e';
 
 abstract class _$CustomerState
     extends BuildlessAutoDisposeAsyncNotifier<Customer> {

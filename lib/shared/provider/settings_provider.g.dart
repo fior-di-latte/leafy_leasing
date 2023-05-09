@@ -31,14 +31,14 @@ class _SystemHash {
 }
 
 typedef SettingsRepositoryRef
-    = AutoDisposeProviderRef<HiveSyncRepository<Settings>>;
+    = AutoDisposeProviderRef<SyncRepository<Settings>>;
 
 /// See also [settingsRepository].
 @ProviderFor(settingsRepository)
 const settingsRepositoryProvider = SettingsRepositoryFamily();
 
 /// See also [settingsRepository].
-class SettingsRepositoryFamily extends Family<HiveSyncRepository<Settings>> {
+class SettingsRepositoryFamily extends Family<SyncRepository<Settings>> {
   /// See also [settingsRepository].
   const SettingsRepositoryFamily();
 
@@ -80,7 +80,7 @@ class SettingsRepositoryFamily extends Family<HiveSyncRepository<Settings>> {
 
 /// See also [settingsRepository].
 class SettingsRepositoryProvider
-    extends AutoDisposeProvider<HiveSyncRepository<Settings>> {
+    extends AutoDisposeProvider<SyncRepository<Settings>> {
   /// See also [settingsRepository].
   SettingsRepositoryProvider({
     required this.boxName,
@@ -122,7 +122,7 @@ class SettingsRepositoryProvider
   }
 }
 
-String _$settingsStateHash() => r'bdcf7762bcccabeb6cd497cf8d8439048a63e783';
+String _$settingsStateHash() => r'1b21d974cbf2705a2bf04f06c2ccf7c74839f3fd';
 
 /// See also [SettingsState].
 @ProviderFor(SettingsState)

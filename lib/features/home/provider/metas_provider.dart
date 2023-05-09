@@ -1,23 +1,37 @@
 // Project imports:
 import 'package:leafy_leasing/features/home/model/appointment_meta.dart';
 import 'package:leafy_leasing/shared/base.dart';
-import 'package:leafy_leasing/shared/data_services/hive.dart';
 import 'package:leafy_leasing/shared/repository/abstract_repository.dart';
 import 'package:leafy_leasing/shared/repository/hive_repository.dart';
 
 part 'metas_provider.g.dart';
 
-typedef MetasRepository = HiveAsyncStreamRepository<AppointmentMetas>;
+typedef MetasRepository = AsyncRepository<AppointmentMetas>;
 
 @riverpod
-MetasRepository metasRepository(
-  Ref ref, {
+Future<Cache<AppointmentMetas>> metasCache(MetasCacheRef ref) async {
+  final store = await ref.watch(isarCacheStoreProvider.future);
+  return store.createLoggedCache(fromJson: AppointmentMetas.fromJson);
+}
+
+@riverpod
+Future<MetasRepository> metasRepository(
+  MetasRepositoryRef ref, {
   required String boxName,
   required String key,
-}) {
+}) async {
+  final cache = await ref.watch(metasCacheProvider.future);
   return dotenv.get('USE_HIVE_MOCK_BACKEND') == 'true'
-      ? HiveRepositoryAsyncStreamImpl<AppointmentMetas>(boxName, key: key)
-      : HiveRepositoryAsyncStreamImpl<AppointmentMetas>(boxName, key: key);
+      ? HiveAsyncCachedRepositoryImpl<AppointmentMetas>(
+          boxName,
+          key: key,
+          cache: cache,
+        )
+      : HiveAsyncCachedRepositoryImpl<AppointmentMetas>(
+          boxName,
+          key: key,
+          cache: cache,
+        );
 }
 
 @riverpod
@@ -25,8 +39,9 @@ class MetasState extends _$MetasState
     with AsyncRepositoryMixin<AppointmentMetas> {
   @override
   FutureOr<AppointmentMetas> build() async {
-    repository =
-        ref.watch(metasRepositoryProvider(boxName: hiveMetas, key: hiveMetas));
+    repository = await ref.watch(
+      metasRepositoryProvider(boxName: hiveMetas, key: hiveMetas).future,
+    );
 
     return buildFromStream();
   }
