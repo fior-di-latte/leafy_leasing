@@ -7,7 +7,6 @@ import 'package:flutter/foundation.dart';
 // Project imports:
 import 'package:leafy_leasing/features/home/provider/metas_provider.dart';
 import 'package:leafy_leasing/shared/base.dart';
-import 'package:leafy_leasing/shared/data_services/hive.dart';
 
 Future<void> bootstrap() async {
   Loggy.initLoggy();

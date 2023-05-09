@@ -20,10 +20,16 @@ Future<CustomerRepository> customerRepository(
 }) async {
   final cache = await ref.watch(customerCacheProvider.future);
   return dotenv.get('USE_HIVE_MOCK_BACKEND') == 'true'
-      ? HiveAsyncCachedRepositoryImpl<Customer>(hiveCustomers,
-          key: key, cache: cache)
-      : HiveAsyncCachedRepositoryImpl<Customer>(hiveCustomers,
-          key: key, cache: cache);
+      ? HiveAsyncCachedRepositoryImpl<Customer>(
+          hiveCustomers,
+          key: key,
+          cache: cache,
+        )
+      : HiveAsyncCachedRepositoryImpl<Customer>(
+          hiveCustomers,
+          key: key,
+          cache: cache,
+        );
 }
 
 @riverpod

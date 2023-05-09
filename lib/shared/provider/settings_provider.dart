@@ -1,6 +1,5 @@
 // Project imports:
 import 'package:leafy_leasing/shared/base.dart';
-import 'package:leafy_leasing/shared/data_services/hive.dart';
 import 'package:leafy_leasing/shared/repository/abstract_repository.dart';
 import 'package:leafy_leasing/shared/repository/hive_repository.dart';
 
@@ -19,8 +18,7 @@ SettingsRepository settingsRepository(
 
 @riverpod
 class SettingsState extends _$SettingsState {
-  static final defaultSettings =
-      Settings(themeMode: ThemeMode.system, localeTag: null);
+  static final defaultSettings = Settings(themeMode: ThemeMode.system);
 
   late SettingsRepository _repository;
   @override

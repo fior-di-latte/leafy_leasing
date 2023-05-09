@@ -3,11 +3,8 @@ import 'dart:async';
 
 // Project imports:
 import 'package:leafy_leasing/shared/base.dart';
-import 'package:leafy_leasing/shared/data_services/hive.dart';
-import 'package:leafy_leasing/shared/data_services/isar_cache.dart';
 import 'package:leafy_leasing/shared/repository/abstract_repository.dart';
 import 'package:leafy_leasing/shared/repository/hive_repository.dart';
-import 'package:stash/stash_api.dart';
 
 part 'appointment_provider.g.dart';
 

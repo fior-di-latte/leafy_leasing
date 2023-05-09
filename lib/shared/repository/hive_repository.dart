@@ -5,7 +5,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:leafy_leasing/shared/base.dart';
 import 'package:leafy_leasing/shared/repository/abstract_repository.dart';
 import 'package:retry/retry.dart';
-import 'package:stash/src/api/cache/cache.dart';
 
 class HiveAsyncCachedRepositoryImpl<T> extends HiveAsyncRepositoryImpl<T>
     implements HiveAsyncCachedRepository<T> {

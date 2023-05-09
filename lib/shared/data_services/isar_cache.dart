@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:leafy_leasing/shared/base.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:stash/stash_api.dart';
 import 'package:stash_isar/stash_isar.dart';
 
 part 'isar_cache.g.dart';
@@ -24,15 +23,17 @@ Future<void> _maybeFlushIsar() async {
 }
 
 extension AddLoggedCache on IsarCacheStore {
-  Future<Cache<T>> createLoggedCache<T>(
-      {required T Function(Map<String, dynamic>) fromJson,
-      String? name}) async {
+  Future<Cache<T>> createLoggedCache<T>({
+    required T Function(Map<String, dynamic>) fromJson,
+    String? name,
+  }) async {
     final usedName = name ?? T.toString();
     final newCache = await cache<T>(
-        fromEncodable: fromJson,
-        name: usedName,
-        maxEntries: kNumberOfCacheItems,
-        eventListenerMode: EventListenerMode.synchronous);
+      fromEncodable: fromJson,
+      name: usedName,
+      maxEntries: kNumberOfCacheItems,
+      eventListenerMode: EventListenerMode.synchronous,
+    );
 
     return addLoggersToIsarCache(newCache, name: usedName);
   }

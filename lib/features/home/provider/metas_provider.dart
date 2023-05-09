@@ -22,10 +22,16 @@ Future<MetasRepository> metasRepository(
 }) async {
   final cache = await ref.watch(metasCacheProvider.future);
   return dotenv.get('USE_HIVE_MOCK_BACKEND') == 'true'
-      ? HiveAsyncCachedRepositoryImpl<AppointmentMetas>(boxName,
-          key: key, cache: cache)
-      : HiveAsyncCachedRepositoryImpl<AppointmentMetas>(boxName,
-          key: key, cache: cache);
+      ? HiveAsyncCachedRepositoryImpl<AppointmentMetas>(
+          boxName,
+          key: key,
+          cache: cache,
+        )
+      : HiveAsyncCachedRepositoryImpl<AppointmentMetas>(
+          boxName,
+          key: key,
+          cache: cache,
+        );
 }
 
 @riverpod
@@ -34,7 +40,8 @@ class MetasState extends _$MetasState
   @override
   FutureOr<AppointmentMetas> build() async {
     repository = await ref.watch(
-        metasRepositoryProvider(boxName: hiveMetas, key: hiveMetas).future);
+      metasRepositoryProvider(boxName: hiveMetas, key: hiveMetas).future,
+    );
 
     return buildFromStream();
   }

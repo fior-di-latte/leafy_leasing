@@ -1,6 +1,5 @@
 // Project imports:
 import 'package:leafy_leasing/shared/base.dart';
-import 'package:stash/stash_api.dart';
 
 class ProviderDisposeLogger extends ProviderObserver with NetworkLoggy {
   @override
@@ -72,15 +71,20 @@ class CustomRouteObserver extends AutoRouterObserver {
 Cache<T> addLoggersToIsarCache<T>(Cache<T> cache, {required String name}) =>
     cache
       ..on<CacheEntryCreatedEvent<T>>().listen(
-          (event) => logDebug('IsarCache $name: "${event.entry.key}" added'))
-      ..on<CacheEntryUpdatedEvent<T>>().listen((event) =>
-          logDebug('IsarCache $name: "${event.newEntry.key}" updated'))
+        (event) => logDebug('IsarCache $name: "${event.entry.key}" added'),
+      )
+      ..on<CacheEntryUpdatedEvent<T>>().listen(
+        (event) => logDebug('IsarCache $name: "${event.newEntry.key}" updated'),
+      )
       ..on<CacheEntryRemovedEvent<T>>().listen(
-          (event) => logDebug('IsarCache $name: "${event.entry.key}" removed'))
+        (event) => logDebug('IsarCache $name: "${event.entry.key}" removed'),
+      )
       ..on<CacheEntryExpiredEvent<T>>().listen(
-          (event) => logDebug('IsarCache $name: "${event.entry.key}" expired'))
+        (event) => logDebug('IsarCache $name: "${event.entry.key}" expired'),
+      )
       ..on<CacheEntryEvictedEvent<T>>().listen(
-          (event) => logDebug('IsarCache $name: "${event.entry.key}" evicted'));
+        (event) => logDebug('IsarCache $name: "${event.entry.key}" evicted'),
+      );
 
 void logOnNetworkRetry<T>(String id, Exception e, {bool isPut = false}) =>
     logWarning('Network Error: Retrying to ${isPut ? 'put' : 'fetch'} $T id.'
