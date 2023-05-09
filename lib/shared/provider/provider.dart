@@ -86,14 +86,3 @@ mixin AsyncRepositoryMixin<T> {
         : SnackbarBuilder(errorUiCallback, type: SnackbarType.error);
   }
 }
-
-// Future<T> _repositoryGetWithErrorSnackbar(
-//     [ErrorUiCallback? errorUiCallback]) {
-//   try {
-//     // throw Exception;
-//     return repository.get();
-//   } catch (e) {
-//     notifications.state = _getErrorSnackbarBuilder(errorUiCallback);
-//     rethrow;
-//   }
-// }

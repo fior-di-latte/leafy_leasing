@@ -1,4 +1,11 @@
-// Project imports:
+///  Declarative Logging:
+///  * on provider change
+///  * on route change
+///  * on cache change
+///  * on internet retry attempt
+///  * on internet status change (see internetConnectionProvider)
+///  * on local state change (see useLoggedState)
+
 import 'package:leafy_leasing/shared/base.dart';
 
 class ProviderDisposeLogger extends ProviderObserver with NetworkLoggy {

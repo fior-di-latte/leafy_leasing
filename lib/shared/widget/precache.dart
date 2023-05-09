@@ -12,21 +12,17 @@ class PrecacheProvider extends ConsumerWidget {
   final Widget child;
   final ProviderListenable<AsyncValue<Object?>> provider;
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // ref.watch(provider);
-
-    return Stack(
-      children: [
-        Consumer(
-          builder: (_, ref, __) {
-            ref.watch(provider);
-            return const SizedBox.shrink();
-          },
-        ),
-        child
-      ],
-    );
-  }
+  Widget build(BuildContext context, WidgetRef ref) => Stack(
+        children: [
+          Consumer(
+            builder: (_, ref, __) {
+              ref.watch(provider);
+              return const SizedBox.shrink();
+            },
+          ),
+          child
+        ],
+      );
 }
 
 class SnackbarListener extends ConsumerWidget with UiLoggy {
@@ -35,15 +31,16 @@ class SnackbarListener extends ConsumerWidget with UiLoggy {
   final Widget child;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.watch(internetConnectionProvider);
-    ref.listen(
-      notificationProvider,
-      (_, snackbarBuilder) => EasyThrottle.throttle(
-        snackbarBuilder.type.toString(),
-        snackbarBuilder.type.throttleDuration,
-        () => snackbarBuilder.builder(context),
-      ),
-    );
+    ref
+      ..watch(internetConnectionProvider)
+      ..listen(
+        notificationProvider,
+        (_, snackbarBuilder) => EasyThrottle.throttle(
+          snackbarBuilder.type.toString(),
+          snackbarBuilder.type.throttleDuration,
+          () => snackbarBuilder.builder(context),
+        ),
+      );
     return child;
   }
 }

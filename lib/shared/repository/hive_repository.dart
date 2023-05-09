@@ -1,5 +1,8 @@
 // Package imports:
+import 'dart:async';
+
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 // Project imports:
 import 'package:leafy_leasing/shared/base.dart';
@@ -39,7 +42,8 @@ class HiveAsyncCachedRepositoryImpl<T> extends HiveAsyncRepositoryImpl<T>
       // check if cache fallback is available
       final cachedFallback = await cache.get(key);
       if (cachedFallback != null) {
-        logInfo('found $key in cache, returning $cachedFallback');
+        logInfo(
+            '😅 Cache Fallback Used! Found $key in cache, returning $cachedFallback');
         return cachedFallback;
       }
 
@@ -78,7 +82,7 @@ class HiveAsyncRepositoryImpl<T> implements HiveAsyncRepository<T> {
 
   @override
   Future<T> put(T item) async {
-    // throw Exception;
+    await throwTimeOutErrorWhenManualInternetCheckFails();
     await retry(
       () => Future.delayed(kMockNetworkLag, () => _box.put(key, item)),
       maxAttempts: kNumberPutRetries,
@@ -91,14 +95,25 @@ class HiveAsyncRepositoryImpl<T> implements HiveAsyncRepository<T> {
   Stream<T> listenable() => _box.watch(key: key).map((_) => syncGet()!);
 
   @override
-  Future<T> get() => retry(
-        () => Future.delayed(kMockNetworkLag, syncGet),
-        maxAttempts: kNumberGetRetries,
-        onRetry: (e) => logOnNetworkRetry<T>(key, e),
-      );
+  Future<T> get() async {
+    await throwTimeOutErrorWhenManualInternetCheckFails();
+    return retry(
+      () => Future.delayed(kMockNetworkLag, syncGet),
+      maxAttempts: kNumberGetRetries,
+      onRetry: (e) => logOnNetworkRetry<T>(key, e),
+    );
+  }
 
   @override
   void dispose() {}
+
+  static Future<void> throwTimeOutErrorWhenManualInternetCheckFails() async {
+    final connectionStatus = await InternetConnectionChecker().connectionStatus;
+    if (connectionStatus == InternetConnectionStatus.disconnected) {
+      logWarning('Manual check: No internet connection');
+      throw TimeoutException('Manual check: No internet!');
+    }
+  }
 }
 
 class HiveRepositorySyncImpl<T> implements HiveSyncRepository<T> {
