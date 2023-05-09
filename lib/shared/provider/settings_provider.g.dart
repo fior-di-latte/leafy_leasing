@@ -122,7 +122,7 @@ class SettingsRepositoryProvider
   }
 }
 
-String _$settingsStateHash() => r'b8f7725b2e6d4d13f984f88dcb6e6fb722fddfe1';
+String _$settingsStateHash() => r'bdcf7762bcccabeb6cd497cf8d8439048a63e783';
 
 /// See also [SettingsState].
 @ProviderFor(SettingsState)
