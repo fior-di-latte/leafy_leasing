@@ -14,10 +14,11 @@ _"A companion app for PaaS (_Plants as a Service_) companies."_
 * 🏄‍♂ ️State Management: `riverpod`: All _AsyncStates_ _(loading, error, data)_ handled by UI
 * ➡️ Mono-directional Data Flow: Data Service -> Repository -> AsyncNotifierProvider -> UI
 * 🪝 Local State Management: `flutter_hooks`
-* 🐝 Data Persistence: `hive`
+* 🐝 Local Data Persistence: `hive`
+* 🗳️ Caching: `stash` using an `isar` implementation
 * 🧭 Navigation: `auto_route`
 * 🗣️ Internationalization: `flutter_localizations`
-* 📄 Declarative Logging: `loggy` with listeners on providers (BL), widget states and route changes.
+* 📄 Declarative Logging: `loggy` with listeners on providers (BL), widget states and route changes, connection states and cache changes.
 * 🤌 Lint Rules: `very_good_analysis`
 * 🏭 Continuous Integration: `Github Action` with a `very good workflow` as the base
 
@@ -32,7 +33,7 @@ Developed using Flutter 3.7.8 and Dart 2.19.5, tested **only** on Android (API 3
 
 ## Getting Started 🚀
 
-This project contains 3 flavors:
+This project contains three flavors:
 
 - development
 - staging
@@ -196,7 +197,7 @@ The logo is designed with some help from [BlueWillow AI](https://www.bluewillow.
 * To initialize a new splash screen, use
 ```flutter pub run flutter_native_splash:create --path=flutter_native_splash.yaml```.
 
-## Secrets
+## Secrets 🤐
 The developer has access to a file `lib/shared/secrets.dart` which is not pushed to the repository. It is the place for
 API keys and other access tokens. When a _Github workflow_ is triggered, it will create the file on the fly by accessing
 the Github Secrets and injecting them into the file. The file is then used by the app to access the secrets.
