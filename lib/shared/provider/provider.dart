@@ -47,6 +47,7 @@ mixin AsyncRepositoryMixin<T> {
   Future<void> optimisticPut(
     T newValue, {
     bool invalidateFinally = false,
+    FutureOr<void> Function()? onFinally,
     ErrorUiCallback? errorUiCallback,
     bool showErrorUiCallback = true,
   }) async {
@@ -67,6 +68,7 @@ mixin AsyncRepositoryMixin<T> {
       if (invalidateFinally) {
         ref.invalidateSelf();
       }
+      onFinally?.call();
     }
   }
 
