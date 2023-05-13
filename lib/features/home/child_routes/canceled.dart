@@ -6,8 +6,8 @@ import 'package:leafy_leasing/features/home/widget/empty_iterable_placeholder.da
 import 'package:leafy_leasing/shared/base.dart';
 
 @RoutePage()
-class CanceledScreen extends HookConsumerWidget with UiLoggy {
-  const CanceledScreen({super.key});
+class CanceledView extends HookConsumerWidget with UiLoggy {
+  const CanceledView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -3,7 +3,7 @@ import 'package:leafy_leasing/shared/base.dart';
 
 part 'app_router.gr.dart';
 
-@AutoRouterConfig(replaceInRouteName: 'Screen,Route')
+@AutoRouterConfig(replaceInRouteName: 'View,Route')
 class AppRouter extends _$AppRouter {
   @override
   final List<AutoRoute> routes = [

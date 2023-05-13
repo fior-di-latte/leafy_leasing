@@ -18,31 +18,31 @@ abstract class _$AppRouter extends RootStackRouter {
     SettingsRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const SettingsScreen(),
-      );
-    },
-    PendingRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const PendingScreen(),
-      );
-    },
-    CanceledRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const CanceledScreen(),
-      );
-    },
-    DoneRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const DoneScreen(),
+        child: const SettingsView(),
       );
     },
     HomeRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const HomeScreen(),
+        child: const HomeView(),
+      );
+    },
+    PendingRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const PendingView(),
+      );
+    },
+    CanceledRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const CanceledView(),
+      );
+    },
+    DoneRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const DoneView(),
       );
     },
     AppointmentRoute.name: (routeData) {
@@ -51,7 +51,7 @@ abstract class _$AppRouter extends RootStackRouter {
           orElse: () => AppointmentRouteArgs(id: pathParams.getString('id')));
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: AppointmentScreen(
+        child: AppointmentView(
           args.id,
           key: args.key,
         ),
@@ -64,7 +64,7 @@ abstract class _$AppRouter extends RootStackRouter {
               CancelAppointmentRouteArgs(id: pathParams.getString('id')));
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: CancelAppointmentScreen(
+        child: CancelAppointmentView(
           args.id,
           key: args.key,
         ),
@@ -77,7 +77,7 @@ abstract class _$AppRouter extends RootStackRouter {
               CloseAppointmentRouteArgs(id: pathParams.getString('id')));
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: CloseAppointmentScreen(
+        child: CloseAppointmentView(
           args.id,
           key: args.key,
         ),
@@ -87,7 +87,7 @@ abstract class _$AppRouter extends RootStackRouter {
 }
 
 /// generated route for
-/// [SettingsScreen]
+/// [SettingsView]
 class SettingsRoute extends PageRouteInfo<void> {
   const SettingsRoute({List<PageRouteInfo>? children})
       : super(
@@ -101,49 +101,7 @@ class SettingsRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [PendingScreen]
-class PendingRoute extends PageRouteInfo<void> {
-  const PendingRoute({List<PageRouteInfo>? children})
-      : super(
-          PendingRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'PendingRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [CanceledScreen]
-class CanceledRoute extends PageRouteInfo<void> {
-  const CanceledRoute({List<PageRouteInfo>? children})
-      : super(
-          CanceledRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'CanceledRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [DoneScreen]
-class DoneRoute extends PageRouteInfo<void> {
-  const DoneRoute({List<PageRouteInfo>? children})
-      : super(
-          DoneRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'DoneRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [HomeScreen]
+/// [HomeView]
 class HomeRoute extends PageRouteInfo<void> {
   const HomeRoute({List<PageRouteInfo>? children})
       : super(
@@ -157,7 +115,49 @@ class HomeRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [AppointmentScreen]
+/// [PendingView]
+class PendingRoute extends PageRouteInfo<void> {
+  const PendingRoute({List<PageRouteInfo>? children})
+      : super(
+          PendingRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'PendingRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [CanceledView]
+class CanceledRoute extends PageRouteInfo<void> {
+  const CanceledRoute({List<PageRouteInfo>? children})
+      : super(
+          CanceledRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'CanceledRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [DoneView]
+class DoneRoute extends PageRouteInfo<void> {
+  const DoneRoute({List<PageRouteInfo>? children})
+      : super(
+          DoneRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'DoneRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [AppointmentView]
 class AppointmentRoute extends PageRouteInfo<AppointmentRouteArgs> {
   AppointmentRoute({
     required String id,
@@ -196,7 +196,7 @@ class AppointmentRouteArgs {
 }
 
 /// generated route for
-/// [CancelAppointmentScreen]
+/// [CancelAppointmentView]
 class CancelAppointmentRoute extends PageRouteInfo<CancelAppointmentRouteArgs> {
   CancelAppointmentRoute({
     required String id,
@@ -235,7 +235,7 @@ class CancelAppointmentRouteArgs {
 }
 
 /// generated route for
-/// [CloseAppointmentScreen]
+/// [CloseAppointmentView]
 class CloseAppointmentRoute extends PageRouteInfo<CloseAppointmentRouteArgs> {
   CloseAppointmentRoute({
     required String id,

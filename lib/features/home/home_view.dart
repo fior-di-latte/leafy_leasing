@@ -3,8 +3,8 @@ import 'package:leafy_leasing/features/home/widget/navigation_badges.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
 @RoutePage()
-class HomeScreen extends HookConsumerWidget {
-  const HomeScreen({super.key});
+class HomeView extends HookConsumerWidget {
+  const HomeView({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // return PlaygroundWidget();

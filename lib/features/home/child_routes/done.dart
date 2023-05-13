@@ -6,8 +6,8 @@ import 'package:leafy_leasing/features/home/widget/empty_iterable_placeholder.da
 import 'package:leafy_leasing/shared/base.dart';
 
 @RoutePage()
-class DoneScreen extends HookConsumerWidget with UiLoggy {
-  const DoneScreen({super.key});
+class DoneView extends HookConsumerWidget with UiLoggy {
+  const DoneView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -3,7 +3,7 @@ import 'package:leafy_leasing/features/home/provider/metas_provider.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
 /// this is a playground widget to rapidly test stuff
-/// and is used in [HomeScreen].
+/// and is used in [HomeView].
 class PlaygroundWidget extends HookConsumerWidget with UiLoggy {
   const PlaygroundWidget({super.key});
 
