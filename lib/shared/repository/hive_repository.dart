@@ -43,7 +43,8 @@ class HiveAsyncCachedRepositoryImpl<T> extends HiveAsyncRepositoryImpl<T>
       final cachedFallback = await cache.get(key);
       if (cachedFallback != null) {
         logInfo(
-            '😅 Cache Fallback Used! Found $key in cache, returning $cachedFallback');
+          '😅 Cache Fallback Used! Found $key in cache, returning $cachedFallback',
+        );
         return cachedFallback;
       }
 

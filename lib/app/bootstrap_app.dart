@@ -14,7 +14,6 @@ Future<void> bootstrap() async {
     logWarning('Starting with DotEnv: ${dotenv.env}');
   }
   await setupHive();
-  logWarning('lol');
   runApp(
     ProviderScope(
       observers: kDebugMode ? devProviderLoggers : null,

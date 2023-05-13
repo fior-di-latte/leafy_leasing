@@ -1,7 +1,5 @@
 // Project imports:
-import 'package:easy_debounce/easy_throttle.dart';
 import 'package:leafy_leasing/shared/base.dart';
-import 'package:leafy_leasing/shared/provider/internet_connection_provider.dart';
 
 class PrecacheProvider extends ConsumerWidget {
   const PrecacheProvider({
@@ -25,48 +23,80 @@ class PrecacheProvider extends ConsumerWidget {
       );
 }
 
-class SnackbarListener extends ConsumerWidget with UiLoggy {
-  const SnackbarListener({required this.child, super.key});
-
-  final Widget child;
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    ref
-      ..watch(internetConnectionProvider)
-      ..listen(
-        notificationProvider,
-        (_, snackbarBuilder) => EasyThrottle.throttle(
-          snackbarBuilder.type.toString(),
-          snackbarBuilder.type.throttleDuration,
-          () => snackbarBuilder.builder(context),
-        ),
-      );
-    return child;
-  }
-}
-
-class WarmUp extends ConsumerWidget with UiLoggy {
+class WarmUp extends HookConsumerWidget with UiLoggy {
   const WarmUp({this.providers, required this.child, super.key});
 
   final List<ProviderListenable<AsyncValue<Object?>>>? providers;
   final Widget child;
+  static const _splashLogoSize = 80.0;
+  static final _animationScaleUpDuration =
+      (.5 * kSplashMinWaitingTime.inMilliseconds).milliseconds;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     if (providers == null) {
       return child;
     }
+
+    final splashHasTimedOut = useTimeOutFuture(kSplashMaxWaitingTime);
+    final splashAllowedToHide = useTimeOutFuture(kSplashMinWaitingTime);
+
     final states = providers!.map((p) => ref.watch(p));
 
+    final loadingComplete = states.every((state) => state is AsyncData);
+    final showSplash =
+        !loadingComplete && !splashHasTimedOut || !splashAllowedToHide;
+
+    _logErrors(states);
+
+    return Directionality(
+      // needed because this is before MaterialApp in the widget tree
+      textDirection: TextDirection.ltr,
+      child: Stack(
+        children: [
+          child,
+          AnimatedSwitcher(
+            duration: 300.milliseconds,
+            child: showSplash
+                ? ColoredBox(
+                    color: kAppBarColor,
+                    child: Center(
+                      child: ClipOval(
+                        child: Container(
+                          color: Color.lerp(kSeedColor, kAppBarColor, .5),
+                          padding: const EdgeInsets.all(3),
+                          child: ClipOval(
+                            child: Image.asset(
+                              Assets.imageLogo,
+                              fit: BoxFit.cover,
+                              width: _splashLogoSize,
+                              height: _splashLogoSize,
+                            ),
+                          ),
+                        ),
+                      ).animate(onPlay: (c) => c.repeat(reverse: true)).scaleXY(
+                            end: 1.5,
+                            duration:
+                                (.5 * kSplashMinWaitingTime.inMilliseconds)
+                                    .milliseconds,
+                            curve: Curves.easeOut,
+                          ),
+                    ),
+                  )
+                : SizedBox.shrink(
+                    key: UniqueKey(),
+                  ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _logErrors(Iterable<AsyncValue<Object?>> states) {
     for (final state in states) {
       if (state is AsyncError) {
         logError('Error while warming up: ${state.error}');
       }
     }
-
-    if (states.every((state) => state is AsyncData)) return child;
-    return const FittedBox(
-      child: CircularProgressIndicator.adaptive(),
-    );
   }
 }

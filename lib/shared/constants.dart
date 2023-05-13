@@ -1,7 +1,9 @@
 // Project imports:
 import 'package:leafy_leasing/shared/base.dart';
 
-final kMockNetworkLag = 300.milliseconds;
+final kMockNetworkLag = 250.milliseconds;
+final kSplashMaxWaitingTime = 2200.milliseconds;
+final kSplashMinWaitingTime = 1600.milliseconds;
 const kNumberGetRetries = 8;
 const kNumberPutRetries = 2;
 const kNumberOfCacheItems = 15;

@@ -8,3 +8,9 @@ ValueNotifier<T> useLoggedState<T>(T initialData) {
   });
   return result;
 }
+
+bool useTimeOutFuture(Duration timeOutDuration) {
+  final timer = useMemoized(() => Future.delayed(timeOutDuration, () => true));
+  final timerAsFuture = useFuture(timer);
+  return timerAsFuture.hasData;
+}

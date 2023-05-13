@@ -9,7 +9,6 @@ class PlaygroundWidget extends HookConsumerWidget with UiLoggy {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    logWarning('lol');
     return PrecacheProvider(
       provider: metasStateProvider,
       child: Container(color: Colors.red),

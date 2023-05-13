@@ -23,7 +23,6 @@ class SettingsState extends _$SettingsState {
   late SettingsRepository _repository;
   @override
   Settings build() {
-    logWarning('lol');
     _repository = ref.watch(
       settingsRepositoryProvider(key: hiveSettings, boxName: hiveSettings),
     );

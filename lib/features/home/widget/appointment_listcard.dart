@@ -3,12 +3,12 @@ import 'package:leafy_leasing/shared/base.dart';
 
 class AppointmentListCard extends HookConsumerWidget with UiLoggy {
   const AppointmentListCard(this.id, {super.key});
-  static const heightFactor = .25;
+  static const _heightFactor = .25;
   final String id;
   @override
   Widget build(BuildContext context, WidgetRef ref) => Container(
         margin: const EdgeInsets.all(lPadding),
-        height: context.height * heightFactor,
+        height: context.height * _heightFactor,
         child: Stack(
           clipBehavior: Clip.none,
           children: [
@@ -116,8 +116,8 @@ class _InnerCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     ActionChip(
-                      labelStyle: const TextStyle(color: Colors.black),
-                      elevation: 20,
+                      // labelStyle: const TextStyle(color: Colors.black),
+                      elevation: 5,
                       surfaceTintColor: context.cs.secondary,
                       avatar: const Icon(
                         Icons.calendar_month_outlined,
