@@ -43,12 +43,13 @@ extension TestExtension<T> on AutoDisposeRef<T> {
 
 extension AddCustomLoadingErrorWidgets<T> on AsyncValue<T> {
   Widget whenFine(
-    Widget Function(T data) data, {
+    Widget Function(T dataInstance) data, {
     String? loadingInfo,
     bool hasShimmer = false,
     bool skipLoadingOnRefresh = true,
     bool skipLoadingOnReload = true,
     bool skipError = false,
+    bool fadeInData = false,
   }) {
     final placeholder = hasShimmer
         ? Container(color: Colors.grey)
@@ -60,7 +61,13 @@ extension AddCustomLoadingErrorWidgets<T> on AsyncValue<T> {
       skipLoadingOnReload: skipLoadingOnReload,
       skipError: skipError,
       orElse: () => placeholder,
-      data: data,
+      data: (T dataInstance) => AnimatedSwitcher(
+        key: ValueKey(dataInstance),
+        duration: 300.milliseconds,
+        child: fadeInData
+            ? data(dataInstance).animate().fadeIn()
+            : data(dataInstance),
+      ),
     );
   }
 }

@@ -46,7 +46,7 @@ abstract class AppointmentActionButton extends StatelessWidget {
                 newStatus: newStatus!,
                 comment: commentTextController.text,
               );
-          context.router.navigate(const HomeRoute());
+          // context.router.navigate(const HomeRoute());
         },
         foregroundColor: context.cs.error,
         labelText: context.lc.cancelAppointmentNow,

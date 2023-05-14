@@ -44,6 +44,9 @@ mixin AsyncRepositoryMixin<T> {
     return repository.get();
   }
 
+  /// Optimistically update, meaning that the state is updated before the network
+  /// call is made. If the network call fails, the state is reverted to the
+  /// previous state.
   Future<void> optimisticPut(
     T newValue, {
     bool invalidateFinally = false,
@@ -54,6 +57,9 @@ mixin AsyncRepositoryMixin<T> {
     final oldValue = state;
     logger.i('Optimistic Update: $newValue');
     state = AsyncValue.data(newValue);
+    // loading has no effect on UI once the state has had a value once
+    // this is only for consistency
+    state = AsyncValue<T>.loading();
     try {
       // throw Exception('Network Error');
       await repository.put(newValue);
