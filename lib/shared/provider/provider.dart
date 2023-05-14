@@ -26,9 +26,9 @@ mixin AsyncRepositoryMixin<T> {
       try {
         final newValue = await repository.get();
         state = AsyncValue.data(newValue);
-        logInfo('Polling successful: $newValue');
+        logger.i('Polling successful: $newValue');
       } catch (e, stackTrace) {
-        logError('Polling Error: $e');
+        logger.e('Polling Error: $e');
         state = AsyncValue.error(e, stackTrace);
       }
     });
@@ -52,14 +52,14 @@ mixin AsyncRepositoryMixin<T> {
     bool showErrorUiCallback = true,
   }) async {
     final oldValue = state;
-    logInfo('Optimistic Update: $newValue');
+    logger.i('Optimistic Update: $newValue');
     state = AsyncValue.data(newValue);
     try {
       // throw Exception('Network Error');
       await repository.put(newValue);
-      logWarning('Successful network update.');
+      logger.w('Successful network update $repository.');
     } catch (e) {
-      logError('NetworkError | Naive optimism: $e');
+      logger.e('NetworkError | Naive optimism: $e');
       if (showErrorUiCallback) {
         notifications.state = _getErrorSnackbarBuilder(errorUiCallback);
       }

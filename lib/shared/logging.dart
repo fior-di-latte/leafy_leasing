@@ -8,28 +8,53 @@
 
 import 'package:leafy_leasing/shared/base.dart';
 
-class ProviderDisposeLogger extends ProviderObserver with NetworkLoggy {
+const kProviderMaxLogLength = 80;
+final logger = Logger(printer: PrettyPrinter(methodCount: 1));
+
+extension on ProviderBase<dynamic> {
+  static final providerTimestamps = <ProviderBase<dynamic>, DateTime>{};
+
+  void saveTimestamp() => providerTimestamps[this] = DateTime.now();
+
+  String get timeSinceLastUpdate {
+    final lastUpdate = providerTimestamps[this];
+    if (lastUpdate == null) {
+      return 'unknown ms';
+    }
+    final duration = DateTime.now().difference(lastUpdate);
+    return '${duration.inMilliseconds} ms';
+  }
+
+  String get customName {
+    final usedName = name ?? 'unnamedProvider';
+    final id = argument?.toString();
+    return '$usedName ${id != null ? '($id)' : ''}';
+  }
+}
+
+class ProviderDisposeLogger extends ProviderObserver {
   @override
   void didDisposeProvider(
     ProviderBase<dynamic> provider,
     ProviderContainer container,
   ) {
-    loggy.debug('P-Dispose of ${_getProviderName(provider)}.');
+    logger.v('P-Dispose of ${provider.customName}.');
   }
 }
 
-class ProviderAddLogger extends ProviderObserver with NetworkLoggy {
+class ProviderAddLogger extends ProviderObserver {
   @override
   void didAddProvider(
     ProviderBase<dynamic> provider,
     Object? value,
     ProviderContainer container,
   ) {
-    loggy.debug('P-Add of ${_getProviderName(provider)}.');
+    provider.saveTimestamp();
+    logger.v('P-Add of ${provider.customName}.');
   }
 }
 
-class ProviderUpdateLogger extends ProviderObserver with NetworkLoggy {
+class ProviderUpdateLogger extends ProviderObserver {
   @override
   void didUpdateProvider(
     ProviderBase<dynamic> provider,
@@ -37,18 +62,21 @@ class ProviderUpdateLogger extends ProviderObserver with NetworkLoggy {
     Object? newValue,
     ProviderContainer container,
   ) {
-    loggy.debug(
-      'P-Update of ${_getProviderName(provider)}:\n\t\t"Previous Value":'
+    if (previousValue is AsyncLoading &&
+        newValue is AsyncData &&
+        !provider.customName.contains('Repository') &&
+        !provider.customName.contains('Cache')) {
+      logger.d(
+        'Loading Time for ${provider.customName}: ${provider.timeSinceLastUpdate}',
+      );
+    }
+    logger.v(
+      'P-Update of ${provider.customName}:\n\t"Previous Value":'
       ' "$previousValue"'
-      '\n\t\t"New Value": "$newValue"',
+      '\n\t"New Value": '
+      '"$newValue}"',
     );
   }
-}
-
-String _getProviderName(ProviderBase<dynamic> provider) {
-  final name = provider.name ?? 'unnamedProvider';
-  final id = provider.argument?.toString();
-  return '$name ${id != null ? '($id)' : ''}';
 }
 
 final devProviderLoggers = <ProviderObserver>[
@@ -60,39 +88,39 @@ final devProviderLoggers = <ProviderObserver>[
 class CustomRouteObserver extends AutoRouterObserver {
   @override
   void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
-    logInfo('New route pushed: ${route.settings.name}');
+    logger.i('New route pushed: ${route.settings.name}');
   }
 
   // only override to observer tab routes
   @override
   void didInitTabRoute(TabPageRoute route, TabPageRoute? previousRoute) {
-    logInfo('Tab route visited: ${route.name}');
+    logger.i('Tab route visited: ${route.name}');
   }
 
   @override
   void didChangeTabRoute(TabPageRoute route, TabPageRoute previousRoute) {
-    logInfo('Tab route re-visited: ${route.name}');
+    logger.i('Tab route re-visited: ${route.name}');
   }
 }
 
 Cache<T> addLoggersToIsarCache<T>(Cache<T> cache, {required String name}) =>
     cache
       ..on<CacheEntryCreatedEvent<T>>().listen(
-        (event) => logDebug('IsarCache $name: "${event.entry.key}" added'),
+        (event) => logger.v('IsarCache $name: "${event.entry.key}" added'),
       )
       ..on<CacheEntryUpdatedEvent<T>>().listen(
-        (event) => logDebug('IsarCache $name: "${event.newEntry.key}" updated'),
+        (event) => logger.v('IsarCache $name: "${event.newEntry.key}" updated'),
       )
       ..on<CacheEntryRemovedEvent<T>>().listen(
-        (event) => logDebug('IsarCache $name: "${event.entry.key}" removed'),
+        (event) => logger.v('IsarCache $name: "${event.entry.key}" removed'),
       )
       ..on<CacheEntryExpiredEvent<T>>().listen(
-        (event) => logDebug('IsarCache $name: "${event.entry.key}" expired'),
+        (event) => logger.v('IsarCache $name: "${event.entry.key}" expired'),
       )
       ..on<CacheEntryEvictedEvent<T>>().listen(
-        (event) => logDebug('IsarCache $name: "${event.entry.key}" evicted'),
+        (event) => logger.v('IsarCache $name: "${event.entry.key}" evicted'),
       );
 
 void logOnNetworkRetry<T>(String id, Exception e, {bool isPut = false}) =>
-    logWarning('Network Error: Retrying to ${isPut ? 'put' : 'fetch'} $T id.'
+    logger.e('Network Error: Retrying to ${isPut ? 'put' : 'fetch'} $T id.'
         ' Exception $e');

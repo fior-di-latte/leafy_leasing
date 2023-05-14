@@ -1,7 +1,7 @@
 // Project imports:
 import 'package:leafy_leasing/shared/base.dart';
 
-class AppointmentCardExtended extends HookConsumerWidget with UiLoggy {
+class AppointmentCardExtended extends HookConsumerWidget {
   const AppointmentCardExtended(this.id, {super.key});
   final String id;
   @override

@@ -1,7 +1,7 @@
 // Project imports:
 import 'package:leafy_leasing/shared/base.dart';
 
-class CustomerAddressCard extends HookConsumerWidget with UiLoggy {
+class CustomerAddressCard extends HookConsumerWidget {
   const CustomerAddressCard({
     required this.address,
     required this.city,
@@ -35,7 +35,7 @@ class CustomerAddressCard extends HookConsumerWidget with UiLoggy {
       child: Card(
         child: InkWell(
           borderRadius: kBorderRadius,
-          onTap: () => loggy.info('This would open Google Maps'),
+          onTap: () => logger.i('This would open Google Maps'),
           child: Padding(
             padding: const EdgeInsets.all(lPadding),
             child: Row(

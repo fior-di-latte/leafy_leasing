@@ -3,7 +3,7 @@ import 'package:leafy_leasing/features/cancel_appointment/widget/who_canceled_ra
 import 'package:leafy_leasing/shared/base.dart';
 
 @RoutePage()
-class CancelAppointmentView extends HookConsumerWidget with UiLoggy {
+class CancelAppointmentView extends HookConsumerWidget {
   const CancelAppointmentView(@PathParam() this.id, {super.key});
 
   final String id;

@@ -1,7 +1,7 @@
 // Project imports:
 import 'package:leafy_leasing/shared/base.dart';
 
-class CustomerContactCard extends HookConsumerWidget with UiLoggy {
+class CustomerContactCard extends HookConsumerWidget {
   const CustomerContactCard({
     required this.name,
     required this.phone,
@@ -53,7 +53,7 @@ class CustomerContactCard extends HookConsumerWidget with UiLoggy {
                 child: FittedBox(
                   child: IconButton(
                     icon: const Icon(Icons.email),
-                    onPressed: () => loggy.info('This would email $email'),
+                    onPressed: () => logger.i('This would email $email'),
                   ),
                 ),
               ),
@@ -61,7 +61,7 @@ class CustomerContactCard extends HookConsumerWidget with UiLoggy {
                 child: FittedBox(
                   child: IconButton(
                     icon: const Icon(Icons.phone),
-                    onPressed: () => loggy.info('This would call $phone'),
+                    onPressed: () => logger.i('This would call $phone'),
                   ),
                 ),
               )

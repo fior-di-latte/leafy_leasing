@@ -9,10 +9,10 @@ InternetConnectionChecker internetConnection(InternetConnectionRef ref) {
   final subscription = checker.onStatusChange.listen((status) {
     switch (status) {
       case InternetConnectionStatus.connected:
-        logInfo('Data connection is available.');
+        logger.i('Data connection is available.');
         break;
       case InternetConnectionStatus.disconnected:
-        logWarning('You are disconnected from the internet.');
+        logger.w('You are disconnected from the internet.');
         break;
     }
   });

@@ -1,7 +1,7 @@
 // Project imports:
 import 'package:leafy_leasing/shared/base.dart';
 
-class CompanyAvatar extends ConsumerWidget with UiLoggy {
+class CompanyAvatar extends ConsumerWidget {
   const CompanyAvatar({
     required this.customerId,
     super.key,
@@ -32,7 +32,7 @@ class CompanyAvatar extends ConsumerWidget with UiLoggy {
               elevation: 8,
               child: InkWell(
                 customBorder: const CircleBorder(),
-                onTap: () => loggy.info(
+                onTap: () => logger.i(
                   'This would direct you to the customer profile page ',
                 ),
                 child: CircleAvatar(

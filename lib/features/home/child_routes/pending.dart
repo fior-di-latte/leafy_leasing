@@ -7,7 +7,7 @@ import 'package:leafy_leasing/features/home/widget/empty_iterable_placeholder.da
 import 'package:leafy_leasing/shared/base.dart';
 
 @RoutePage()
-class PendingView extends HookConsumerWidget with UiLoggy {
+class PendingView extends HookConsumerWidget {
   const PendingView({super.key});
 
   @override

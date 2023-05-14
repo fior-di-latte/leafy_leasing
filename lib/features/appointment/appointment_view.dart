@@ -6,7 +6,7 @@ import 'package:leafy_leasing/features/appointment/widget/final_comment_display.
 import 'package:leafy_leasing/shared/base.dart';
 
 @RoutePage()
-class AppointmentView extends ConsumerWidget with UiLoggy {
+class AppointmentView extends ConsumerWidget {
   const AppointmentView(@PathParam() this.id, {super.key});
 
   final String id;

@@ -3,7 +3,7 @@ import 'package:leafy_leasing/shared/base.dart';
 
 import 'package:leafy_leasing/shared/provider/internet_connection_provider.dart';
 
-class SnackbarListener extends ConsumerWidget with UiLoggy {
+class SnackbarListener extends ConsumerWidget {
   const SnackbarListener({required this.child, super.key});
 
   final Widget child;

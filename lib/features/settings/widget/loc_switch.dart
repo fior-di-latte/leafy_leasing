@@ -4,7 +4,7 @@ import 'package:leafy_leasing/l10n/l10n.dart';
 import 'package:leafy_leasing/shared/base.dart';
 import 'package:settings_ui/settings_ui.dart';
 
-class LocaleSwitch extends HookConsumerWidget with UiLoggy {
+class LocaleSwitch extends HookConsumerWidget {
   const LocaleSwitch({super.key});
 
   @override

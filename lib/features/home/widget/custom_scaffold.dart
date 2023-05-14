@@ -1,7 +1,7 @@
 // Project imports:
 import 'package:leafy_leasing/shared/base.dart';
 
-class HomeScaffold extends StatelessWidget with UiLoggy {
+class HomeScaffold extends StatelessWidget {
   const HomeScaffold({
     required this.body,
     required this.title,
@@ -21,7 +21,7 @@ class HomeScaffold extends StatelessWidget with UiLoggy {
           ? FloatingActionButton(
               child: const Icon(Icons.add),
               onPressed: () =>
-                  loggy.info('This would open a new appointment menu.'),
+                  logger.i('This would open a new appointment menu.'),
             )
           : null,
       appBar: AppBar(

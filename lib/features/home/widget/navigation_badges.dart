@@ -3,7 +3,7 @@ import 'package:leafy_leasing/features/home/model/appointment_meta.dart';
 import 'package:leafy_leasing/features/home/provider/metas_provider.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
-class NavigationBadge extends HookConsumerWidget with UiLoggy {
+class NavigationBadge extends HookConsumerWidget {
   const NavigationBadge({
     this.forPending = false,
     this.forClosed = false,

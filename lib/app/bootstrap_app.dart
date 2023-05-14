@@ -9,9 +9,8 @@ import 'package:leafy_leasing/features/home/provider/metas_provider.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
 Future<void> bootstrap() async {
-  Loggy.initLoggy();
   if (kDebugMode) {
-    logWarning('Starting with DotEnv: ${dotenv.env}');
+    logger.w('Starting with DotEnv: ${dotenv.env}');
   }
   await setupHive();
   runApp(

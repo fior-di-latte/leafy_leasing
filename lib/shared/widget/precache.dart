@@ -23,7 +23,7 @@ class PrecacheProvider extends ConsumerWidget {
       );
 }
 
-class WarmUp extends HookConsumerWidget with UiLoggy {
+class WarmUp extends HookConsumerWidget {
   const WarmUp({this.providers, required this.child, super.key});
 
   final List<ProviderListenable<AsyncValue<Object?>>>? providers;
@@ -45,8 +45,9 @@ class WarmUp extends HookConsumerWidget with UiLoggy {
 
     final loadingComplete = states.every((state) => state is AsyncData);
     final showSplash =
-        !loadingComplete && !splashHasTimedOut || !splashAllowedToHide;
+        (!loadingComplete && !splashHasTimedOut) || !splashAllowedToHide;
 
+    _useLogLoadingTimes(showSplash, splashHasTimedOut, splashAllowedToHide);
     _logErrors(states);
 
     return Directionality(
@@ -76,9 +77,7 @@ class WarmUp extends HookConsumerWidget with UiLoggy {
                         ),
                       ).animate(onPlay: (c) => c.repeat(reverse: true)).scaleXY(
                             end: 1.5,
-                            duration:
-                                (.5 * kSplashMinWaitingTime.inMilliseconds)
-                                    .milliseconds,
+                            duration: _animationScaleUpDuration,
                             curve: Curves.easeOut,
                           ),
                     ),
@@ -92,10 +91,29 @@ class WarmUp extends HookConsumerWidget with UiLoggy {
     );
   }
 
+  void _useLogLoadingTimes(
+    bool showSplash,
+    bool splashHasTimedOut,
+    bool splashAllowedToHide,
+  ) {
+    useValueChanged(showSplash, (_, __) {
+      if (splashHasTimedOut) {
+        logger.w('Splash: Timeout, still loading');
+      } else if (splashAllowedToHide) {
+        logger
+            .i('Splash: Loading completed even before animation was finished');
+      } else {
+        logger.w('Splash: Loading successful:');
+      }
+
+      return true;
+    });
+  }
+
   void _logErrors(Iterable<AsyncValue<Object?>> states) {
     for (final state in states) {
       if (state is AsyncError) {
-        logError('Error while warming up: ${state.error}');
+        logger.e('Error while warming up: ${state.error}');
       }
     }
   }

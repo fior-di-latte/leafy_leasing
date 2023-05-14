@@ -4,7 +4,7 @@ import 'package:leafy_leasing/shared/base.dart';
 
 /// this is a playground widget to rapidly test stuff
 /// and is used in [HomeView].
-class PlaygroundWidget extends HookConsumerWidget with UiLoggy {
+class PlaygroundWidget extends HookConsumerWidget {
   const PlaygroundWidget({super.key});
 
   @override

@@ -2,7 +2,7 @@
 import 'package:leafy_leasing/features/home/provider/metas_provider.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
-abstract class AppointmentActionButton extends StatelessWidget with UiLoggy {
+abstract class AppointmentActionButton extends StatelessWidget {
   const AppointmentActionButton({
     required this.foregroundColor,
     required this.labelText,
@@ -36,7 +36,7 @@ abstract class AppointmentActionButton extends StatelessWidget with UiLoggy {
       _Button(
         icon: Icons.cancel_outlined,
         onTap: () {
-          logInfo(
+          logger.i(
             'Cancel appointment with id $id. New status $newStatus,'
             ' Comment ${commentTextController.text}',
           );
@@ -66,7 +66,7 @@ abstract class AppointmentActionButton extends StatelessWidget with UiLoggy {
       _Button(
         icon: Icons.check_circle_outline,
         onTap: () {
-          logInfo(
+          logger.i(
             'Cancel appointment with id $id. New status $newStatus,'
             ' Comment ${commentTextController.text}',
           );

@@ -30,7 +30,7 @@ class BrightnessSwitches extends StatelessWidget {
       );
 }
 
-class _ThemeCard extends ConsumerWidget with UiLoggy {
+class _ThemeCard extends ConsumerWidget {
   const _ThemeCard({
     required this.themeMode,
     required this.icon,
@@ -51,7 +51,7 @@ class _ThemeCard extends ConsumerWidget with UiLoggy {
       shape: const RoundedRectangleBorder(borderRadius: kBorderRadius),
       child: InkWell(
         onTap: () {
-          loggy.info('Pushed button to set display mode to $themeMode');
+          logger.i('Pushed button to set display mode to $themeMode');
           ref.read(settingsStateProvider.notifier).setThemeMode(themeMode);
         },
         borderRadius: kBorderRadius,

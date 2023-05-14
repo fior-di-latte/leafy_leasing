@@ -42,7 +42,7 @@ Future<void> setupHive() async {
 
 Future<void> _maybeFlushHive() async {
   if (dotenv.get('FLUSH_ISAR_AND_HIVE') == 'true') {
-    logWarning('Flushing Hive...');
+    logger.w('Flushing Hive...');
     await Hive.deleteFromDisk();
   }
 }

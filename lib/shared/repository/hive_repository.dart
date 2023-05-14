@@ -26,7 +26,7 @@ class HiveAsyncCachedRepositoryImpl<T> extends HiveAsyncRepositoryImpl<T>
     // the repository (see optimistic put) is usually invalidated,
     // meaning the data is fetched again from the backend.
 
-    // logInfo('putting $item in cache');
+    // logger.i('putting $item in cache');
     // await cache.put(key, item);
     return super.put(item);
   }
@@ -42,14 +42,14 @@ class HiveAsyncCachedRepositoryImpl<T> extends HiveAsyncRepositoryImpl<T>
       // check if cache fallback is available
       final cachedFallback = await cache.get(key);
       if (cachedFallback != null) {
-        logInfo(
+        logger.i(
           '😅 Cache Fallback Used! Found $key in cache, returning $cachedFallback',
         );
         return cachedFallback;
       }
 
       // no incoming value && no cache fallback -> rethrow Error
-      logWarning('No incoming value and no cache fallback for $key');
+      logger.w('No incoming value and no cache fallback for $key');
       rethrow;
     }
   }
@@ -76,7 +76,7 @@ class HiveAsyncRepositoryImpl<T> implements HiveAsyncRepository<T> {
     try {
       return _box.get(key)!;
     } catch (e) {
-      logWarning('Error');
+      logger.e('Error');
       rethrow;
     }
   }
@@ -111,7 +111,7 @@ class HiveAsyncRepositoryImpl<T> implements HiveAsyncRepository<T> {
   static Future<void> throwTimeOutErrorWhenManualInternetCheckFails() async {
     final connectionStatus = await InternetConnectionChecker().connectionStatus;
     if (connectionStatus == InternetConnectionStatus.disconnected) {
-      logWarning('Manual check: No internet connection');
+      logger.w('Manual check: No internet connection');
       throw TimeoutException('Manual check: No internet!');
     }
   }

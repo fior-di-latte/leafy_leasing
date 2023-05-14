@@ -4,7 +4,7 @@ import 'package:leafy_leasing/features/settings/widget/loc_switch.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
 @RoutePage()
-class SettingsView extends HookConsumerWidget with UiLoggy {
+class SettingsView extends HookConsumerWidget {
   const SettingsView({super.key});
 
   @override

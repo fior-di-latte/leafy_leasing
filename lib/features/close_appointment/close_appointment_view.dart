@@ -3,7 +3,7 @@ import 'package:leafy_leasing/features/close_appointment/widget/success_radiobut
 import 'package:leafy_leasing/shared/base.dart';
 
 @RoutePage()
-class CloseAppointmentView extends HookConsumerWidget with UiLoggy {
+class CloseAppointmentView extends HookConsumerWidget {
   const CloseAppointmentView(@PathParam() this.id, {super.key});
 
   final String id;
