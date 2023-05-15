@@ -31,10 +31,14 @@ Future<void> setupHive() async {
     ..registerAdapter(CustomerAdapter())
     ..registerAdapter(ThemeModeAdapter())
     ..registerAdapter(SettingsAdapter());
-  await Hive.openBox<AppointmentMetas>(hiveMetas);
-  await Hive.openBox<Appointment>(hiveAppointments);
-  await Hive.openBox<Customer>(hiveCustomers);
-  await Hive.openBox<Settings>(hiveSettings);
+
+  await Future.wait([
+    Hive.openBox<AppointmentMetas>(hiveMetas),
+    Hive.openBox<Appointment>(hiveAppointments),
+    Hive.openBox<Customer>(hiveCustomers),
+    Hive.openBox<Settings>(hiveSettings)
+  ]);
+
   await _fillMetaBox();
   await _fillAppointmentsBox();
   await _fillCustomersBox();

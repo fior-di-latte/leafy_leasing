@@ -33,8 +33,7 @@ Future<CustomerRepository> customerRepository(
 }
 
 @riverpod
-class CustomerState extends _$CustomerState
-    with AsyncRepositoryMixin<Customer> {
+class CustomerState extends _$CustomerState with AsyncProviderMixin<Customer> {
   @override
   FutureOr<Customer> build(String id) async {
     repository = await ref.watch(customerRepositoryProvider(key: id).future);

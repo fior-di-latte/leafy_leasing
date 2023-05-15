@@ -36,7 +36,7 @@ Future<MetasRepository> metasRepository(
 
 @riverpod
 class MetasState extends _$MetasState
-    with AsyncRepositoryMixin<AppointmentMetas> {
+    with AsyncProviderMixin<AppointmentMetas> {
   @override
   FutureOr<AppointmentMetas> build() async {
     repository = await ref.watch(

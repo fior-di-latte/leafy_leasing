@@ -41,7 +41,7 @@ Future<AppointmentRepository> appointmentRepository(
 
 @riverpod
 class AppointmentState extends _$AppointmentState
-    with AsyncRepositoryMixin<Appointment> {
+    with AsyncProviderMixin<Appointment> {
   @override
   FutureOr<Appointment> build(String id) async {
     repository = await ref.watch(

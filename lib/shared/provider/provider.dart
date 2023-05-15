@@ -12,7 +12,7 @@ export 'settings_provider.dart';
 
 typedef ErrorUiCallback = void Function(BuildContext context);
 
-mixin AsyncRepositoryMixin<T> {
+mixin AsyncProviderMixin<T> {
   late AsyncRepository<T> repository;
   abstract AsyncValue<T> state;
   AutoDisposeAsyncNotifierProviderRef<T> get ref;
