@@ -21,7 +21,7 @@ final metasCacheProvider =
 );
 
 typedef MetasCacheRef = AutoDisposeFutureProviderRef<Cache<AppointmentMetas>>;
-String _$metasRepositoryHash() => r'687d0bf935e4dc886e4b32b2677b8e7ca393afba';
+String _$metasRepositoryHash() => r'f2d656533f5d0903bb61e0c3cbb26dc84f982daa';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -137,7 +137,7 @@ class MetasRepositoryProvider
   }
 }
 
-String _$metasStateHash() => r'3653bd7d666a3774b0ffc33114b30c15131d467f';
+String _$metasStateHash() => r'1db1deb5c0ac31b01c68215566fadc9810943df3';
 
 /// See also [MetasState].
 @ProviderFor(MetasState)

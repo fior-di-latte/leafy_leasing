@@ -3,7 +3,7 @@ version: 1.0.0+1
 publish_to: none
 description: A companion app for PaaS (Plants as a Service) companies.
 environment: 
-  sdk: '>=2.18.0 <3.0.0'
+  sdk: '>=3.0.0'
 dependencies: 
   auto_route: ^7.1.0
   auto_size_text: ^3.0.0
@@ -18,12 +18,12 @@ dependencies:
   freezed: ^2.1.0
   freezed_annotation: ^2.2.0
   gap: ^2.0.0
-  google_fonts: 2.2.0
+  google_fonts: ^4.0.4
   hive_flutter: any
   hive_generator: any
   hooks_riverpod: ^2.3.6
   internet_connection_checker: ^1.0.0+1
-  intl: ^0.17.0
+  intl: ^0.18.0
   isar_flutter_libs: ^3.1.0+1
   json_annotation: ^4.8.0
   loggy: ^2.0.1

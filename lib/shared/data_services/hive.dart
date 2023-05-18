@@ -45,7 +45,7 @@ Future<void> setupHive() async {
 }
 
 Future<void> _maybeFlushHive() async {
-  if (dotenv.get('FLUSH_ISAR_AND_HIVE') == 'true') {
+  if (bool.parse(dotenv.get('FLUSH_ISAR_AND_HIVE'))) {
     logger.w('Flushing Hive...');
     await Hive.deleteFromDisk();
   }

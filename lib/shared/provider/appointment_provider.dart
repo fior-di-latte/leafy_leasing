@@ -26,7 +26,7 @@ Future<AppointmentRepository> appointmentRepository(
   required String key,
 }) async {
   final cache = await ref.watch(appointmentCacheProvider.future);
-  return dotenv.get('USE_HIVE_MOCK_BACKEND') == 'true'
+  return bool.parse(dotenv.get('USE_HIVE_MOCK_BACKEND'))
       ? HiveAsyncCachedRepositoryImpl<Appointment>(
           hiveAppointments,
           key: key,

@@ -19,7 +19,7 @@ Future<CustomerRepository> customerRepository(
   required String key,
 }) async {
   final cache = await ref.watch(customerCacheProvider.future);
-  return dotenv.get('USE_HIVE_MOCK_BACKEND') == 'true'
+  return bool.parse(dotenv.get('USE_HIVE_MOCK_BACKEND'))
       ? HiveAsyncCachedRepositoryImpl<Customer>(
           hiveCustomers,
           key: key,

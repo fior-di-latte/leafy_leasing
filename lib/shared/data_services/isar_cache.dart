@@ -15,7 +15,7 @@ Future<IsarCacheStore> isarCacheStore(IsarCacheStoreRef ref) async {
 
 // delete everything from Isar database
 Future<void> _maybeFlushIsar() async {
-  if (dotenv.get('FLUSH_ISAR_AND_HIVE') == 'true') {
+  if (bool.parse(dotenv.get('FLUSH_ISAR_AND_HIVE'))) {
     logger.w('Flushing Isar...');
     final dir = await getApplicationDocumentsDirectory();
     await Directory(dir.path).delete(recursive: true);

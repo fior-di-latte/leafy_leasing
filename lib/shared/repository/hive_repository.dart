@@ -9,6 +9,8 @@ import 'package:leafy_leasing/shared/base.dart';
 import 'package:leafy_leasing/shared/repository/abstract_repository.dart';
 import 'package:retry/retry.dart';
 
+import '../data_services/client.dart';
+
 class HiveAsyncCachedRepositoryImpl<T> extends HiveAsyncRepositoryImpl<T>
     implements HiveAsyncCachedRepository<T> {
   HiveAsyncCachedRepositoryImpl(

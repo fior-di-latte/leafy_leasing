@@ -21,7 +21,7 @@ Future<MetasRepository> metasRepository(
   required String key,
 }) async {
   final cache = await ref.watch(metasCacheProvider.future);
-  return dotenv.get('USE_HIVE_MOCK_BACKEND') == 'true'
+  return bool.parse(dotenv.get('USE_HIVE_MOCK_BACKEND'))
       ? HiveAsyncCachedRepositoryImpl<AppointmentMetas>(
           boxName,
           key: key,

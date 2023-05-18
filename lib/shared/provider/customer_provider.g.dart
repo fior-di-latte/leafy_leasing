@@ -23,7 +23,7 @@ final customerCacheProvider =
 
 typedef CustomerCacheRef = AutoDisposeFutureProviderRef<Cache<Customer>>;
 String _$customerRepositoryHash() =>
-    r'6380c76df075a5e45a6e8b72673a121de4c46704';
+    r'b5d48dff307aa95dc46dab28efbe9942be205b95';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -130,7 +130,7 @@ class CustomerRepositoryProvider
   }
 }
 
-String _$customerStateHash() => r'5246dc6abdbc5cc207a51faff6c5ae4174b8c60e';
+String _$customerStateHash() => r'98820572a2e7ab30cb5b77989e47d1a9423ede37';
 
 abstract class _$CustomerState
     extends BuildlessAutoDisposeAsyncNotifier<Customer> {

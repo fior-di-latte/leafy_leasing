@@ -81,3 +81,18 @@ Color stringToColor(String str, BuildContext context) {
   return Color.lerp(Color.fromARGB(255, r, g, b), context.cs.primary, .5)!
       .withOpacity(.5);
 }
+
+enum Backend { hive, supabase }
+
+extension Lol on DotEnv {
+  Backend get backend {
+    final useHive = bool.parse(dotenv.get('USE_HIVE_MOCK_BACKEND'));
+    final useSupabase = bool.parse(dotenv.get('USE_SUPABASE_BACKEND'));
+
+    final bothFalse = !useHive && !useSupabase;
+    final bothTrue = useHive && useSupabase;
+    assert(bothFalse || bothTrue, 'Only use one backend solution!');
+
+    return useHive ? Backend.hive : Backend.supabase;
+  }
+}
