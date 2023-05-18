@@ -18,7 +18,7 @@ _"A companion app for PaaS (_Plants as a Service_) companies."_
 * 🗳️ Caching: `stash` using an `isar` implementation
 * 🧭 Navigation: `auto_route`
 * 🗣️ Internationalization: `flutter_localizations`
-* 📄 Declarative Logging: `loggy` with listeners on providers (BL), widget states and route changes, connection states and cache changes.
+* 📄 Declarative Logging: `logger` with listeners on providers (BL), widget states and route changes, connection states and cache changes.
 * 🤌 Lint Rules: `very_good_analysis`
 * 🏭 Continuous Integration: `Github Action` with a `very good workflow` as the base
 
