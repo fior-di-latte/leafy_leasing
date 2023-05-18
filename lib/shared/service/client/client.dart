@@ -2,9 +2,6 @@ import 'package:leafy_leasing/shared/base.dart';
 
 part 'client.g.dart';
 
-// client  ->  supabase instance || hive instance
-// modelclient -> CustomerClient --> supabaseCustomerClient || hiveCustomerClient (using mixins)
-
 sealed class Client {
   Client(); // needed for inheritance
   factory Client.create() => switch (dotenv.backend) {
@@ -18,34 +15,6 @@ sealed class Client {
 }
 
 abstract base class ModelClient {}
-
-sealed class CustomerClient extends ModelClient {
-  Future<void> removeCustomer();
-}
-
-@riverpod
-CustomerClient customerClient(CustomerClientRef ref) =>
-    switch (dotenv.backend) {
-      (Backend.hive) => HiveCustomerClient(),
-      (Backend.supabase) => SupabaseCustomerClient(),
-    };
-
-final class HiveCustomerClient extends CustomerClient with HiveClientMixin {
-  @override
-  Future<void> removeCustomer() {
-    // TODO: implement removeCustomer
-    throw UnimplementedError();
-  }
-}
-
-final class SupabaseCustomerClient extends CustomerClient
-    with SupabaseClientMixin {
-  @override
-  Future<void> removeCustomer() {
-    // TODO: implement removeCustomer
-    throw UnimplementedError();
-  }
-}
 
 base mixin SupabaseClientMixin on ModelClient {
   final client = SupabaseInstance();
@@ -79,6 +48,34 @@ final class HiveInstance extends Client {
   @override
   Future<void> _initialize() {
     // TODO: implement initialize
+    throw UnimplementedError();
+  }
+}
+
+sealed class CustomerClient extends ModelClient {
+  Future<void> removeCustomer();
+}
+
+@riverpod
+CustomerClient customerClient(CustomerClientRef ref) =>
+    switch (dotenv.backend) {
+      (Backend.hive) => HiveCustomerClient(),
+      (Backend.supabase) => SupabaseCustomerClient(),
+    };
+
+final class HiveCustomerClient extends CustomerClient with HiveClientMixin {
+  @override
+  Future<void> removeCustomer() {
+    // TODO: implement removeCustomer
+    throw UnimplementedError();
+  }
+}
+
+final class SupabaseCustomerClient extends CustomerClient
+    with SupabaseClientMixin {
+  @override
+  Future<void> removeCustomer() {
+    // TODO: implement removeCustomer
     throw UnimplementedError();
   }
 }

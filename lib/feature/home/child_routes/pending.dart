@@ -1,9 +1,9 @@
 // Project imports:
-import 'package:leafy_leasing/features/home/model/appointment_meta.dart';
-import 'package:leafy_leasing/features/home/provider/metas_provider.dart';
-import 'package:leafy_leasing/features/home/widget/appointment_listcard.dart';
-import 'package:leafy_leasing/features/home/widget/custom_scaffold.dart';
-import 'package:leafy_leasing/features/home/widget/empty_iterable_placeholder.dart';
+import 'package:leafy_leasing/feature/home/model/appointment_meta.dart';
+import 'package:leafy_leasing/feature/home/provider/metas_provider.dart';
+import 'package:leafy_leasing/feature/home/widget/appointment_listcard.dart';
+import 'package:leafy_leasing/feature/home/widget/custom_scaffold.dart';
+import 'package:leafy_leasing/feature/home/widget/empty_iterable_placeholder.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
 @RoutePage()

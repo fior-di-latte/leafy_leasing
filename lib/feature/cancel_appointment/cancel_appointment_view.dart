@@ -1,21 +1,21 @@
 // Project imports:
-import 'package:leafy_leasing/features/close_appointment/widget/success_radiobuttons.dart';
+import 'package:leafy_leasing/feature/cancel_appointment/widget/who_canceled_radio_buttons.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
 @RoutePage()
-class CloseAppointmentView extends HookConsumerWidget {
-  const CloseAppointmentView(@PathParam() this.id, {super.key});
+class CancelAppointmentView extends HookConsumerWidget {
+  const CancelAppointmentView(@PathParam() this.id, {super.key});
 
   final String id;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final wasSuccessful = useLoggedState<bool?>(null);
-    final hasChosenAlready = wasSuccessful.value != null;
+    final canceledByCustomer = useLoggedState<bool?>(null);
+    final hasChosenAlready = canceledByCustomer.value != null;
     final commentTextController = useTextEditingController();
     return Scaffold(
       appBar: AppBar(
-        title: Text(context.lc.closeAppointmentTitle),
+        title: Text(context.lc.cancelAppointmentTitle),
       ),
       body: Padding(
         padding: const EdgeInsets.all(lPadding),
@@ -30,8 +30,8 @@ class CloseAppointmentView extends HookConsumerWidget {
                     duration: 450.milliseconds,
                     curve: Curves.easeOut,
                     top: hasChosenAlready ? 0 : 200,
-                    child: SuccessRadioButtons(
-                      canceledByCustomer: wasSuccessful,
+                    child: WhoCanceledRadioButtons(
+                      canceledByCustomer: canceledByCustomer,
                     ),
                   ),
                   Positioned.fill(
@@ -45,7 +45,7 @@ class CloseAppointmentView extends HookConsumerWidget {
                           child: hasChosenAlready
                               ? const SizedBox.shrink()
                               : Text(
-                                  context.lc.wasAppointmentSuccessful,
+                                  'Who canceled\nthe appointment?',
                                   style: context.tt.headlineLarge!.copyWith(
                                     color: context.cs.onBackground,
                                     fontStyle: FontStyle.italic,
@@ -81,12 +81,12 @@ class CloseAppointmentView extends HookConsumerWidget {
               flex: 2,
               child: Center(
                 child: Hero(
-                  tag: kCloseButtonHeroTag,
-                  child: AppointmentActionButton.closeFinalize(
+                  tag: kCancelButtonHeroTag,
+                  child: AppointmentActionButton.cancelFinalize(
                     context,
                     ref,
                     commentTextController: commentTextController,
-                    newStatus: _getNewStatus(wasSuccessful.value),
+                    newStatus: _getNewStatus(canceledByCustomer.value),
                     isGreyedOut: !hasChosenAlready,
                     id: id,
                   ),
@@ -99,12 +99,12 @@ class CloseAppointmentView extends HookConsumerWidget {
     );
   }
 
-  AppointmentStatus? _getNewStatus(bool? wasSuccessful) {
-    if (wasSuccessful == null) {
+  AppointmentStatus? _getNewStatus(bool? canceledByCustomer) {
+    if (canceledByCustomer == null) {
       return null;
     }
-    return wasSuccessful
-        ? AppointmentStatus.doneSuccessful
-        : AppointmentStatus.doneAborted;
+    return canceledByCustomer
+        ? AppointmentStatus.canceledCustomer
+        : AppointmentStatus.canceledUs;
   }
 }

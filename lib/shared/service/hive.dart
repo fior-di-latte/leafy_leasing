@@ -8,7 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 // Project imports:
-import 'package:leafy_leasing/features/home/model/appointment_meta.dart';
+import 'package:leafy_leasing/feature/home/model/appointment_meta.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
 /// IMPORTANT: the names below are used

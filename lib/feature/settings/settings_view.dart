@@ -1,6 +1,6 @@
 // Project imports:
-import 'package:leafy_leasing/features/settings/widget/brightness_switches.dart';
-import 'package:leafy_leasing/features/settings/widget/loc_switch.dart';
+import 'package:leafy_leasing/feature/settings/widget/brightness_switches.dart';
+import 'package:leafy_leasing/feature/settings/widget/loc_switch.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
 @RoutePage()

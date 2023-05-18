@@ -13,11 +13,11 @@ export 'package:relative_time/relative_time.dart';
 export 'package:riverpod_annotation/riverpod_annotation.dart';
 export 'package:rnd/rnd.dart';
 
-export './data_services/data_services.dart';
+export './service/service.dart';
 export './provider/provider.dart';
 export './widget/widget.dart';
 export '../app/app.dart';
-export '../features/features.dart';
+export '../feature/feature.dart';
 export 'assets.dart';
 export 'constants.dart';
 export 'hooks.dart';

@@ -1,5 +1,5 @@
 // Project imports:
-import 'package:leafy_leasing/features/home/provider/metas_provider.dart';
+import 'package:leafy_leasing/feature/home/provider/metas_provider.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
 abstract class AppointmentActionButton extends StatelessWidget {

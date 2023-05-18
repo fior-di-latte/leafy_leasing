@@ -1,5 +1,5 @@
 // Project imports:
-import 'package:leafy_leasing/features/home/widget/navigation_badges.dart';
+import 'package:leafy_leasing/feature/home/widget/navigation_badges.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
 @RoutePage()

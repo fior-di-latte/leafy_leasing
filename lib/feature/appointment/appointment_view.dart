@@ -1,8 +1,8 @@
 // Project imports:
-import 'package:leafy_leasing/features/appointment/widget/appointment_address_card.dart';
-import 'package:leafy_leasing/features/appointment/widget/appointment_card_extended.dart';
-import 'package:leafy_leasing/features/appointment/widget/appointment_contact_card.dart';
-import 'package:leafy_leasing/features/appointment/widget/final_comment_display.dart';
+import 'package:leafy_leasing/feature/appointment/widget/appointment_address_card.dart';
+import 'package:leafy_leasing/feature/appointment/widget/appointment_card_extended.dart';
+import 'package:leafy_leasing/feature/appointment/widget/appointment_contact_card.dart';
+import 'package:leafy_leasing/feature/appointment/widget/final_comment_display.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
 @RoutePage()
