@@ -38,6 +38,7 @@ mixin AsyncProviderMixin<T> {
   Future<T> buildFromStream({
     ErrorUiCallback? errorUiCallback,
   }) {
+    print('witzig ${repository.runtimeType}}');
     repository.listenable().listen((appointment) {
       state = AsyncValue.data(appointment);
     });

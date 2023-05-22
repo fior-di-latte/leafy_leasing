@@ -7,7 +7,6 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 // Project imports:
 import 'package:leafy_leasing/shared/base.dart';
 import 'package:leafy_leasing/shared/repository/abstract_repository.dart';
-import 'package:retry/retry.dart';
 
 class HiveAsyncCachedRepositoryImpl<T> extends HiveAsyncRepositoryImpl<T>
     implements HiveAsyncCachedRepository<T> {
@@ -19,43 +18,9 @@ class HiveAsyncCachedRepositoryImpl<T> extends HiveAsyncRepositoryImpl<T>
 
   @override
   final Cache<T> cache;
-
-  @override
-  Future<T> put(T item) async {
-    // always update on original 'get' method. After a put,
-    // the repository (see optimistic put) is usually invalidated,
-    // meaning the data is fetched again from the backend.
-
-    // logger.i('putting $item in cache');
-    // await cache.put(key, item);
-    return super.put(item);
-  }
-
-  @override
-  Future<T> get() async {
-    try {
-      final incomingValue = await super.get();
-      // update cache
-      await cache.put(key, incomingValue);
-      return incomingValue;
-    } catch (e) {
-      // check if cache fallback is available
-      final cachedFallback = await cache.get(key);
-      if (cachedFallback != null) {
-        logger.i(
-          '😅 Cache Fallback Used! Found $key in cache, returning $cachedFallback',
-        );
-        return cachedFallback;
-      }
-
-      // no incoming value && no cache fallback -> rethrow Error
-      logger.w('No incoming value and no cache fallback for $key');
-      rethrow;
-    }
-  }
 }
 
-class HiveAsyncRepositoryImpl<T> implements HiveAsyncRepository<T> {
+class HiveAsyncRepositoryImpl<T> extends HiveAsyncRepository<T> {
   HiveAsyncRepositoryImpl(this.boxName, {required this.key})
       : _box = Hive.box<T>(boxName);
 
@@ -82,13 +47,12 @@ class HiveAsyncRepositoryImpl<T> implements HiveAsyncRepository<T> {
   }
 
   @override
-  Future<T> put(T item) async {
+  Future<T> putter(T item) async {
     await throwTimeOutErrorWhenManualInternetCheckFails();
-    await retry(
-      () => Future.delayed(kMockNetworkLag, () => _box.put(key, item)),
-      maxAttempts: kNumberPutRetries,
-      onRetry: (e) => logOnNetworkRetry<T>(key, e),
-    );
+    // always update on original 'get' method. After a put,
+    // the repository (see optimistic put) is usually invalidated,
+    // meaning the data is fetched again from the backend.
+    await Future.delayed(kMockNetworkLag, () => _box.put(key, item));
     return item;
   }
 
@@ -96,13 +60,9 @@ class HiveAsyncRepositoryImpl<T> implements HiveAsyncRepository<T> {
   Stream<T> listenable() => _box.watch(key: key).map((_) => syncGet()!);
 
   @override
-  Future<T> get() async {
+  Future<T> getter([String? id]) async {
     await throwTimeOutErrorWhenManualInternetCheckFails();
-    return retry(
-      () => Future.delayed(kMockNetworkLag, syncGet),
-      maxAttempts: kNumberGetRetries,
-      onRetry: (e) => logOnNetworkRetry<T>(key, e),
-    );
+    return Future.delayed(kMockNetworkLag, syncGet);
   }
 
   @override

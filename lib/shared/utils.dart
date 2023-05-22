@@ -14,7 +14,7 @@ extension AddConvenience on BuildContext {
   TextTheme get tt => Theme.of(this).textTheme;
 }
 
-extension TestExtension<T> on AutoDisposeRef<T> {
+extension DisposeExtension<T> on AutoDisposeRef<T> {
   void disposeDelay(Duration duration) {
     final link = keepAlive();
     Timer? timer;
@@ -91,7 +91,7 @@ extension Lol on DotEnv {
 
     final bothFalse = !useHive && !useSupabase;
     final bothTrue = useHive && useSupabase;
-    assert(bothFalse || bothTrue, 'Only use one backend solution!');
+    assert(!(bothFalse || bothTrue), 'Only use one backend solution!');
 
     return useHive ? Backend.hive : Backend.supabase;
   }

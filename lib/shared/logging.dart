@@ -121,6 +121,6 @@ Cache<T> addLoggersToIsarCache<T>(Cache<T> cache, {required String name}) =>
         (event) => logger.v('IsarCache $name: "${event.entry.key}" evicted'),
       );
 
-void logOnNetworkRetry<T>(String id, Exception e, {bool isPut = false}) =>
-    logger.e('Network Error: Retrying to ${isPut ? 'put' : 'fetch'} $T id.'
+void logOnNetworkRetry<T>(String? id, Exception e, {bool isPut = false}) =>
+    logger.e('Network Error: Retrying to ${isPut ? 'put' : 'fetch'} $T $id.'
         ' Exception $e');
