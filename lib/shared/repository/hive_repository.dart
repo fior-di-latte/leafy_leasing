@@ -8,16 +8,53 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:leafy_leasing/shared/base.dart';
 import 'package:leafy_leasing/shared/repository/abstract_repository.dart';
 
-class HiveAsyncCachedRepositoryImpl<T> extends HiveAsyncRepositoryImpl<T>
-    implements HiveAsyncCachedRepository<T> {
-  HiveAsyncCachedRepositoryImpl(
-    super.boxName, {
-    required super.key,
-    required this.cache,
-  });
+class HiveAsyncCachedRepositoryImpl<T> extends HiveAsyncCachedRepository<T> {
+  @override
+  // TODO: implement boxName
+  String get boxName => throw UnimplementedError();
 
   @override
-  final Cache<T> cache;
+  // TODO: implement cache
+  Cache<T> get cache => throw UnimplementedError();
+
+  @override
+  Future<void> delete() {
+    // TODO: implement delete
+    throw UnimplementedError();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+  }
+
+  @override
+  Future<T> getter([String? id]) {
+    // TODO: implement getter
+    throw UnimplementedError();
+  }
+
+  @override
+  // TODO: implement key
+  String get key => throw UnimplementedError();
+
+  @override
+  Stream<T> listenable() {
+    // TODO: implement listenable
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<T> putter(T item) {
+    // TODO: implement putter
+    throw UnimplementedError();
+  }
+
+  @override
+  T syncGet() {
+    // TODO: implement syncGet
+    throw UnimplementedError();
+  }
 }
 
 class HiveAsyncRepositoryImpl<T> extends HiveAsyncRepository<T> {
