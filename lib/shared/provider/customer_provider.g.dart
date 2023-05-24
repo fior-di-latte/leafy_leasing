@@ -22,8 +22,25 @@ final customerCacheProvider =
 );
 
 typedef CustomerCacheRef = AutoDisposeFutureProviderRef<Cache<Customer>>;
-String _$customerRepositoryHash() =>
-    r'b5d48dff307aa95dc46dab28efbe9942be205b95';
+String _$customerRepositoryCacheHash() =>
+    r'57c11bfb4a7e0f0dd020386d9bd350eaaece1041';
+
+/// See also [customerRepositoryCache].
+@ProviderFor(customerRepositoryCache)
+final customerRepositoryCacheProvider =
+    AutoDisposeFutureProvider<(CustomerRepository, Cache<Customer>)>.internal(
+  customerRepositoryCache,
+  name: r'customerRepositoryCacheProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$customerRepositoryCacheHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef CustomerRepositoryCacheRef
+    = AutoDisposeFutureProviderRef<(CustomerRepository, Cache<Customer>)>;
+String _$customerStateHash() => r'1cc6ec3f4e20e017f6180ddc4dee5706bca594d1';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -45,92 +62,6 @@ class _SystemHash {
     return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
   }
 }
-
-typedef CustomerRepositoryRef
-    = AutoDisposeFutureProviderRef<AsyncRepository<Customer>>;
-
-/// See also [customerRepository].
-@ProviderFor(customerRepository)
-const customerRepositoryProvider = CustomerRepositoryFamily();
-
-/// See also [customerRepository].
-class CustomerRepositoryFamily
-    extends Family<AsyncValue<AsyncRepository<Customer>>> {
-  /// See also [customerRepository].
-  const CustomerRepositoryFamily();
-
-  /// See also [customerRepository].
-  CustomerRepositoryProvider call({
-    required String key,
-  }) {
-    return CustomerRepositoryProvider(
-      key: key,
-    );
-  }
-
-  @override
-  CustomerRepositoryProvider getProviderOverride(
-    covariant CustomerRepositoryProvider provider,
-  ) {
-    return call(
-      key: provider.key,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'customerRepositoryProvider';
-}
-
-/// See also [customerRepository].
-class CustomerRepositoryProvider
-    extends AutoDisposeFutureProvider<AsyncRepository<Customer>> {
-  /// See also [customerRepository].
-  CustomerRepositoryProvider({
-    required this.key,
-  }) : super.internal(
-          (ref) => customerRepository(
-            ref,
-            key: key,
-          ),
-          from: customerRepositoryProvider,
-          name: r'customerRepositoryProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$customerRepositoryHash,
-          dependencies: CustomerRepositoryFamily._dependencies,
-          allTransitiveDependencies:
-              CustomerRepositoryFamily._allTransitiveDependencies,
-        );
-
-  final String key;
-
-  @override
-  bool operator ==(Object other) {
-    return other is CustomerRepositoryProvider && other.key == key;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, key.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-String _$customerStateHash() => r'98820572a2e7ab30cb5b77989e47d1a9423ede37';
 
 abstract class _$CustomerState
     extends BuildlessAutoDisposeAsyncNotifier<Customer> {

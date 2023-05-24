@@ -1,43 +1,88 @@
 // Project imports:
 import 'package:leafy_leasing/shared/base.dart';
-import 'package:leafy_leasing/shared/repository/abstract_repository.dart';
-import 'package:leafy_leasing/shared/repository/hive_repository.dart';
 
 part 'customer_provider.g.dart';
 
-typedef CustomerRepository = AsyncRepository<Customer>;
+typedef CustomerId = String;
 
 @riverpod
-Future<Cache<Customer>> customerCache(CustomerCacheRef ref) async {
-  final store = await ref.watch(isarCacheStoreProvider.future);
-  return store.createLoggedCache(fromJson: Customer.fromJson);
-}
-
-@riverpod
-Future<CustomerRepository> customerRepository(
-  CustomerRepositoryRef ref, {
-  required String key,
-}) async {
-  final cache = await ref.watch(customerCacheProvider.future);
-  return bool.parse(dotenv.get('USE_HIVE_MOCK_BACKEND'))
-      ? HiveAsyncCachedRepositoryImpl<Customer>(
-          hiveCustomers,
-          key: key,
-          cache: cache,
-        )
-      : HiveAsyncCachedRepositoryImpl<Customer>(
-          hiveCustomers,
-          key: key,
-          cache: cache,
-        );
-}
-
-@riverpod
-class CustomerState extends _$CustomerState with AsyncProviderMixin<Customer> {
+class CustomerState extends _$CustomerState
+    with AsyncProviderMixin<Customer, CustomerId> {
   @override
-  FutureOr<Customer> build(String id) async {
-    repository = await ref.watch(customerRepositoryProvider(key: id).future);
+  FutureOr<Customer> build(CustomerId id) async {
+    repoCache = await ref.watch(customerRepositoryCacheProvider.future);
+    return buildFromStream(id);
+  }
+}
 
-    return buildFromStream();
+sealed class CustomerRepository implements Repository<Customer, CustomerId> {
+  factory CustomerRepository.get() => switch (dotenv.backend) {
+        (Backend.hive) => HiveCustomerRepository(),
+        (Backend.supabase) => SupabaseCustomerRepository(),
+      };
+
+  Future<void> removeCustomer();
+}
+
+@riverpod
+Future<(CustomerRepository, Cache<Customer>)> customerRepositoryCache(
+    CustomerRepositoryCacheRef ref) async {
+  final cache = await ref.cache(fromJson: Customer.fromJson);
+  return (CustomerRepository.get(), cache);
+}
+
+final class HiveCustomerRepository
+    with HiveSingletonMixin
+    implements CustomerRepository {
+  @override
+  Future<void> removeCustomer() {
+    // TODO: implement removeCustomer
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Customer> get(CustomerId id) {
+    // TODO: implement get
+    throw UnimplementedError();
+  }
+
+  @override
+  Stream<Customer> listenable(CustomerId id) {
+    // TODO: implement listenable
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Customer> put(Customer item, {required CustomerId id}) {
+    // TODO: implement put
+    throw UnimplementedError();
+  }
+}
+
+final class SupabaseCustomerRepository
+    with SupabaseSingletonMixin
+    implements CustomerRepository {
+  @override
+  Future<void> removeCustomer() {
+    // TODO: implement removeCustomer
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Customer> get(CustomerId id) {
+    // TODO: implement get
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Customer> put(Customer item, {CustomerId? id}) {
+    // TODO: implement put
+    throw UnimplementedError();
+  }
+
+  @override
+  Stream<Customer> listenable(CustomerId id) {
+    // TODO: implement listenable
+    throw UnimplementedError();
   }
 }

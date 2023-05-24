@@ -15,6 +15,13 @@ extension AddConvenience on BuildContext {
 }
 
 extension DisposeExtension<T> on AutoDisposeRef<T> {
+  Future<Cache<R>> cache<R>(
+      {required R Function(Map<String, dynamic>) fromJson,
+      String? name}) async {
+    final store = await watch(isarCacheStoreProvider.future);
+    return store.createLoggedCache(fromJson: fromJson, name: name);
+  }
+
   void disposeDelay(Duration duration) {
     final link = keepAlive();
     Timer? timer;
@@ -84,7 +91,7 @@ Color stringToColor(String str, BuildContext context) {
 
 enum Backend { hive, supabase }
 
-extension Lol on DotEnv {
+extension AddBackend on DotEnv {
   Backend get backend {
     final useHive = bool.parse(dotenv.get('USE_HIVE_MOCK_BACKEND'));
     final useSupabase = bool.parse(dotenv.get('USE_SUPABASE_BACKEND'));

@@ -1,6 +1,6 @@
 part of 'package:leafy_leasing/shared/service/client/client.dart';
 
-base mixin SupabaseSingletonMixin<T> on ModelClient<T> {
+base mixin SupabaseSingletonMixin {
   final client = SupabaseInstance().instance;
 }
 
