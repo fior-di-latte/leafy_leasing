@@ -6,24 +6,8 @@ part of 'customer_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$customerCacheHash() => r'83753eb1fe13e88061bd313378fec4123e3f544c';
-
-/// See also [customerCache].
-@ProviderFor(customerCache)
-final customerCacheProvider =
-    AutoDisposeFutureProvider<Cache<Customer>>.internal(
-  customerCache,
-  name: r'customerCacheProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$customerCacheHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef CustomerCacheRef = AutoDisposeFutureProviderRef<Cache<Customer>>;
 String _$customerRepositoryCacheHash() =>
-    r'57c11bfb4a7e0f0dd020386d9bd350eaaece1041';
+    r'c043f1ebaa037e900caad64a9323469ead529e4a';
 
 /// See also [customerRepositoryCache].
 @ProviderFor(customerRepositoryCache)
@@ -40,7 +24,7 @@ final customerRepositoryCacheProvider =
 
 typedef CustomerRepositoryCacheRef
     = AutoDisposeFutureProviderRef<(CustomerRepository, Cache<Customer>)>;
-String _$customerStateHash() => r'1cc6ec3f4e20e017f6180ddc4dee5706bca594d1';
+String _$customerStateHash() => r'83fa1af69d9a31f143513e224e22fff7e2ff9510';
 
 /// Copied from Dart SDK
 class _SystemHash {

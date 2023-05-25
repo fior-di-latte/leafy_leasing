@@ -3,7 +3,6 @@ import 'dart:async';
 
 // Project imports:
 import 'package:leafy_leasing/shared/base.dart';
-import 'package:leafy_leasing/shared/repository/abstract_repository.dart';
 import 'package:retry/retry.dart';
 
 export 'appointment_provider.dart';
@@ -15,20 +14,31 @@ typedef ErrorUiCallback = void Function(BuildContext context);
 
 mixin AsyncProviderMixin<T, ID> {
   @protected
-  late final (Repository<T, ID>, Cache<T>) repoCache;
-  Repository<T, ID> get repository => repoCache.$1;
-  Cache<T> get cache => repoCache.$2;
+  late final Repository<T, ID> repository;
+  late final Cache<T> cache;
 
   abstract AsyncValue<T> state;
   AutoDisposeAsyncNotifierProviderRef<T> get ref;
   late final notifications = ref.read(notificationProvider.notifier);
 
+  Future<void> _initialize(
+    AutoDisposeFutureProvider<(Repository<T, ID>, Cache<T>)>
+        cachedRepositoryProvider,
+  ) async {
+    final cachedRepository = await ref.watch(cachedRepositoryProvider.future);
+    repository = cachedRepository.$1;
+    cache = cachedRepository.$2;
+  }
+
   @protected
   Future<T> buildFromPolling(
-    ID id, {
+    ID id,
+    AutoDisposeFutureProvider<(Repository<T, ID>, Cache<T>)>
+        cachedRepositoryProvider, {
     int intervalInMilliseconds = 5000,
     ErrorUiCallback? errorUiCallback,
   }) {
+    _initialize(cachedRepositoryProvider);
     Timer.periodic(intervalInMilliseconds.milliseconds, (_) async {
       try {
         final newValue = await repository.get(id);
@@ -44,10 +54,12 @@ mixin AsyncProviderMixin<T, ID> {
 
   @protected
   Future<T> buildFromStream(
-    ID id, {
+    ID id,
+    AutoDisposeFutureProvider<(Repository<T, ID>, Cache<T>)>
+        cachedRepositoryProvider, {
     ErrorUiCallback? errorUiCallback,
   }) {
-    print('witzig ${repository.runtimeType}}');
+    _initialize(cachedRepositoryProvider);
     repository.listenable(id).listen((appointment) {
       state = AsyncValue.data(appointment);
     });
@@ -95,10 +107,6 @@ mixin AsyncProviderMixin<T, ID> {
     throw UnimplementedError();
   }
 
-  Future<T> getter(ID id) => repository.get(id);
-
-  Future<T> putter(T item, {required ID id}) => repository.put(item, id: id);
-
   Stream<T> listenable() {
     // TODO: implement listenable
     throw UnimplementedError();
@@ -109,7 +117,7 @@ mixin AsyncProviderMixin<T, ID> {
   }
 
   @protected
-  Future<T> asyncWrapper(Future<T> Function() function,
+  Future<T> retryAndLog(Future<T> Function() function,
       {String? loggingKey, bool isPut = false}) async {
     return retry(
       function,
@@ -118,14 +126,13 @@ mixin AsyncProviderMixin<T, ID> {
     );
   }
 
-  Future<T> get(ID id) => asyncWrapper(() {
-        print('wtf');
-        return getter(id);
-      }, loggingKey: id.toString());
+  Future<T> get(ID id) =>
+      retryAndLog(() => repository.get(id), loggingKey: id.toString());
 
-  Future<void> put(T item, {required ID id}) async {
-    asyncWrapper(() => putter(item, id: id), loggingKey: item.toString());
-  }
+  Future<T> put(T item, {required ID id}) => retryAndLog(
+        () => repository.put(item, id: id),
+        loggingKey: item.toString(),
+      );
 
   void _defaultErrorCallback(BuildContext context) => showTopInfo(
         context,
