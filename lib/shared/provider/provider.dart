@@ -31,14 +31,11 @@ mixin AsyncProviderMixin<T, ID> {
   }
 
   @protected
-  Future<T> buildFromPolling(
-    ID id,
-    AutoDisposeFutureProvider<(Repository<T, ID>, Cache<T>)>
-        cachedRepositoryProvider, {
+  Future<T> _fromPolling(
+    ID id, {
     int intervalInMilliseconds = 5000,
     ErrorUiCallback? errorUiCallback,
   }) {
-    _initialize(cachedRepositoryProvider);
     Timer.periodic(intervalInMilliseconds.milliseconds, (_) async {
       try {
         final newValue = await repository.get(id);
@@ -53,13 +50,30 @@ mixin AsyncProviderMixin<T, ID> {
   }
 
   @protected
-  Future<T> buildFromStream(
-    ID id,
+  Future<T> buildFromRepository(
     AutoDisposeFutureProvider<(Repository<T, ID>, Cache<T>)>
         cachedRepositoryProvider, {
+    required ID id,
+    bool stream = false,
+    bool singleGet = true,
+    bool polling = false,
+    ErrorUiCallback? errorUiCallback,
+    int pollingIntervalInMilliseconds = 5000,
+  }) {
+    assert([stream, singleGet, polling].where((element) => element).length == 1,
+        'Only one of stream, singleGet or polling must be true');
+
+    _initialize(cachedRepositoryProvider);
+
+    if (stream) return _fromStream(id, errorUiCallback: errorUiCallback);
+    if (polling) return _fromPolling(id, errorUiCallback: errorUiCallback);
+    return _fromGet(id, errorUiCallback: errorUiCallback);
+  }
+
+  Future<T> _fromStream(
+    ID id, {
     ErrorUiCallback? errorUiCallback,
   }) {
-    _initialize(cachedRepositoryProvider);
     repository.listenable(id).listen((appointment) {
       state = AsyncValue.data(appointment);
     });
@@ -148,5 +162,12 @@ mixin AsyncProviderMixin<T, ID> {
     return errorUiCallback == null
         ? SnackbarBuilder(_defaultErrorCallback, type: SnackbarType.error)
         : SnackbarBuilder(errorUiCallback, type: SnackbarType.error);
+  }
+
+  Future<T> _fromGet(ID id, {ErrorUiCallback? errorUiCallback}) {
+    return retryAndLog(
+      () => repository.get(id),
+      loggingKey: id.toString(),
+    );
   }
 }

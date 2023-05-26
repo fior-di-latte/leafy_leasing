@@ -49,7 +49,7 @@ class AppointmentState extends _$AppointmentState
     );
     ref.onDispose(() => repository.dispose());
 
-    return buildFromStream();
+    return throw UnimplementedError();
   }
 
   Future<void> cancelAppointment({

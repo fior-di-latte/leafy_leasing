@@ -8,10 +8,8 @@ typedef CustomerId = String;
 class CustomerState extends _$CustomerState
     with AsyncProviderMixin<Customer, CustomerId> {
   @override
-  FutureOr<Customer> build(CustomerId id) => buildFromStream(
-        id,
-        customerRepositoryCacheProvider,
-      );
+  FutureOr<Customer> build(CustomerId id) =>
+      buildFromRepository(customerRepositoryCacheProvider, id: id);
 }
 
 sealed class CustomerRepository implements Repository<Customer, CustomerId> {

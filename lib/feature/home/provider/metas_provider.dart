@@ -43,7 +43,7 @@ class MetasState extends _$MetasState
       metasRepositoryProvider(boxName: hiveMetas, key: hiveMetas).future,
     );
 
-    return buildFromStream();
+    return throw UnimplementedError();
   }
 
   Future<void> cancelAppointment(String id) {
