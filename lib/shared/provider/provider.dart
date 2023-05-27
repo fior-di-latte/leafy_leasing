@@ -1,5 +1,6 @@
 // Dart imports:
 import 'dart:async';
+import 'dart:io';
 
 // Project imports:
 import 'package:leafy_leasing/shared/base.dart';
@@ -60,8 +61,10 @@ mixin AsyncProviderMixin<T, ID> {
     ErrorUiCallback? errorUiCallback,
     int pollingIntervalInMilliseconds = 5000,
   }) {
-    assert([stream, singleGet, polling].where((element) => element).length == 1,
-        'Only one of stream, singleGet or polling must be true');
+    assert(
+      [stream, singleGet, polling].where((element) => element).length == 1,
+      'Only one of stream, singleGet or polling must be true',
+    );
 
     _initialize(cachedRepositoryProvider);
 
@@ -84,7 +87,7 @@ mixin AsyncProviderMixin<T, ID> {
   /// call is made. If the network call fails, the state is reverted to the
   /// previous state.
   @protected
-  Future<void> optimisticPut(
+  Future<void> optimistic(
     T newValue, {
     required ID id,
     bool invalidateFinally = false,
@@ -131,14 +134,17 @@ mixin AsyncProviderMixin<T, ID> {
   }
 
   @protected
-  Future<T> retryAndLog(Future<T> Function() function,
-      {String? loggingKey, bool isPut = false}) async {
-    return retry(
-      function,
-      maxAttempts: kNumberPutRetries,
-      onRetry: (e) => logOnNetworkRetry<T>(loggingKey, e, isPut: isPut),
-    );
-  }
+  Future<T> retryAndLog(
+    Future<T> Function() function, {
+    String? loggingKey,
+    bool isPut = false,
+  }) =>
+      retry(
+        function,
+        maxAttempts: kNumberPutRetries,
+        retryIf: (e) => e is SocketException || e is TimeoutException,
+        onRetry: (e) => logOnNetworkRetry<T>(loggingKey, e, isPut: isPut),
+      );
 
   Future<T> get(ID id) =>
       retryAndLog(() => repository.get(id), loggingKey: id.toString());

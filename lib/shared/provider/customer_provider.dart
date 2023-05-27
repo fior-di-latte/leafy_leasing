@@ -23,7 +23,8 @@ sealed class CustomerRepository implements Repository<Customer, CustomerId> {
 
 @riverpod
 Future<(CustomerRepository, Cache<Customer>)> customerRepositoryCache(
-    CustomerRepositoryCacheRef ref) async {
+  CustomerRepositoryCacheRef ref,
+) async {
   final cache = await ref.cache(fromJson: Customer.fromJson);
   return (CustomerRepository.get(), cache);
 }

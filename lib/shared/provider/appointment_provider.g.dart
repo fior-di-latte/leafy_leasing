@@ -6,24 +6,25 @@ part of 'appointment_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$appointmentCacheHash() => r'10506a1dab9300e1d789315e8de72dcec3a4ab98';
+String _$appointmentRepositoryCacheHash() =>
+    r'6b39d9397a2eb51e55b2d8c49f2c323d8fb87931';
 
-/// See also [appointmentCache].
-@ProviderFor(appointmentCache)
-final appointmentCacheProvider =
-    AutoDisposeFutureProvider<Cache<Appointment>>.internal(
-  appointmentCache,
-  name: r'appointmentCacheProvider',
+/// See also [appointmentRepositoryCache].
+@ProviderFor(appointmentRepositoryCache)
+final appointmentRepositoryCacheProvider = AutoDisposeFutureProvider<
+    (AppointmentRepository, Cache<Appointment>)>.internal(
+  appointmentRepositoryCache,
+  name: r'appointmentRepositoryCacheProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$appointmentCacheHash,
+      : _$appointmentRepositoryCacheHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef AppointmentCacheRef = AutoDisposeFutureProviderRef<Cache<Appointment>>;
-String _$appointmentRepositoryHash() =>
-    r'3a72f8cdef415615792f1b99d0e1736331df22a2';
+typedef AppointmentRepositoryCacheRef
+    = AutoDisposeFutureProviderRef<(AppointmentRepository, Cache<Appointment>)>;
+String _$appointmentStateHash() => r'a91a9b38cbe3d25c2a70e2c22952e8acbb96890d';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -45,92 +46,6 @@ class _SystemHash {
     return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
   }
 }
-
-typedef AppointmentRepositoryRef
-    = AutoDisposeFutureProviderRef<AsyncCachedRepository<Appointment>>;
-
-/// See also [appointmentRepository].
-@ProviderFor(appointmentRepository)
-const appointmentRepositoryProvider = AppointmentRepositoryFamily();
-
-/// See also [appointmentRepository].
-class AppointmentRepositoryFamily
-    extends Family<AsyncValue<AsyncCachedRepository<Appointment>>> {
-  /// See also [appointmentRepository].
-  const AppointmentRepositoryFamily();
-
-  /// See also [appointmentRepository].
-  AppointmentRepositoryProvider call({
-    required String key,
-  }) {
-    return AppointmentRepositoryProvider(
-      key: key,
-    );
-  }
-
-  @override
-  AppointmentRepositoryProvider getProviderOverride(
-    covariant AppointmentRepositoryProvider provider,
-  ) {
-    return call(
-      key: provider.key,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'appointmentRepositoryProvider';
-}
-
-/// See also [appointmentRepository].
-class AppointmentRepositoryProvider
-    extends AutoDisposeFutureProvider<AsyncCachedRepository<Appointment>> {
-  /// See also [appointmentRepository].
-  AppointmentRepositoryProvider({
-    required this.key,
-  }) : super.internal(
-          (ref) => appointmentRepository(
-            ref,
-            key: key,
-          ),
-          from: appointmentRepositoryProvider,
-          name: r'appointmentRepositoryProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$appointmentRepositoryHash,
-          dependencies: AppointmentRepositoryFamily._dependencies,
-          allTransitiveDependencies:
-              AppointmentRepositoryFamily._allTransitiveDependencies,
-        );
-
-  final String key;
-
-  @override
-  bool operator ==(Object other) {
-    return other is AppointmentRepositoryProvider && other.key == key;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, key.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-String _$appointmentStateHash() => r'9e9ffd4d2c9de8fd4b6851a5ba8ae92c2d69e9c3';
 
 abstract class _$AppointmentState
     extends BuildlessAutoDisposeAsyncNotifier<Appointment> {

@@ -2,6 +2,7 @@
 import 'dart:async';
 
 // Project imports:
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:leafy_leasing/l10n/l10n.dart';
 import 'package:leafy_leasing/shared/base.dart';
 
@@ -15,9 +16,10 @@ extension AddConvenience on BuildContext {
 }
 
 extension DisposeExtension<T> on AutoDisposeRef<T> {
-  Future<Cache<R>> cache<R>(
-      {required R Function(Map<String, dynamic>) fromJson,
-      String? name}) async {
+  Future<Cache<R>> cache<R>({
+    required R Function(Map<String, dynamic>) fromJson,
+    String? name,
+  }) async {
     final store = await watch(isarCacheStoreProvider.future);
     return store.createLoggedCache(fromJson: fromJson, name: name);
   }
@@ -101,5 +103,13 @@ extension AddBackend on DotEnv {
     assert(!(bothFalse || bothTrue), 'Only use one backend solution!');
 
     return useHive ? Backend.hive : Backend.supabase;
+  }
+}
+
+Future<void> throwTimeOutErrorWhenManualInternetCheckFails() async {
+  final connectionStatus = await InternetConnectionChecker().connectionStatus;
+  if (connectionStatus == InternetConnectionStatus.disconnected) {
+    logger.w('Manual check: No internet connection');
+    throw TimeoutException('Manual check: No internet!');
   }
 }

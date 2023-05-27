@@ -1,70 +1,77 @@
-// Dart imports:
-import 'dart:async';
-
-// Project imports:
 import 'package:leafy_leasing/shared/base.dart';
-import 'package:leafy_leasing/shared/repository/abstract_repository.dart';
-import 'package:leafy_leasing/shared/repository/hive_repository.dart';
 
 part 'appointment_provider.g.dart';
 
-typedef AppointmentRepository = AsyncCachedRepository<Appointment>;
-// TODO(Felix):  Newer riverpod version will allow for generic families.
-// which will allow to remove this boilerplate
-// also, the ref.onDispose in [AppointmentState] below will be obsolete
-// because it can also be handled in the generic family
-
-@riverpod
-Future<Cache<Appointment>> appointmentCache(AppointmentCacheRef ref) async {
-  final store = await ref.watch(isarCacheStoreProvider.future);
-  return store.createLoggedCache(fromJson: Appointment.fromJson);
-}
-
-@riverpod
-Future<AppointmentRepository> appointmentRepository(
-  AppointmentRepositoryRef ref, {
-  required String key,
-}) async {
-  final cache = await ref.watch(appointmentCacheProvider.future);
-  return bool.parse(dotenv.get('USE_HIVE_MOCK_BACKEND'))
-      ? HiveAsyncCachedRepositoryImpl<Appointment>(
-          hiveAppointments,
-          key: key,
-          cache: cache,
-        )
-      : HiveAsyncCachedRepositoryImpl<Appointment>(
-          hiveAppointments,
-          key: key,
-          cache: cache,
-        );
-}
+typedef AppointmentId = String;
 
 @riverpod
 class AppointmentState extends _$AppointmentState
-    with AsyncProviderMixin<Appointment> {
+    with AsyncProviderMixin<Appointment, AppointmentId> {
   @override
-  FutureOr<Appointment> build(String id) async {
-    repository = await ref.watch(
-      appointmentRepositoryProvider(key: id).future,
-    );
-    ref.onDispose(() => repository.dispose());
-
-    return throw UnimplementedError();
-  }
+  FutureOr<Appointment> build(AppointmentId id) =>
+      buildFromRepository(appointmentRepositoryCacheProvider, id: id);
 
   Future<void> cancelAppointment({
     required AppointmentStatus newStatus,
     required String? comment,
   }) =>
-      optimisticPut(
+      optimistic(
         state.value!.copyWith(comment: comment, status: newStatus),
+        id: id,
       );
 
   Future<void> closeAppointment({
     required AppointmentStatus newStatus,
     required String? comment,
   }) =>
-      optimisticPut(
+      optimistic(
         state.value!.copyWith(comment: comment, status: newStatus),
+        id: id,
       );
+}
+
+sealed class AppointmentRepository
+    implements Repository<Appointment, AppointmentId> {
+  factory AppointmentRepository.get() => switch (dotenv.backend) {
+        (Backend.hive) => HiveAppointmentRepository(),
+        (Backend.supabase) => throw UnimplementedError(),
+      };
+
+  Future<void> removeAppointment();
+}
+
+@riverpod
+Future<(AppointmentRepository, Cache<Appointment>)> appointmentRepositoryCache(
+  AppointmentRepositoryCacheRef ref,
+) async {
+  final cache = await ref.cache(fromJson: Appointment.fromJson);
+  return (AppointmentRepository.get(), cache);
+}
+
+final class HiveAppointmentRepository
+    with HiveSingletonMixin
+    implements AppointmentRepository {
+  @override
+  Future<void> removeAppointment() {
+    // TODO: implement removeAppointment
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Appointment> get(AppointmentId id) {
+    // TODO: implement get
+    throw UnimplementedError();
+  }
+
+  @override
+  Stream<Appointment> listenable(AppointmentId id) {
+    // TODO: implement listenable
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Appointment> put(Appointment item, {required AppointmentId id}) {
+    // TODO: implement put
+    throw UnimplementedError();
+  }
 }

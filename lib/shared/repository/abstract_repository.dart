@@ -1,9 +1,7 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:leafy_leasing/shared/constants.dart';
 import 'package:leafy_leasing/shared/logging.dart';
-import 'package:leafy_leasing/shared/service/client/client.dart';
 import 'package:retry/retry.dart';
 import 'package:stash/stash_api.dart';
 
@@ -17,8 +15,11 @@ abstract class AsyncRepository<T> {
 
   void dispose();
 
-  Future<T> asyncWrapper(Future<T> Function() function,
-      {String? loggingKey, bool isPut = false}) async {
+  Future<T> asyncWrapper(
+    Future<T> Function() function, {
+    String? loggingKey,
+    bool isPut = false,
+  }) async {
     return retry(
       function,
       maxAttempts: kNumberPutRetries,
@@ -35,28 +36,31 @@ abstract class AsyncCachedRepository<T> extends AsyncRepository<T> {
   abstract final Cache<T> cache;
 
   @override
-  Future<T> get([String? id]) => asyncWrapper(() async {
-        print('haha');
-        try {
-          final incomingValue = await getter(id);
-          // update cache
-          await cache.put(id ?? 'globalKey', incomingValue);
-          return incomingValue;
-        } catch (e) {
-          // check if cache fallback is available
-          final cachedFallback = await cache.get(id ?? 'globalKey');
-          if (cachedFallback != null) {
-            logger.i(
-              '😅 Cache Fallback Used! Found $id in cache, returning $cachedFallback',
-            );
-            return cachedFallback;
-          }
+  Future<T> get([String? id]) => asyncWrapper(
+        () async {
+          print('haha');
+          try {
+            final incomingValue = await getter(id);
+            // update cache
+            await cache.put(id ?? 'globalKey', incomingValue);
+            return incomingValue;
+          } catch (e) {
+            // check if cache fallback is available
+            final cachedFallback = await cache.get(id ?? 'globalKey');
+            if (cachedFallback != null) {
+              logger.i(
+                '😅 Cache Fallback Used! Found $id in cache, returning $cachedFallback',
+              );
+              return cachedFallback;
+            }
 
-          // no incoming value && no cache fallback -> rethrow Error
-          logger.w('No incoming value and no cache fallback for $id');
-          rethrow;
-        }
-      }, loggingKey: id);
+            // no incoming value && no cache fallback -> rethrow Error
+            logger.w('No incoming value and no cache fallback for $id');
+            rethrow;
+          }
+        },
+        loggingKey: id,
+      );
 }
 
 abstract class SyncRepository<T> {

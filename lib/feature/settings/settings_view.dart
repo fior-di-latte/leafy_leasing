@@ -13,8 +13,8 @@ class SettingsView extends HookConsumerWidget {
       appBar: AppBar(
         title: Text(context.lc.settings),
       ),
-      body: Column(
-        children: const [BrightnessSwitches(), Expanded(child: LocaleSwitch())],
+      body: const Column(
+        children: [BrightnessSwitches(), Expanded(child: LocaleSwitch())],
       ),
     );
   }

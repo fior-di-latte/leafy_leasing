@@ -3,7 +3,6 @@ import 'package:leafy_leasing/shared/base.dart';
 
 part 'hive_instance.dart';
 part 'supabase_instance.dart';
-part 'client.g.dart';
 
 sealed class Client {
   Client(); // needed for inheritance
