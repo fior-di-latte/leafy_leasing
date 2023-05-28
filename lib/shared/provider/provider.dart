@@ -36,10 +36,10 @@ mixin AsyncProviderMixin<T, ID> {
   @protected
   Future<T> _fromPolling(
     ID id, {
-    required Duration intervalInMilliseconds,
+    required Duration interval,
     ErrorUiCallback? errorUiCallback,
   }) {
-    Timer.periodic(intervalInMilliseconds, (_) async {
+    Timer.periodic(interval, (_) async {
       try {
         state = AsyncLoading<T>();
         final newValue = await repository.get(id);
@@ -60,7 +60,7 @@ mixin AsyncProviderMixin<T, ID> {
     required ID id,
     required FetchingStrategy strategy,
     ErrorUiCallback? errorUiCallback,
-    Duration pollingIntervalInMilliseconds = const Duration(milliseconds: 5000),
+    Duration pollingInterval = const Duration(milliseconds: 5000),
   }) async {
     await _initialize(cachedRepositoryProvider);
     return switch (strategy) {
@@ -69,8 +69,7 @@ mixin AsyncProviderMixin<T, ID> {
       (FetchingStrategy.stream) =>
         _fromStream(id, errorUiCallback: errorUiCallback),
       (FetchingStrategy.polling) => _fromPolling(id,
-          errorUiCallback: errorUiCallback,
-          intervalInMilliseconds: pollingIntervalInMilliseconds),
+          errorUiCallback: errorUiCallback, interval: pollingInterval),
     };
   }
 
@@ -79,7 +78,12 @@ mixin AsyncProviderMixin<T, ID> {
     ErrorUiCallback? errorUiCallback,
   }) {
     repository.listenable(id).listen((appointment) {
-      state = AsyncValue.data(appointment);
+      try {
+        state = AsyncValue.data(appointment);
+      } on StateError catch (e) {
+        // Some internal Riverpod exception that is called
+        // when a Completer is called when the future is already finished.
+      }
     });
     return repository.get(id);
   }
