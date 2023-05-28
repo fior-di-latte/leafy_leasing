@@ -9,8 +9,11 @@ typedef UniqueMetasId = String;
 class MetasState extends _$MetasState
     with AsyncProviderMixin<AppointmentMetas, UniqueMetasId> {
   @override
-  FutureOr<AppointmentMetas> build() =>
-      buildFromRepository(metasRepositoryCacheProvider, id: hiveMetas);
+  FutureOr<AppointmentMetas> build() => buildFromRepository(
+        metasRepositoryCacheProvider,
+        id: hiveMetas,
+        strategy: FetchingStrategy.stream,
+      );
 
   Future<void> cancelAppointment(AppointmentId id) {
     final date = ref.read(appointmentStateProvider(id)).value!.date;
@@ -52,26 +55,14 @@ Future<(MetasRepository, Cache<AppointmentMetas>)> metasRepositoryCache(
 }
 
 final class HiveMetasRepository
-    with HiveSingletonMixin
+    with HiveSingletonMixin<AppointmentMetas, UniqueMetasId>
     implements MetasRepository {
   @override
-  Future<AppointmentMetas> get(UniqueMetasId id) {
-    // TODO: implement get
-    throw UnimplementedError();
-  }
+  late final box = client.box<AppointmentMetas>(hiveMetas);
 
   @override
   Stream<AppointmentMetas> listenable(UniqueMetasId id) {
     // TODO: implement listenable
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<AppointmentMetas> put(
-    AppointmentMetas item, {
-    required UniqueMetasId id,
-  }) {
-    // TODO: implement put
     throw UnimplementedError();
   }
 }

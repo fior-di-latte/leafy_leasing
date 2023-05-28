@@ -27,8 +27,30 @@ part of 'package:leafy_leasing/shared/service/client/client.dart';
 //   }
 // }
 //
-mixin HiveSingletonMixin {
+mixin HiveSingletonMixin<T, ID> {
   final client = HiveInstance().instance;
+  abstract final Box<T> box;
+
+  Future<T> get(ID id) async {
+    assert(ID == String, 'Hive only supports String keys');
+    final key = id as String;
+    return Future.delayed(kMockNetworkLag, () {
+      final val = box.get(key);
+      if (val == null) {
+        throw Exception('No value found for key: $key');
+      }
+      return val;
+    });
+  }
+
+  Future<T> put(T item, {required ID id}) {
+    assert(ID == String, 'Hive only supports String keys');
+    final key = id as String;
+    return Future.delayed(kMockNetworkLag, () {
+      box.put(key, item);
+      return item;
+    });
+  }
 }
 
 class HiveInstance extends Client {

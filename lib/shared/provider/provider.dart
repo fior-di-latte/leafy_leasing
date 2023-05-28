@@ -11,6 +11,8 @@ export 'customer_provider.dart';
 export 'notification_provider.dart';
 export 'settings_provider.dart';
 
+enum FetchingStrategy { single, polling, stream }
+
 typedef ErrorUiCallback = void Function(BuildContext context);
 
 mixin AsyncProviderMixin<T, ID> {
@@ -34,10 +36,10 @@ mixin AsyncProviderMixin<T, ID> {
   @protected
   Future<T> _fromPolling(
     ID id, {
-    int intervalInMilliseconds = 5000,
+    required Duration intervalInMilliseconds,
     ErrorUiCallback? errorUiCallback,
   }) {
-    Timer.periodic(intervalInMilliseconds.milliseconds, (_) async {
+    Timer.periodic(intervalInMilliseconds, (_) async {
       try {
         final newValue = await repository.get(id);
         state = AsyncValue.data(newValue);
@@ -55,22 +57,20 @@ mixin AsyncProviderMixin<T, ID> {
     AutoDisposeFutureProvider<(Repository<T, ID>, Cache<T>)>
         cachedRepositoryProvider, {
     required ID id,
-    bool stream = false,
-    bool singleGet = true,
-    bool polling = false,
+    required FetchingStrategy strategy,
     ErrorUiCallback? errorUiCallback,
-    int pollingIntervalInMilliseconds = 5000,
+    Duration pollingIntervalInMilliseconds = const Duration(milliseconds: 5000),
   }) {
-    assert(
-      [stream, singleGet, polling].where((element) => element).length == 1,
-      'Only one of stream, singleGet or polling must be true',
-    );
-
     _initialize(cachedRepositoryProvider);
-
-    if (stream) return _fromStream(id, errorUiCallback: errorUiCallback);
-    if (polling) return _fromPolling(id, errorUiCallback: errorUiCallback);
-    return _fromGet(id, errorUiCallback: errorUiCallback);
+    return switch (strategy) {
+      (FetchingStrategy.single) =>
+        _fromGet(id, errorUiCallback: errorUiCallback),
+      (FetchingStrategy.stream) =>
+        _fromStream(id, errorUiCallback: errorUiCallback),
+      (FetchingStrategy.polling) => _fromPolling(id,
+          errorUiCallback: errorUiCallback,
+          intervalInMilliseconds: pollingIntervalInMilliseconds),
+    };
   }
 
   Future<T> _fromStream(
@@ -85,6 +85,39 @@ mixin AsyncProviderMixin<T, ID> {
 
   /// Optimistically update, meaning that the state is updated before the network
   /// call is made. If the network call fails, the state is reverted to the
+  @protected
+  Future<void> _optimistic(
+    T newValue, {
+    required ID id,
+    bool invalidateFinally = false,
+    FutureOr<void> Function()? onFinally,
+    ErrorUiCallback? errorUiCallback,
+    bool showErrorUiCallback = true,
+  }) async {
+    final oldValue = state;
+    logger.i('Optimistic Update: $newValue');
+    state = AsyncValue.data(newValue);
+    // loading has no effect on UI once the state has had a value once
+    // this is only for consistency
+    state = AsyncValue<T>.loading();
+    try {
+      // throw Exception('Network Error');
+      await repository.put(newValue, id: id);
+      logger.w('Successful network update $repository.');
+    } catch (e) {
+      logger.e('NetworkError | Naive optimism: $e');
+      if (showErrorUiCallback) {
+        notifications.state = _getErrorSnackbarBuilder(errorUiCallback);
+      }
+      state = oldValue;
+    } finally {
+      if (invalidateFinally) {
+        ref.invalidateSelf();
+      }
+      onFinally?.call();
+    }
+  }
+
   /// previous state.
   @protected
   Future<void> optimistic(
@@ -145,7 +178,6 @@ mixin AsyncProviderMixin<T, ID> {
         retryIf: (e) => e is SocketException || e is TimeoutException,
         onRetry: (e) => logOnNetworkRetry<T>(loggingKey, e, isPut: isPut),
       );
-
   Future<T> get(ID id) =>
       retryAndLog(() => repository.get(id), loggingKey: id.toString());
 
@@ -170,10 +202,5 @@ mixin AsyncProviderMixin<T, ID> {
         : SnackbarBuilder(errorUiCallback, type: SnackbarType.error);
   }
 
-  Future<T> _fromGet(ID id, {ErrorUiCallback? errorUiCallback}) {
-    return retryAndLog(
-      () => repository.get(id),
-      loggingKey: id.toString(),
-    );
-  }
+  Future<T> _fromGet(ID id, {ErrorUiCallback? errorUiCallback}) => get(id);
 }

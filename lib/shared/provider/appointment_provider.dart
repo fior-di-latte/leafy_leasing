@@ -8,8 +8,11 @@ typedef AppointmentId = String;
 class AppointmentState extends _$AppointmentState
     with AsyncProviderMixin<Appointment, AppointmentId> {
   @override
-  FutureOr<Appointment> build(AppointmentId id) =>
-      buildFromRepository(appointmentRepositoryCacheProvider, id: id);
+  FutureOr<Appointment> build(AppointmentId id) => buildFromRepository(
+        appointmentRepositoryCacheProvider,
+        id: id,
+        strategy: FetchingStrategy.stream,
+      );
 
   Future<void> cancelAppointment({
     required AppointmentStatus newStatus,
@@ -36,8 +39,6 @@ sealed class AppointmentRepository
         (Backend.hive) => HiveAppointmentRepository(),
         (Backend.supabase) => throw UnimplementedError(),
       };
-
-  Future<void> removeAppointment();
 }
 
 @riverpod
@@ -49,29 +50,14 @@ Future<(AppointmentRepository, Cache<Appointment>)> appointmentRepositoryCache(
 }
 
 final class HiveAppointmentRepository
-    with HiveSingletonMixin
+    with HiveSingletonMixin<Appointment, AppointmentId>
     implements AppointmentRepository {
   @override
-  Future<void> removeAppointment() {
-    // TODO: implement removeAppointment
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Appointment> get(AppointmentId id) {
-    // TODO: implement get
-    throw UnimplementedError();
-  }
+  late final box = client.box<Appointment>(hiveAppointments);
 
   @override
   Stream<Appointment> listenable(AppointmentId id) {
     // TODO: implement listenable
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Appointment> put(Appointment item, {required AppointmentId id}) {
-    // TODO: implement put
     throw UnimplementedError();
   }
 }

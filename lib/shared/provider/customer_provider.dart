@@ -8,8 +8,11 @@ typedef CustomerId = String;
 class CustomerState extends _$CustomerState
     with AsyncProviderMixin<Customer, CustomerId> {
   @override
-  FutureOr<Customer> build(CustomerId id) =>
-      buildFromRepository(customerRepositoryCacheProvider, id: id);
+  FutureOr<Customer> build(CustomerId id) => buildFromRepository(
+        customerRepositoryCacheProvider,
+        id: id,
+        strategy: FetchingStrategy.stream,
+      );
 }
 
 sealed class CustomerRepository implements Repository<Customer, CustomerId> {
@@ -17,8 +20,6 @@ sealed class CustomerRepository implements Repository<Customer, CustomerId> {
         (Backend.hive) => HiveCustomerRepository(),
         (Backend.supabase) => throw UnimplementedError(),
       };
-
-  Future<void> removeCustomer();
 }
 
 @riverpod
@@ -30,29 +31,14 @@ Future<(CustomerRepository, Cache<Customer>)> customerRepositoryCache(
 }
 
 final class HiveCustomerRepository
-    with HiveSingletonMixin
+    with HiveSingletonMixin<Customer, CustomerId>
     implements CustomerRepository {
   @override
-  Future<void> removeCustomer() {
-    // TODO: implement removeCustomer
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Customer> get(CustomerId id) {
-    // TODO: implement get
-    throw UnimplementedError();
-  }
+  late final box = client.box<Customer>(hiveCustomers);
 
   @override
   Stream<Customer> listenable(CustomerId id) {
     // TODO: implement listenable
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Customer> put(Customer item, {required CustomerId id}) {
-    // TODO: implement put
     throw UnimplementedError();
   }
 }
