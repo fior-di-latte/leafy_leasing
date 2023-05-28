@@ -9,7 +9,7 @@
 import 'package:leafy_leasing/shared/base.dart';
 
 const kProviderMaxLogLength = 80;
-final logger = Logger(printer: PrettyPrinter(methodCount: 1));
+final logger = Logger(printer: PrettyPrinter(methodCount: 0));
 
 extension on ProviderBase<dynamic> {
   static final providerTimestamps = <ProviderBase<dynamic>, DateTime>{};
@@ -62,12 +62,16 @@ class ProviderUpdateLogger extends ProviderObserver {
     Object? newValue,
     ProviderContainer container,
   ) {
+    if (previousValue is AsyncData && newValue is AsyncLoading) {
+      provider.saveTimestamp();
+    }
     if (previousValue is AsyncLoading &&
         newValue is AsyncData &&
         !provider.customName.contains('Repository') &&
         !provider.customName.contains('Cache')) {
       logger.d(
-        'Loading Time for ${provider.customName}: ${provider.timeSinceLastUpdate}',
+        'Loading Time for ${provider.customName}:'
+        ' ${provider.timeSinceLastUpdate}',
       );
     }
     logger.v(

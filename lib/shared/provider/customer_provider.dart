@@ -11,7 +11,7 @@ class CustomerState extends _$CustomerState
   FutureOr<Customer> build(CustomerId id) => buildFromRepository(
         customerRepositoryCacheProvider,
         id: id,
-        strategy: FetchingStrategy.stream,
+        strategy: FetchingStrategy.single,
       );
 }
 
@@ -35,10 +35,4 @@ final class HiveCustomerRepository
     implements CustomerRepository {
   @override
   late final box = client.box<Customer>(hiveCustomers);
-
-  @override
-  Stream<Customer> listenable(CustomerId id) {
-    // TODO: implement listenable
-    throw UnimplementedError();
-  }
 }

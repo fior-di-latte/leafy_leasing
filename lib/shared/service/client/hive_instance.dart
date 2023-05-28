@@ -31,6 +31,12 @@ mixin HiveSingletonMixin<T, ID> {
   final client = HiveInstance().instance;
   abstract final Box<T> box;
 
+  Stream<T> listenable(ID id) {
+    assert(ID == String, 'Hive only supports String keys');
+    final key = id as String;
+    return box.watch(key: key).map((_) => box.get(key)!);
+  }
+
   Future<T> get(ID id) async {
     assert(ID == String, 'Hive only supports String keys');
     final key = id as String;

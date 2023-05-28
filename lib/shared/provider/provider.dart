@@ -41,6 +41,7 @@ mixin AsyncProviderMixin<T, ID> {
   }) {
     Timer.periodic(intervalInMilliseconds, (_) async {
       try {
+        state = AsyncLoading<T>();
         final newValue = await repository.get(id);
         state = AsyncValue.data(newValue);
         logger.i('Polling successful: $newValue');
@@ -60,8 +61,8 @@ mixin AsyncProviderMixin<T, ID> {
     required FetchingStrategy strategy,
     ErrorUiCallback? errorUiCallback,
     Duration pollingIntervalInMilliseconds = const Duration(milliseconds: 5000),
-  }) {
-    _initialize(cachedRepositoryProvider);
+  }) async {
+    await _initialize(cachedRepositoryProvider);
     return switch (strategy) {
       (FetchingStrategy.single) =>
         _fromGet(id, errorUiCallback: errorUiCallback),
@@ -132,7 +133,7 @@ mixin AsyncProviderMixin<T, ID> {
     logger.i('Optimistic Update: $newValue');
     state = AsyncValue.data(newValue);
     // loading has no effect on UI once the state has had a value once
-    // this is only for consistency
+    // this is only for consistency and loading time logging.
     state = AsyncValue<T>.loading();
     try {
       // throw Exception('Network Error');

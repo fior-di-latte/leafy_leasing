@@ -54,10 +54,4 @@ final class HiveAppointmentRepository
     implements AppointmentRepository {
   @override
   late final box = client.box<Appointment>(hiveAppointments);
-
-  @override
-  Stream<Appointment> listenable(AppointmentId id) {
-    // TODO: implement listenable
-    throw UnimplementedError();
-  }
 }

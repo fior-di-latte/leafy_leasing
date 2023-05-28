@@ -12,7 +12,7 @@ class MetasState extends _$MetasState
   FutureOr<AppointmentMetas> build() => buildFromRepository(
         metasRepositoryCacheProvider,
         id: hiveMetas,
-        strategy: FetchingStrategy.stream,
+        strategy: FetchingStrategy.single,
       );
 
   Future<void> cancelAppointment(AppointmentId id) {
@@ -59,10 +59,4 @@ final class HiveMetasRepository
     implements MetasRepository {
   @override
   late final box = client.box<AppointmentMetas>(hiveMetas);
-
-  @override
-  Stream<AppointmentMetas> listenable(UniqueMetasId id) {
-    // TODO: implement listenable
-    throw UnimplementedError();
-  }
 }
