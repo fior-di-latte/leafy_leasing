@@ -22,7 +22,6 @@ mixin AsyncProviderMixin<T, ID> {
 
   abstract AsyncValue<T> state;
   AutoDisposeAsyncNotifierProviderRef<T> get ref;
-  late final notifications = ref.read(notificationProvider.notifier);
 
   Future<void> _initialize(
     AutoDisposeFutureProvider<(Repository<T, ID>, Cache<T>)>
@@ -95,7 +94,7 @@ mixin AsyncProviderMixin<T, ID> {
     required ID id,
     bool invalidateFinally = false,
     FutureOr<void> Function()? onFinally,
-    ErrorUiCallback? errorUiCallback,
+    SnackbarBuilder? errorSnackbar,
     bool showErrorUiCallback = true,
   }) async {
     final oldValue = state;
@@ -112,7 +111,7 @@ mixin AsyncProviderMixin<T, ID> {
     } catch (e) {
       logger.e('NetworkError | Naive optimism: $e');
       if (showErrorUiCallback) {
-        notifications.state = _getErrorSnackbarBuilder(errorUiCallback);
+        ref.notification = errorSnackbar ?? SnackbarBuilder.error();
       }
       state = oldValue;
     } finally {
@@ -156,22 +155,6 @@ mixin AsyncProviderMixin<T, ID> {
         () => repository.put(item, id: id),
         loggingKey: item.toString(),
       );
-
-  void _defaultErrorCallback(BuildContext context) => showTopInfo(
-        context,
-        textColor: context.cs.error,
-        leading: Icon(
-          Icons.error_outline_outlined,
-          color: context.cs.error,
-        ),
-        title: context.lc.somethingWentWrong,
-      );
-
-  SnackbarBuilder _getErrorSnackbarBuilder(ErrorUiCallback? errorUiCallback) {
-    return errorUiCallback == null
-        ? SnackbarBuilder(_defaultErrorCallback, type: SnackbarType.error)
-        : SnackbarBuilder(errorUiCallback, type: SnackbarType.error);
-  }
 
   Future<T> _fromGet(ID id, {ErrorUiCallback? errorUiCallback}) => get(id);
 }

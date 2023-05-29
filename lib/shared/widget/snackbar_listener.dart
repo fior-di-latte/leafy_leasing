@@ -10,7 +10,7 @@ class SnackbarListener extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref
-      ..watch(internetConnectionProvider)
+      ..listen(internetConnectionProvider, (previous, next) {})
       ..listen(
         notificationProvider,
         (_, snackbarBuilder) => EasyThrottle.throttle(
