@@ -17,8 +17,8 @@ typedef ErrorUiCallback = void Function(BuildContext context);
 
 mixin AsyncProviderMixin<T, ID> {
   @protected
-  late final Repository<T, ID> repository;
-  late final Cache<T> cache;
+  late Repository<T, ID> repository;
+  late Cache<T> cache;
 
   abstract AsyncValue<T> state;
   AutoDisposeAsyncNotifierProviderRef<T> get ref;
@@ -80,7 +80,8 @@ mixin AsyncProviderMixin<T, ID> {
     repository.listenable(id).listen((appointment) {
       try {
         state = AsyncValue.data(appointment);
-      } on StateError catch (e) {
+      } on StateError catch (_) {
+        logger.e('Riverpod "async gap" error.');
         // Some internal Riverpod exception that is called
         // when a Completer is called when the future is already finished.
       }
@@ -88,42 +89,6 @@ mixin AsyncProviderMixin<T, ID> {
     return repository.get(id);
   }
 
-  /// Optimistically update, meaning that the state is updated before the network
-  /// call is made. If the network call fails, the state is reverted to the
-  @protected
-  Future<void> _optimistic(
-    T newValue, {
-    required ID id,
-    bool invalidateFinally = false,
-    FutureOr<void> Function()? onFinally,
-    ErrorUiCallback? errorUiCallback,
-    bool showErrorUiCallback = true,
-  }) async {
-    final oldValue = state;
-    logger.i('Optimistic Update: $newValue');
-    state = AsyncValue.data(newValue);
-    // loading has no effect on UI once the state has had a value once
-    // this is only for consistency
-    state = AsyncValue<T>.loading();
-    try {
-      // throw Exception('Network Error');
-      await repository.put(newValue, id: id);
-      logger.w('Successful network update $repository.');
-    } catch (e) {
-      logger.e('NetworkError | Naive optimism: $e');
-      if (showErrorUiCallback) {
-        notifications.state = _getErrorSnackbarBuilder(errorUiCallback);
-      }
-      state = oldValue;
-    } finally {
-      if (invalidateFinally) {
-        ref.invalidateSelf();
-      }
-      onFinally?.call();
-    }
-  }
-
-  /// previous state.
   @protected
   Future<void> optimistic(
     T newValue, {
@@ -136,11 +101,12 @@ mixin AsyncProviderMixin<T, ID> {
     final oldValue = state;
     logger.i('Optimistic Update: $newValue');
     state = AsyncValue.data(newValue);
+    // TODO investigate why this yields a "async gap" error
+    // state = AsyncValue<T>.loading();
     // loading has no effect on UI once the state has had a value once
     // this is only for consistency and loading time logging.
-    state = AsyncValue<T>.loading();
+
     try {
-      // throw Exception('Network Error');
       await repository.put(newValue, id: id);
       logger.w('Successful network update $repository.');
     } catch (e) {

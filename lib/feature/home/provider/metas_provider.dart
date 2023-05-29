@@ -12,7 +12,7 @@ class MetasState extends _$MetasState
   FutureOr<AppointmentMetas> build() => buildFromRepository(
         metasRepositoryCacheProvider,
         id: hiveMetas,
-        strategy: FetchingStrategy.single,
+        strategy: FetchingStrategy.stream,
       );
 
   Future<void> cancelAppointment(AppointmentId id) {

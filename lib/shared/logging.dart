@@ -62,7 +62,15 @@ class ProviderUpdateLogger extends ProviderObserver {
     Object? newValue,
     ProviderContainer container,
   ) {
-    if (previousValue is AsyncData && newValue is AsyncLoading) {
+    logger.v(
+      'P-Update of ${provider.customName}:\n\t"Previous Value":'
+      ' "$previousValue"'
+      '\n\t"New Value": '
+      '"$newValue}"',
+    );
+
+    if (newValue is AsyncLoading) {
+      logger.v('Entering loading state ... $previousValue');
       provider.saveTimestamp();
     }
     if (previousValue is AsyncLoading &&
@@ -74,12 +82,6 @@ class ProviderUpdateLogger extends ProviderObserver {
         ' ${provider.timeSinceLastUpdate}',
       );
     }
-    logger.v(
-      'P-Update of ${provider.customName}:\n\t"Previous Value":'
-      ' "$previousValue"'
-      '\n\t"New Value": '
-      '"$newValue}"',
-    );
   }
 }
 
