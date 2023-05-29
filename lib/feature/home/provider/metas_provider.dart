@@ -23,7 +23,7 @@ class MetasState extends _$MetasState
         ...state.value!.pending.where((element) => element.id != id),
       ],
     );
-    return optimistic(newValue, id: id);
+    return optimistic(newValue);
   }
 
   Future<void> closeAppointment(AppointmentId id) {
@@ -34,7 +34,7 @@ class MetasState extends _$MetasState
         ...state.value!.pending.where((element) => element.id != id),
       ],
     );
-    return optimistic(newValue, id: id);
+    return optimistic(newValue);
   }
 }
 

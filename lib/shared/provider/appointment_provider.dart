@@ -18,19 +18,13 @@ class AppointmentState extends _$AppointmentState
     required AppointmentStatus newStatus,
     required String? comment,
   }) =>
-      optimistic(
-        state.value!.copyWith(comment: comment, status: newStatus),
-        id: id,
-      );
+      optimistic(state.value!.copyWith(comment: comment, status: newStatus));
 
   Future<void> closeAppointment({
     required AppointmentStatus newStatus,
     required String? comment,
   }) =>
-      optimistic(
-        state.value!.copyWith(comment: comment, status: newStatus),
-        id: id,
-      );
+      optimistic(state.value!.copyWith(comment: comment, status: newStatus));
 }
 
 sealed class AppointmentRepository

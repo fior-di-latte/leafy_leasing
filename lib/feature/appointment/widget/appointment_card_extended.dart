@@ -97,7 +97,6 @@ class _InnerExtendedCard extends StatelessWidget {
                   ),
                   label: Text(
                     RelativeTime(context).format(appointment.date),
-                    style: const TextStyle(color: Colors.black),
                   ),
                 ),
               ),
@@ -111,7 +110,6 @@ class _InnerExtendedCard extends StatelessWidget {
                   ),
                   label: Text(
                     '${appointment.durationInMinutes} min',
-                    style: const TextStyle(color: Colors.black),
                   ),
                 ),
               ),
