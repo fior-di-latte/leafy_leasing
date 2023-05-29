@@ -5,7 +5,8 @@ part 'internet_connection_provider.g.dart';
 
 @riverpod
 Stream<InternetConnectionStatus> internetConnection(InternetConnectionRef ref) {
-  final checker = InternetConnectionChecker();
+  final checker =
+      InternetConnectionChecker.createInstance(checkInterval: 3.seconds);
   final subscription = checker.onStatusChange.listen((status) {
     switch (status) {
       case InternetConnectionStatus.connected:

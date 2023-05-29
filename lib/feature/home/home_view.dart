@@ -1,6 +1,7 @@
 // Project imports:
 import 'package:leafy_leasing/feature/home/widget/navigation_badges.dart';
 import 'package:leafy_leasing/shared/base.dart';
+import 'package:overlay_support/overlay_support.dart';
 
 @RoutePage()
 class HomeView extends HookConsumerWidget {

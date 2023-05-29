@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 // Project imports:
 import 'package:leafy_leasing/feature/home/provider/metas_provider.dart';
 import 'package:leafy_leasing/shared/base.dart';
+import 'package:overlay_support/overlay_support.dart';
 
 Future<void> bootstrap() async {
   if (kDebugMode) {
@@ -14,9 +15,11 @@ Future<void> bootstrap() async {
   }
   await setupHive();
   runApp(
-    ProviderScope(
-      observers: kDebugMode ? devProviderLoggers : null,
-      child: WarmUp(providers: [metasStateProvider], child: App()),
+    OverlaySupport.global(
+      child: ProviderScope(
+        observers: kDebugMode ? devProviderLoggers : null,
+        child: WarmUp(providers: [metasStateProvider], child: App()),
+      ),
     ),
   );
 }
