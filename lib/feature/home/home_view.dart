@@ -8,7 +8,7 @@ class HomeView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // return PlaygroundWidget();
-    return SnackbarListener(
+    return AllNotificationListener(
       child: AutoTabsRouter.tabBar(
         routes: const [PendingRoute(), DoneRoute(), CanceledRoute()],
         builder: (context, child, _) {

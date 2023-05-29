@@ -4,7 +4,7 @@ import 'package:leafy_leasing/shared/base.dart';
 part 'internet_connection_provider.g.dart';
 
 @riverpod
-InternetConnectionChecker internetConnection(InternetConnectionRef ref) {
+Stream<InternetConnectionStatus> internetConnection(InternetConnectionRef ref) {
   final checker = InternetConnectionChecker();
   final subscription = checker.onStatusChange.listen((status) {
     switch (status) {
@@ -17,5 +17,5 @@ InternetConnectionChecker internetConnection(InternetConnectionRef ref) {
     }
   });
   ref.onDispose(subscription.cancel);
-  return checker;
+  return checker.onStatusChange;
 }

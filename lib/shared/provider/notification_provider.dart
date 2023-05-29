@@ -45,3 +45,9 @@ extension AddNotification on Ref {
     read(notificationProvider.notifier).state = builder;
   }
 }
+
+extension AddNotificationOnWidget on WidgetRef {
+  set notification(SnackbarBuilder builder) {
+    read(notificationProvider.notifier).state = builder;
+  }
+}
