@@ -60,6 +60,7 @@ flutter:
     - assets/mock_data/customers.json
     - assets/mock_data/appointments.json
     - assets/mock_data/appointment_metas.json
+    - assets/google_fonts/
     - dotenv/global.env
     - dotenv/dev.env
     - dotenv/production.env

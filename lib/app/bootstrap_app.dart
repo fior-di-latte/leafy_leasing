@@ -3,6 +3,8 @@ import 'dart:async';
 
 // Flutter imports:
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 // Project imports:
 import 'package:leafy_leasing/feature/home/provider/metas_provider.dart';
@@ -13,6 +15,8 @@ Future<void> bootstrap() async {
   if (kDebugMode) {
     logger.w('Starting with DotEnv: ${dotenv.env}');
   }
+  _initFonts();
+  WidgetsFlutterBinding.ensureInitialized();
   await setupHive();
   runApp(
     OverlaySupport.global(
@@ -22,4 +26,12 @@ Future<void> bootstrap() async {
       ),
     ),
   );
+}
+
+void _initFonts() {
+  GoogleFonts.config.allowRuntimeFetching = false;
+  LicenseRegistry.addLicense(() async* {
+    final license = await rootBundle.loadString(Assets.googleFontsOFL);
+    yield LicenseEntryWithLineBreaks(['google_fonts'], license);
+  });
 }
