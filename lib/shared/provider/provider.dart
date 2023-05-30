@@ -22,6 +22,8 @@ mixin AsyncProviderMixin<T, ID> {
   // this should be identical to the parameter 'id' from the build method,
   // if it exists
   late ID _id;
+  late final Timer
+      _pollingTimer; // this can be final as _fromPolling is called only once after the cachedRepository is initialized;
 
   abstract AsyncValue<T> state;
   AutoDisposeAsyncNotifierProviderRef<T> get ref;
@@ -43,7 +45,7 @@ mixin AsyncProviderMixin<T, ID> {
     required Duration interval,
     ErrorUiCallback? errorUiCallback,
   }) {
-    Timer.periodic(interval, (_) async {
+    _pollingTimer = Timer.periodic(interval, (_) async {
       try {
         if (mounted) {
           state = AsyncLoading<T>();
@@ -68,7 +70,9 @@ mixin AsyncProviderMixin<T, ID> {
     ErrorUiCallback? errorUiCallback,
     Duration pollingInterval = const Duration(milliseconds: 5000),
   }) async {
-    _mount(ref);
+    _mount();
+    _onDispose();
+
     await _initialize(id, cachedRepositoryProvider);
     return switch (strategy) {
       (FetchingStrategy.single) =>
@@ -179,7 +183,7 @@ mixin AsyncProviderMixin<T, ID> {
   late Object _current;
 
   // Call this from the `build()` method
-  void _mount(Ref ref) {
+  void _mount() {
     _current = Object();
     _initial ??= _current;
     // on dispose, set to a different [Object]
@@ -189,4 +193,15 @@ mixin AsyncProviderMixin<T, ID> {
   // Whether the notifier is currently mounted
   // This relies on the fact that an [Object] instance is equal to itself only.
   bool get mounted => _current == _initial;
+
+  void _onDispose() {
+    ref.onDispose(() {
+      try {
+        _pollingTimer.cancel();
+        logger.d('Polling timer for $T $_id disposed');
+      } catch (e) {
+        // no polling used
+      }
+    });
+  }
 }
