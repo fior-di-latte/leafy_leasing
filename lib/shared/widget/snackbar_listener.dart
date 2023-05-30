@@ -41,7 +41,7 @@ class AllNotificationListener extends ConsumerWidget {
                 data: Theme.of(context),
                 child: Opacity(
                   opacity: t,
-                  child: NoNetworkLogo(),
+                  child: const NoNetworkLogo(),
                 ),
               )
             : const SizedBox.shrink(),
@@ -77,10 +77,11 @@ class NoNetworkLogo extends StatelessWidget {
         )
             .animate(onPlay: (c) => c.repeat(reverse: true))
             .scaleXY(
-                begin: 0.9,
-                end: 1.2,
-                duration: 1600.milliseconds,
-                curve: Curves.easeOut)
+              begin: 0.9,
+              end: 1.2,
+              duration: 1600.milliseconds,
+              curve: Curves.easeOut,
+            )
             .fade(begin: .6, end: 1),
       ),
     );
