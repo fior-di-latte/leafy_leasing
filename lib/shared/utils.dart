@@ -109,7 +109,6 @@ extension AddBackend on DotEnv {
 Future<void> throwTimeOutErrorWhenManualInternetCheckFails() async {
   final connectionStatus = await InternetConnectionChecker().connectionStatus;
   if (connectionStatus == InternetConnectionStatus.disconnected) {
-    logger.w('Manual check: No internet connection');
     throw TimeoutException('Manual check: No internet!');
   }
 }

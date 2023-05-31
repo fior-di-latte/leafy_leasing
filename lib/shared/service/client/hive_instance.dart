@@ -39,6 +39,7 @@ mixin HiveSingletonMixin<T, ID> {
 
   Future<T> get(ID id) async {
     assert(ID == String, 'Hive only supports String keys');
+    await throwTimeOutErrorWhenManualInternetCheckFails();
     final key = id as String;
     return Future.delayed(kMockNetworkLag, () {
       final val = box.get(key);
@@ -49,8 +50,9 @@ mixin HiveSingletonMixin<T, ID> {
     });
   }
 
-  Future<T> put(T item, {required ID id}) {
+  Future<T> put(T item, {required ID id}) async {
     assert(ID == String, 'Hive only supports String keys');
+    await throwTimeOutErrorWhenManualInternetCheckFails();
     final key = id as String;
     return Future.delayed(kMockNetworkLag, () {
       box.put(key, item);

@@ -13,6 +13,8 @@ export 'settings_provider.dart';
 
 enum FetchingStrategy { single, polling, stream }
 
+enum CacheReadStrategy { fallback, first, no }
+
 typedef ErrorUiCallback = void Function(BuildContext context);
 
 mixin AsyncProviderMixin<T, ID> {
