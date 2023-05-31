@@ -22,26 +22,26 @@ class CompanyAvatar extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return ref.watch(customerStateProvider(customerId)).whenFine(
-          (customer) => SizedBox(
-            width: 72,
-            height: 72,
-            child: Material(
-              shape: const CircleBorder(),
-              elevation: 8,
-              child: InkWell(
-                customBorder: const CircleBorder(),
-                onTap: () => logger.i(
-                  'This would direct you to the customer profile page ',
-                ),
-                child: CircleAvatar(
-                  backgroundColor: stringToColor(customer.companyName, context),
-                  child: Text(customer.companyName.substring(0, 2)),
+  Widget build(BuildContext context, WidgetRef ref) =>
+      ref.watch(customerStateProvider(customerId)).whenFine(
+            (customer) => SizedBox(
+              width: 72,
+              height: 72,
+              child: Material(
+                shape: const CircleBorder(),
+                elevation: 8,
+                child: InkWell(
+                  customBorder: const CircleBorder(),
+                  onTap: () => logger.i(
+                    'This would direct you to the customer profile page ',
+                  ),
+                  child: CircleAvatar(
+                    backgroundColor:
+                        stringToColor(customer.companyName, context),
+                    child: Text(customer.companyName.substring(0, 2)),
+                  ),
                 ),
               ),
             ),
-          ),
-        );
-  }
+          );
 }

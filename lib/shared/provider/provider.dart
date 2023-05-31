@@ -149,14 +149,14 @@ mixin AsyncProviderMixin<T, ID> {
         onRetry: (e) => logOnNetworkRetry<T>(loggingKey, e, isPut: isPut),
       );
 
-  Future<T> _get(ID id) => switch (_cacheRead) {
-        (CacheReadStrategy.fallback) => _getWithFallback(id),
-        (CacheReadStrategy.eager) => _getWithEager(id),
-        (CacheReadStrategy.no) => _getWithNoCache(id),
-      };
+  // Future<T> _get(ID id) => switch (_cacheRead) {
+  //       (CacheReadStrategy.fallback) => _getWithFallback(id),
+  //       (CacheReadStrategy.eager) => _getWithEager(id),
+  //       (CacheReadStrategy.no) => _getWithNoCache(id),
+  //     };
 
-  // Future<T> get(ID id) =>
-  //     retryAndLog(() => repository.get(id), loggingKey: id.toString());
+  Future<T> _get(ID id) =>
+      retryAndLog(() => repository.get(id), loggingKey: id.toString());
 
   Future<T> _getWithFallback(ID id) {
     throw UnimplementedError();
