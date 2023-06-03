@@ -3,7 +3,9 @@ import 'dart:async';
 import 'dart:io';
 
 // Project imports:
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:leafy_leasing/shared/base.dart';
+import 'package:leafy_leasing/shared/provider/internet_connection_provider.dart';
 import 'package:retry/retry.dart';
 
 export 'appointment_provider.dart';
@@ -24,6 +26,7 @@ typedef ErrorUiCallback = void Function(BuildContext context);
 mixin AsyncProviderMixin<T, ID> {
   @protected
   late Repository<T, ID> repository;
+  bool _initialized = false;
   late Cache<T> _cache;
   late CacheReadStrategy _cacheRead;
   // this should be identical to the parameter 'id' from the build method,
@@ -47,6 +50,7 @@ mixin AsyncProviderMixin<T, ID> {
     final cachedRepository = await ref.watch(cachedRepositoryProvider.future);
     repository = cachedRepository.$1;
     _cache = cachedRepository.$2;
+    _initialized = true;
   }
 
   @protected
@@ -56,7 +60,7 @@ mixin AsyncProviderMixin<T, ID> {
     _pollingTimer = Timer.periodic(interval, (_) async {
       try {
         if (mounted) state = AsyncLoading<T>();
-        final newValue = await repository.get(_id);
+        final newValue = await _get();
         if (mounted) state = AsyncValue.data(newValue);
         logger.i('Polling successful: $newValue');
       } catch (e, stackTrace) {
@@ -64,7 +68,7 @@ mixin AsyncProviderMixin<T, ID> {
         state = AsyncValue.error(e, stackTrace);
       }
     });
-    return repository.get(_id);
+    return _get();
   }
 
   @protected
@@ -79,7 +83,9 @@ mixin AsyncProviderMixin<T, ID> {
     _mount();
     _onDispose();
 
-    await _initializeFields(id, cachedRepositoryProvider, cacheRead);
+    if (!_initialized) {
+      await _initializeFields(id, cachedRepositoryProvider, cacheRead);
+    }
 
     return switch (strategy) {
       (FetchingStrategy.single) => _fromGet(),
@@ -92,7 +98,7 @@ mixin AsyncProviderMixin<T, ID> {
     repository.listenable(_id).listen((incomingData) {
       if (mounted) state = AsyncValue.data(incomingData);
     });
-    return repository.get(_id);
+    return _get();
   }
 
   @protected
@@ -149,59 +155,61 @@ mixin AsyncProviderMixin<T, ID> {
         onRetry: (e) => logOnNetworkRetry<T>(loggingKey, e, isPut: isPut),
       );
 
-  // Future<T> _get(ID id) => switch (_cacheRead) {
-  //       (CacheReadStrategy.fallback) => _getWithFallback(id),
-  //       (CacheReadStrategy.eager) => _getWithEager(id),
-  //       (CacheReadStrategy.no) => _getWithNoCache(id),
-  //     };
+// fallback: if internet connection is not available, search in cache, if not found, retry to fetch
+//           if internet connection is available, fetch, if fails, try cache, if fails retry fetch
+// eagerCacheWhileLoading: regardless of internet connection, initialize data from cache first, then fetch
+// no: no cache at all is used.
+  Future<T> _get() => switch (_cacheRead) {
+        (CacheReadStrategy.fallback) => _getWithFallback(),
+        (CacheReadStrategy.eager) => _getWithEager(),
+        (CacheReadStrategy.no) => _getWithNoCache(),
+      };
 
-  Future<T> _get(ID id) =>
-      retryAndLog(() => repository.get(id), loggingKey: id.toString());
+  Future<T> _getWithFallback() async {
+    final hasInternet = ref
+            .read(internetConnectionProvider)
+            .whenData((value) => value == InternetConnectionStatus.connected)
+            .value ??
+        false;
 
-  Future<T> _getWithFallback(ID id) {
-    throw UnimplementedError();
+    if (!hasInternet) {
+      final maybeCacheValue = await _cache.get(_id.toString());
+      if (maybeCacheValue == null) {
+        throw NoCacheFallbackException(T, _id.toString());
+      }
+      logger.i(
+          '😅 Cache Fallback Used! Found $_id in cache, returning $maybeCacheValue');
+      return maybeCacheValue;
+    }
+    // has internet
+    return _getWithNoCache();
   }
 
-  Future<T> _getWithEager(ID id) {
-    throw UnimplementedError();
+  Future<T> _getWithEager() async {
+    final maybeCachedValue = await _cache.get(_id.toString());
+    if (maybeCachedValue != null && mounted) {
+      state = AsyncValue.data(maybeCachedValue);
+      state = AsyncLoading<T>();
+    }
+    // in this short async gap the provider could be disposed
+    return _getWithNoCache();
   }
 
-  Future<T> _getWithNoCache(ID id) {
-    throw UnimplementedError();
-  }
+  Future<T> _getWithNoCache() => retryAndLog(
+        () async {
+          final incoming = await repository.get(_id);
+          await _cache.put(_id.toString(), incoming);
+          return incoming;
+        },
+        loggingKey: _id.toString(),
+      );
 
-  // Future<T> rofl([String? id]) => asyncWrapper(
-  //       () async {
-  //         print('haha');
-  //         try {
-  //           final incomingValue = await getter(id);
-  //           // update cache
-  //           await _cache.put(id ?? 'globalKey', incomingValue);
-  //           return incomingValue;
-  //         } catch (e) {
-  //           // check if cache fallback is available
-  //           final cachedFallback = await _cache.get(id ?? 'globalKey');
-  //           if (cachedFallback != null) {
-  //             logger.i(
-  //               '😅 Cache Fallback Used! Found $id in cache, returning $cachedFallback',
-  //             );
-  //             return cachedFallback;
-  //           }
-  //
-  //           // no incoming value && no cache fallback -> rethrow Error
-  //           logger.w('No incoming value and no cache fallback for $id');
-  //           rethrow;
-  //         }
-  //       },
-  //       loggingKey: id,
-  //     );
-
-  Future<T> put(T item, {required ID id}) => retryAndLog(
-        () => repository.put(item, id: id),
+  Future<T> put(T item, {ID? id}) => retryAndLog(
+        () => repository.put(item, id: id ?? _id),
         loggingKey: item.toString(),
       );
 
-  Future<T> _fromGet() => _get(_id);
+  Future<T> _fromGet() => _get();
 
   // 'Mounted' mixin, as in riverpod issue 1879
   Object? _initial;
@@ -229,4 +237,13 @@ mixin AsyncProviderMixin<T, ID> {
       }
     });
   }
+}
+
+class NoCacheFallbackException implements Exception {
+  NoCacheFallbackException(this.type, this.id);
+  final Type type;
+  final String id;
+  @override
+  String toString() => 'No Internet (according to provider) and'
+      ' no cached value for $type $id found.';
 }

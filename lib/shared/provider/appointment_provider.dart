@@ -11,7 +11,7 @@ class AppointmentState extends _$AppointmentState
   FutureOr<Appointment> build(AppointmentId id) => buildFromRepository(
         appointmentRepositoryCacheProvider,
         id: id,
-        strategy: FetchingStrategy.stream,
+        strategy: FetchingStrategy.polling,
       );
 
   Future<void> cancelAppointment({

@@ -9,11 +9,13 @@ typedef UniqueMetasId = String;
 class MetasState extends _$MetasState
     with AsyncProviderMixin<AppointmentMetas, UniqueMetasId> {
   @override
-  FutureOr<AppointmentMetas> build() => buildFromRepository(
-        metasRepositoryCacheProvider,
-        id: hiveMetas,
-        strategy: FetchingStrategy.stream,
-      );
+  FutureOr<AppointmentMetas> build() {
+    return buildFromRepository(
+      metasRepositoryCacheProvider,
+      id: hiveMetas,
+      strategy: FetchingStrategy.stream,
+    );
+  }
 
   Future<void> cancelAppointment(AppointmentId id) {
     final date = ref.read(appointmentStateProvider(id)).value!.date;

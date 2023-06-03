@@ -10,7 +10,7 @@ part 'theme.g.dart';
 
 const kSeedColor = Color(0xFF33A58A);
 const kAppBarColor = Color(0xFF77A28B);
-const kTextTheme = GoogleFonts.jacquesFrancoisTextTheme;
+const kTextTheme = GoogleFonts.abhayaLibreTextTheme;
 
 @riverpod
 ThemeData theme(ThemeRef ref) {
