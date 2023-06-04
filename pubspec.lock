@@ -504,6 +504,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
+  idb_shim:
+    dependency: transitive
+    description:
+      name: idb_shim
+      sha256: e22cbec15c3732ce53ad79927f106e7be7d4a66f836eb6270b51450c15bd7b84
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.3.1"
   image:
     dependency: transitive
     description:
@@ -536,22 +544,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
-  isar:
-    dependency: transitive
-    description:
-      name: isar
-      sha256: "99165dadb2cf2329d3140198363a7e7bff9bbd441871898a87e26914d25cf1ea"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.1.0+1"
-  isar_flutter_libs:
-    dependency: "direct main"
-    description:
-      name: isar_flutter_libs
-      sha256: bc6768cc4b9c61aabff77152e7f33b4b17d2fc93134f7af1c3dd51500fe8d5e8
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.1.0+1"
   js:
     dependency: transitive
     description:
@@ -880,6 +872,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.27.7"
+  sembast:
+    dependency: transitive
+    description:
+      name: sembast
+      sha256: "74f6c57e2d230c55287372830239701286628b81ceb06a5507d7686a6d7d4b44"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.4.5"
+  sembast_web:
+    dependency: transitive
+    description:
+      name: sembast_web
+      sha256: c3dfa9b083a5994ef1cf5c0a4ce2fb4f6fcc7fb2af20854093f9e90f64cfa1e4
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.3"
   settings_ui:
     dependency: "direct main"
     description:
@@ -981,14 +989,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.5.3"
-  stash_isar:
-    dependency: "direct main"
+  stash_sembast:
+    dependency: transitive
     description:
-      name: stash_isar
-      sha256: "84998f3ff704287a1b7d8614805caf8f4ff5cd9a4ca9db2dd79903acd67f0149"
+      name: stash_sembast
+      sha256: d5d77ac988805581eb5d552af46c04e18b882c05a236cb43a247e57a82dbadc7
       url: "https://pub.dev"
     source: hosted
-    version: "4.6.3"
+    version: "4.5.3"
+  stash_sembast_web:
+    dependency: "direct main"
+    description:
+      name: stash_sembast_web
+      sha256: "90a8f5a3ccacbcc524893f4e04f17ad0d11f426782bf4938eecae6498a47c59d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.5.3"
   state_notifier:
     dependency: transitive
     description:
@@ -1021,6 +1037,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  synchronized:
+    dependency: transitive
+    description:
+      name: synchronized
+      sha256: "5fcbd27688af6082f5abd611af56ee575342c30e87541d0245f7ff99faa02c60"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.0"
   term_glyph:
     dependency: transitive
     description:
