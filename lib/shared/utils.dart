@@ -2,6 +2,7 @@
 import 'dart:async';
 
 // Project imports:
+import 'package:flutter/foundation.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:leafy_leasing/l10n/l10n.dart';
 import 'package:leafy_leasing/shared/base.dart';
@@ -107,6 +108,7 @@ extension AddBackend on DotEnv {
 }
 
 Future<void> throwTimeOutErrorWhenManualInternetCheckFails() async {
+  if (kIsWeb) return;
   final connectionStatus = await InternetConnectionChecker().connectionStatus;
   if (connectionStatus == InternetConnectionStatus.disconnected) {
     throw TimeoutException('Manual check: No internet!');

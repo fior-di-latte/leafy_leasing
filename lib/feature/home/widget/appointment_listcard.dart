@@ -10,6 +10,7 @@ class AppointmentListCard extends HookConsumerWidget {
         margin: const EdgeInsets.all(lPadding),
         height: context.height * _heightFactor,
         child: Stack(
+          fit: StackFit.expand,
           clipBehavior: Clip.none,
           children: [
             Card(
@@ -62,40 +63,50 @@ class _InnerCard extends StatelessWidget {
           flex: 3,
           child: Column(
             children: [
-              const Gap(50),
-              Row(
-                children: [
-                  const Icon(Icons.business_outlined, size: 40),
-                  const Gap(8),
-                  Expanded(
-                    child: AutoSizeText(
-                      customer.companyName,
-                      style: context.tt.displayMedium!.copyWith(fontSize: 40),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                    ),
-                  )
-                ],
+              Spacer(
+                flex: 3,
               ),
-              const Gap(12),
-              Row(
-                children: [
-                  Icon(
-                    Icons.location_on_outlined,
-                    size: 40,
-                    color: context.thm.disabledColor,
-                  ),
-                  const Gap(8),
-                  Expanded(
-                    child: AutoSizeText(
-                      customer.city,
-                      style: context.tt.bodyMedium!.copyWith(
-                        color: context.thm.disabledColor,
-                        fontSize: 25,
+              Expanded(
+                flex: 2,
+                child: Row(
+                  children: [
+                    const Icon(Icons.business_outlined, size: 40),
+                    const Gap(8),
+                    Expanded(
+                      child: AutoSizeText(
+                        customer.companyName,
+                        style: context.tt.displayMedium!.copyWith(fontSize: 40),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
                       ),
+                    )
+                  ],
+                ),
+              ),
+              Spacer(
+                flex: 2,
+              ),
+              Expanded(
+                flex: 4,
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.location_on_outlined,
+                      size: 40,
+                      color: context.thm.disabledColor,
                     ),
-                  )
-                ],
+                    const Gap(8),
+                    Expanded(
+                      child: AutoSizeText(
+                        customer.city,
+                        style: context.tt.bodyMedium!.copyWith(
+                          color: context.thm.disabledColor,
+                          fontSize: 25,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               )
             ],
           ),
@@ -107,38 +118,31 @@ class _InnerCard extends StatelessWidget {
         ),
         Expanded(
           flex: 2,
-          child: Stack(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Align(
-                alignment: Alignment.topRight,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    ActionChip(
-                      // labelStyle: const TextStyle(color: Colors.black),
-                      elevation: 5,
-                      surfaceTintColor: context.cs.secondary,
-                      avatar: const Icon(
-                        Icons.calendar_month_outlined,
-                      ),
-                      label: Text(
-                        RelativeTime(context).format(appointment.date),
-                      ),
-                    ),
-                    Transform.scale(
-                      alignment: Alignment.centerRight,
-                      scale: .8,
-                      child: ActionChip(
-                        avatar: const Icon(
-                          Icons.timer_outlined,
-                        ),
-                        label: Text(
-                          '${appointment.durationInMinutes} min',
-                        ),
-                      ),
-                    )
-                  ],
+              ActionChip(
+                // labelStyle: const TextStyle(color: Colors.black),
+                elevation: 5,
+                surfaceTintColor: context.cs.secondary,
+                avatar: const Icon(
+                  Icons.calendar_month_outlined,
+                ),
+                label: Text(
+                  RelativeTime(context).format(appointment.date),
+                ),
+              ),
+              Transform.scale(
+                alignment: Alignment.centerRight,
+                scale: .8,
+                child: ActionChip(
+                  avatar: const Icon(
+                    Icons.timer_outlined,
+                  ),
+                  label: Text(
+                    '${appointment.durationInMinutes} min',
+                  ),
                 ),
               )
             ],

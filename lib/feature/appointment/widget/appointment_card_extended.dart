@@ -86,35 +86,38 @@ class _InnerExtendedCard extends StatelessWidget {
             ],
           ),
         ),
-        Row(
-          children: [
-            Expanded(
-              flex: 2,
-              child: FittedBox(
-                child: ActionChip(
-                  avatar: const Icon(
-                    Icons.calendar_month_outlined,
-                  ),
-                  label: Text(
-                    RelativeTime(context).format(appointment.date),
-                  ),
-                ),
-              ),
-            ),
-            const Gap(lPadding),
-            Expanded(
-              child: FittedBox(
-                child: ActionChip(
-                  avatar: const Icon(
-                    Icons.timer_outlined,
-                  ),
-                  label: Text(
-                    '${appointment.durationInMinutes} min',
+        LimitedBox(
+          maxHeight: 60,
+          child: Row(
+            children: [
+              Expanded(
+                flex: 3,
+                child: FittedBox(
+                  child: ActionChip(
+                    avatar: const Icon(
+                      Icons.calendar_month_outlined,
+                    ),
+                    label: Text(
+                      RelativeTime(context).format(appointment.date),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+              const Gap(lPadding),
+              Expanded(
+                child: FittedBox(
+                  child: ActionChip(
+                    avatar: const Icon(
+                      Icons.timer_outlined,
+                    ),
+                    label: Text(
+                      '${appointment.durationInMinutes} min',
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         )
       ],
     );
