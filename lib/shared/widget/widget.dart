@@ -1,4 +1,5 @@
 export './animated_visibility.dart';
+export './bubble_background.dart';
 export './close_or_cancel_buttons.dart';
 export './comment_textfield.dart';
 export './company_avatar.dart';

@@ -33,11 +33,18 @@ class GreyOut extends StatelessWidget {
 }
 
 extension GreyOutWhenOffline on Widget {
-  Widget greyOutWhenOffline() => Consumer(
+  Widget greyOutWhenOffline({bool ignorePointer = false}) => Consumer(
         builder: (ctx, ref, _) => GreyOut(
+          ignorePointer: ignorePointer,
           greyOut: ref.watch(internetConnectionProvider).value ==
               InternetConnectionStatus.disconnected,
           child: this,
         ),
+      );
+
+  Widget greyOut({bool greyOut = true, bool ignorePointer = false}) => GreyOut(
+        ignorePointer: ignorePointer,
+        greyOut: greyOut,
+        child: this,
       );
 }
