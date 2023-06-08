@@ -6,7 +6,7 @@ part of 'isar_cache.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$cacheStoreHash() => r'c9d55ccc9ac5371dc70b94acca68d03aa6477801';
+String _$cacheStoreHash() => r'520f80f66a4aefbc5ab12e837ef2504acdb6e571';
 
 /// See also [cacheStore].
 @ProviderFor(cacheStore)
