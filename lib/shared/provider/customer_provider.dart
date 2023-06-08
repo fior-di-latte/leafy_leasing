@@ -6,7 +6,7 @@ typedef CustomerId = String;
 
 @riverpod
 class CustomerState extends _$CustomerState
-    with AsyncProviderMixin<Customer, CustomerId> {
+    with AsyncCachedProviderMixin<Customer, CustomerId> {
   @override
   FutureOr<Customer> build(CustomerId id) {
     ref.watch(customerRepositoryCacheProvider);

@@ -6,7 +6,7 @@ typedef AppointmentId = String;
 
 @riverpod
 class AppointmentState extends _$AppointmentState
-    with AsyncProviderMixin<Appointment, AppointmentId> {
+    with AsyncCachedProviderMixin<Appointment, AppointmentId> {
   @override
   FutureOr<Appointment> build(AppointmentId id) => buildFromRepository(
         appointmentRepositoryCacheProvider,

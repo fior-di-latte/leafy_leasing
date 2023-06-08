@@ -7,7 +7,7 @@ typedef UniqueMetasId = String;
 
 @riverpod
 class MetasState extends _$MetasState
-    with AsyncProviderMixin<AppointmentMetas, UniqueMetasId> {
+    with AsyncCachedProviderMixin<AppointmentMetas, UniqueMetasId> {
   @override
   FutureOr<AppointmentMetas> build() {
     return buildFromRepository(
