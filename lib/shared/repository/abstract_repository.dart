@@ -38,7 +38,6 @@ abstract class AsyncCachedRepository<T> extends AsyncRepository<T> {
   @override
   Future<T> get([String? id]) => asyncWrapper(
         () async {
-          print('haha');
           try {
             final incomingValue = await getter(id);
             // update cache

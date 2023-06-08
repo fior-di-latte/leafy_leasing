@@ -26,10 +26,14 @@ class AppointmentListCard extends HookConsumerWidget {
                               customerStateProvider(appointment.customerId),
                             )
                             .whenFine(
-                              (customer) => _InnerCard(
-                                appointment: appointment,
-                                customer: customer,
-                              ).animate().fadeIn(),
+                              (customer) => Semantics(
+                                value: '${customer.companyName} appointment',
+                                label: '${customer.companyName} appointment',
+                                child: _InnerCard(
+                                  appointment: appointment,
+                                  customer: customer,
+                                ).animate().fadeIn(),
+                              ),
                             ),
                       ),
                 ),
@@ -63,7 +67,7 @@ class _InnerCard extends StatelessWidget {
           flex: 3,
           child: Column(
             children: [
-              Spacer(
+              const Spacer(
                 flex: 3,
               ),
               Expanded(
@@ -83,7 +87,7 @@ class _InnerCard extends StatelessWidget {
                   ],
                 ),
               ),
-              Spacer(
+              const Spacer(
                 flex: 2,
               ),
               Expanded(

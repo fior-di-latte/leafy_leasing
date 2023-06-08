@@ -109,23 +109,22 @@ class CustomRouteObserver extends AutoRouterObserver {
   }
 }
 
-Cache<T> addLoggersToIsarCache<T>(Cache<T> cache, {required String name}) =>
-    cache
-      ..on<CacheEntryCreatedEvent<T>>().listen(
-        (event) => logger.v('IsarCache $name: "${event.entry.key}" added'),
-      )
-      ..on<CacheEntryUpdatedEvent<T>>().listen(
-        (event) => logger.v('IsarCache $name: "${event.newEntry.key}" updated'),
-      )
-      ..on<CacheEntryRemovedEvent<T>>().listen(
-        (event) => logger.v('IsarCache $name: "${event.entry.key}" removed'),
-      )
-      ..on<CacheEntryExpiredEvent<T>>().listen(
-        (event) => logger.v('IsarCache $name: "${event.entry.key}" expired'),
-      )
-      ..on<CacheEntryEvictedEvent<T>>().listen(
-        (event) => logger.v('IsarCache $name: "${event.entry.key}" evicted'),
-      );
+Cache<T> addLoggersToCache<T>(Cache<T> cache, {required String name}) => cache
+  ..on<CacheEntryCreatedEvent<T>>().listen(
+    (event) => logger.v('IsarCache $name: "${event.entry.key}" added'),
+  )
+  ..on<CacheEntryUpdatedEvent<T>>().listen(
+    (event) => logger.v('IsarCache $name: "${event.newEntry.key}" updated'),
+  )
+  ..on<CacheEntryRemovedEvent<T>>().listen(
+    (event) => logger.v('IsarCache $name: "${event.entry.key}" removed'),
+  )
+  ..on<CacheEntryExpiredEvent<T>>().listen(
+    (event) => logger.v('IsarCache $name: "${event.entry.key}" expired'),
+  )
+  ..on<CacheEntryEvictedEvent<T>>().listen(
+    (event) => logger.v('IsarCache $name: "${event.entry.key}" evicted'),
+  );
 
 void logOnNetworkRetry<T>(String? id, Exception e, {bool isPut = false}) =>
     logger.e('Network Error: Retrying to ${isPut ? 'put' : 'fetch'} $T $id.'

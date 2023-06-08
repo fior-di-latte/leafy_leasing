@@ -21,7 +21,7 @@ extension DisposeExtension<T> on AutoDisposeRef<T> {
     required R Function(Map<String, dynamic>) fromJson,
     String? name,
   }) async {
-    final store = await watch(isarCacheStoreProvider.future);
+    final store = await watch(cacheStoreProvider.future);
     return store.createLoggedCache(fromJson: fromJson, name: name);
   }
 

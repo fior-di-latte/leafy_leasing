@@ -24,13 +24,13 @@ class AnimatedBubbleBackground extends HookWidget {
   final Color? backgroundColor;
 
   @override
-  Widget build(BuildContext ctx) {
+  Widget build(BuildContext context) {
     final rng = Random();
     final numberBlobs = useRef(onlyBottomBubbles ? 12 : 8);
     final sizes = useRef(
       List.generate(numberBlobs.value, (index) => 200 + rng.nextInt(500)),
     );
-    final sizesMax = sizes.value.reduce((max));
+    final sizesMax = sizes.value.reduce(max);
     final sizesNormalized = sizes.value.map((e) => e / sizesMax);
 
     final opacities = useRef(
@@ -56,39 +56,40 @@ class AnimatedBubbleBackground extends HookWidget {
       ),
     );
 
-    final x_coords = useRef(
+    final xCoords = useRef(
       List.generate(
         numberBlobs.value,
-        (index) => ctx.width * rng.nextInt(25) / 60,
+        (index) => context.width * rng.nextInt(25) / 60,
       ),
     );
-    final y_coords = useRef(
+    final yCoords = useRef(
       List.generate(
         numberBlobs.value,
         (index) =>
-            ctx.height *
+            context.height *
             (onlyBottomBubbles
                 ? rng.nextInt(60) / 100
                 : rng.nextInt(120) / 100),
       ),
     );
 
-    final _blobs = useRef(
+    final blobs = useRef(
       List.generate(
         numberBlobs.value,
         (index) => Positioned(
-          left:
-              x_coords.value[index] - sizes.value[index] / 3 + ctx.width * 0.1,
-          top: y_coords.value[index] +
+          left: xCoords.value[index] -
+              sizes.value[index] / 3 +
+              context.width * 0.1,
+          top: yCoords.value[index] +
               (onlyBottomBubbles ? sizes.value[index] / 3 : -200),
           child: Blob.animatedRandom(
             size: sizes.value[index].toDouble(),
-            edgesCount: 6,
+            // edgesCount: 6,
             minGrowth: 4,
             loop: true,
             styles: BlobStyles(
               color: bubbleColor ??
-                  ctx.cs.primary.withOpacity(opacities.value[index]),
+                  context.cs.primary.withOpacity(opacities.value[index]),
             ),
             duration: durations.value[index],
           )
@@ -115,7 +116,7 @@ class AnimatedBubbleBackground extends HookWidget {
           Container(
             color: backgroundColor,
           ),
-        ..._blobs.value
+        ...blobs.value
       ],
     );
   }

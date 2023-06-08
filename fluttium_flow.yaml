@@ -1,0 +1,9 @@
+description: Standard Test flow
+---
+- log: "Hello World!"
+- wait:
+    seconds: 4
+#- takeScreenshot:
+#    path: 'test/fluttium_screenshot.png'
+- pressOn: "appointment"
+- pressOn: "Cancel Appointment"

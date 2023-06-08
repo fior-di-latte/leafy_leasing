@@ -178,7 +178,8 @@ mixin AsyncProviderMixin<T, ID> {
         throw NoCacheFallbackException(T, _id.toString());
       }
       logger.i(
-          '😅 Cache Fallback Used! Found $_id in cache, returning $maybeCacheValue');
+        '😅 Cache Fallback Used! Found $_id in cache, returning $maybeCacheValue',
+      );
       return maybeCacheValue;
     }
     // has internet

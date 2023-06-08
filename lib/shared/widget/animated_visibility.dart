@@ -6,10 +6,9 @@ class AnimatedVisibility extends StatelessWidget {
     required this.visible,
     Duration? duration,
     Duration? reverseDuration,
-    Key? key,
+    super.key,
   })  : _duration = duration ?? 300.milliseconds,
-        _reverseDuration = reverseDuration ?? duration ?? 300.milliseconds,
-        super(key: key);
+        _reverseDuration = reverseDuration ?? duration ?? 300.milliseconds;
   final Duration _duration;
   final Duration _reverseDuration;
   final Widget child;
