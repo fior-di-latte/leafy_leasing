@@ -37,8 +37,8 @@ dependencies:
   rnd: ^0.2.0
   settings_ui: ^2.0.2
   stash: ^5.0.0
-  stash_sembast_web: ^5.0.0
-#  stash_isar: ^5.0.0
+#  stash_sembast_web: ^5.0.0
+  stash_isar: ^5.0.0
   flutter: 
     sdk: flutter
   flutter_localizations: 

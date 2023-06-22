@@ -1,6 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="plant.inc.leafy_leasing">
-   <application
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+
+    <application
         android:label="leafy_leasing"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
@@ -23,6 +28,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
+                // add internet
             </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.

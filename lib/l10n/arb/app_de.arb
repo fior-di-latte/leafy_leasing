@@ -128,9 +128,26 @@
 "somethingWentWrong": "Das hat nicht geklappt.",
                 "@somethingWentWrong": {
                 "description": "Das hat nicht geklappt."
-            }
-
-
-
+            },
+"customerCanceled": "Kunde hat abgesagt",
+                "@customerCanceled": {
+                "description": "Kunde hat abgesagt."
+            },
+"weCanceled": "Wir haben abgesagt",
+                "@weCanceled": {
+                "description": "Wir haben abgesagt."
+            },
+"customerNameAsSubtitle": "Kundenname hier",
+                            "@customerNameAsSubtitle": {
+                            "description": "Customer name"
+                        },
+"syncWithServerTitle": "Einen Moment...",
+                            "@syncWithServerTitle": {
+                            "description": "Mit Server synchronisieren"
+                        },
+"syncWithServerMessage": "Synchronisiere mit Server...",
+                            "@syncWithServerMessage": {
+                            "description": "Synchronisiere mit Server..."
+                        }
 
 }

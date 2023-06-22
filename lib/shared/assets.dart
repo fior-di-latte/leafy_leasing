@@ -15,8 +15,6 @@ class Assets {
   static const String dotenvGlobal = 'dotenv/global.env';
   static const String dotenvProduction = 'dotenv/production.env';
   static const String dotenvStaging = 'dotenv/staging.env';
-  static const String felixHomepageAssetsFlutterRive =
-      'assets/flutter_rive.riv';
   static const String googleFontsAbhayaLibreBold =
       'assets/google_fonts/AbhayaLibre-Bold.ttf';
   static const String googleFontsAbhayaLibreExtraBold =
@@ -30,6 +28,7 @@ class Assets {
   static const String googleFontsOFL = 'assets/google_fonts/OFL.txt';
   static const String imageLogo = 'assets/image/logo.png';
   static const String imageLogoV2 = 'assets/image/logo_v2.png';
+  static const String leafyLeasingAssetsFlutterRive = 'assets/flutter_rive.riv';
   static const String mockDataAppointmentMetas =
       'assets/mock_data/appointment_metas.json';
   static const String mockDataAppointments =

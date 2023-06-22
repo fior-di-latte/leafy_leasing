@@ -124,9 +124,29 @@
                             "@pendingAppointmentsHere": {
                             "description": "You find all canceled appointments here."
                         },
-"somethingWentWrong": "Something went wrong.",
-                "@somethingWentWrong": {
-                "description": "Something went wrong."
-            }
+            "somethingWentWrong": "Something went wrong.",
+                            "@somethingWentWrong": {
+                            "description": "Something went wrong."
+                        },
+            "customerCanceled": "Customer canceled",
+                            "@customerCanceled": {
+                            "description": "Customer canceled"
+                        },
+            "weCanceled": "We canceled",
+                            "@weCanceled": {
+                            "description": "We canceled"
+                        },
+            "customerNameAsSubtitle": "Customer name",
+                            "@customerNameAsSubtitle": {
+                            "description": "Customer name"
+                        },
+            "syncWithServerTitle": "Just a moment...!",
+                                        "@syncWithServerTitle": {
+                                        "description": "Mit Server synchronisieren"
+                                    },
+            "syncWithServerMessage": "Syncing with our servers",
+                                        "@syncWithServerMessage": {
+                                        "description": "Synchronisiere mit Server..."
+                                    }
 
-}
+            }

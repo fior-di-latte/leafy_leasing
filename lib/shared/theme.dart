@@ -10,11 +10,10 @@ part 'theme.g.dart';
 
 const kSeedColor = Color(0xFF33A58A);
 const kAppBarColor = Color(0xFF77A28B);
-const kTextTheme = GoogleFonts.abhayaLibreTextTheme;
+const kTextTheme = GoogleFonts.spaceMonoTextTheme;
 
 @riverpod
 ThemeData theme(ThemeRef ref, double scale) {
-  print('recomputing with $scale');
   final themeMode =
       ref.watch(settingsStateProvider.select((settings) => settings.themeMode));
 
@@ -34,7 +33,6 @@ Brightness _brightnessFromThemeMode(ThemeMode themeMode) {
 }
 
 ThemeData _buildTheme(Brightness brightness, {required double scale}) {
-  print('hah');
   final baseTheme = ThemeData(
     extensions: <ThemeExtension<dynamic>>[
       Insets(scale),

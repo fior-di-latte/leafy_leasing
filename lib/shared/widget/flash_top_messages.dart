@@ -12,13 +12,15 @@ void showTopInfo(
   Color? textColor = Colors.white,
   FlashBehavior style = FlashBehavior.fixed,
   String? description,
+  Duration? duration,
   VoidCallback? onTap,
+  bool showProgressIndicator = false,
 }) {
   showFlash<bool>(
     context: context,
     transitionDuration: 460.milliseconds,
     reverseTransitionDuration: 350.milliseconds,
-    duration: 3.seconds,
+    duration: duration ?? 3.seconds,
     builder: (context, controller) => GestureDetector(
       onTap: () => controller.dismiss(),
       child: FlashBar(
@@ -31,13 +33,14 @@ void showTopInfo(
         position: FlashPosition.top,
         padding: const EdgeInsets.symmetric(
           horizontal: mPadding,
-          vertical: sPadding,
+          vertical: lPadding,
         ),
         margin: const EdgeInsets.symmetric(horizontal: 50),
         icon: Padding(padding: const EdgeInsets.all(mPadding), child: leading),
         shouldIconPulse: false,
         titleTextStyle: context.tt.titleLarge!.copyWith(color: textColor),
         title: Text(title),
+        showProgressIndicator: showProgressIndicator,
         content: const SizedBox.shrink(),
       ),
     ),

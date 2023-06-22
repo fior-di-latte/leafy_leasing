@@ -28,7 +28,7 @@ Future<void> bootstrap() async {
 }
 
 void _initFonts() {
-  GoogleFonts.config.allowRuntimeFetching = false;
+  GoogleFonts.config.allowRuntimeFetching = true;
   LicenseRegistry.addLicense(() async* {
     final license = await rootBundle.loadString(Assets.googleFontsOFL);
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);

@@ -40,9 +40,12 @@ class EmptyIterableInfo extends HookWidget {
               style: context.tt.bodyLarge,
             ),
             const Gap(mPadding),
-            Text(
-              hintText,
-              style: TextStyle(color: context.thm.hintColor),
+            Center(
+              child: Text(
+                hintText,
+                textAlign: TextAlign.center,
+                style: TextStyle(color: context.thm.hintColor),
+              ),
             )
           ],
         ),

@@ -4,7 +4,7 @@ import 'package:leafy_leasing/shared/base.dart';
 import 'package:leafy_leasing/shared/provider/internet_connection_provider.dart';
 import 'package:overlay_support/overlay_support.dart';
 
-const internetOverlayKey = ValueKey('internetOverlay');
+const internetOverlayKey = Key('internetOverlay');
 
 class AllNotificationListener extends ConsumerWidget {
   const AllNotificationListener({required this.child, super.key});
@@ -15,7 +15,10 @@ class AllNotificationListener extends ConsumerWidget {
     ref
       ..listen(
         internetConnectionProvider,
-        (_, status) => _maybeShowInternetOverlay(status, context),
+        (before, status) {
+          _maybeShowSyncNotification(ref, before, status);
+          _maybeShowInternetOverlay(status, context);
+        },
       )
       ..listen(
         notificationProvider,
@@ -26,6 +29,45 @@ class AllNotificationListener extends ConsumerWidget {
         ),
       );
     return child;
+  }
+
+  static void _maybeShowSyncNotification(
+    WidgetRef ref,
+    AsyncValue<InternetConnectionStatus>? before,
+    AsyncValue<InternetConnectionStatus> status,
+  ) {
+    if (before?.value == InternetConnectionStatus.disconnected &&
+        status.value == InternetConnectionStatus.connected) {
+      ref.notification = SnackbarBuilder(
+        (context) {
+          showTopInfo(
+            context,
+            duration: 5.seconds,
+            textColor: context.cs.error,
+            showProgressIndicator: true,
+            leading: const Icon(Icons.refresh_outlined)
+                .animate()
+                .crossfade(
+                  duration: 300.milliseconds,
+                  delay: 3.seconds,
+                  builder: (_) => Icon(
+                    Icons.check_circle_outline_outlined,
+                    color: context.cs.primary,
+                  ),
+                )
+                .scaleXY(
+                  duration: 800.milliseconds,
+                  curve: Curves.easeIn,
+                  begin: 1,
+                  end: 1.3,
+                ),
+            title: context.lc.syncWithServerTitle,
+            description: context.lc.syncWithServerMessage,
+          );
+        },
+        type: SnackbarType.success,
+      );
+    }
   }
 
   static void _maybeShowInternetOverlay(

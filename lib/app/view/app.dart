@@ -10,7 +10,6 @@ class App extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final scale = scaleFromMediaQuery(context);
-    print('scale $scale');
     return MaterialApp.router(
       scrollBehavior: AppScrollBehavior(),
       theme: ref.watch(themeProvider(scale)),
