@@ -37,7 +37,11 @@ class HomeScaffold extends StatelessWidget {
             foregroundImage: AssetImage(Assets.imageLogo),
           ),
         ),
-        title: Text(title),
+        title: FittedBox(
+          child: Padding(
+              padding: const EdgeInsets.only(right: xlPadding),
+              child: Text(title)),
+        ),
       ),
       body: body,
     );

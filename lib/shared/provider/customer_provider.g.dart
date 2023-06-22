@@ -24,7 +24,7 @@ final customerRepositoryCacheProvider =
 
 typedef CustomerRepositoryCacheRef
     = AutoDisposeFutureProviderRef<(CustomerRepository, Cache<Customer>)>;
-String _$customerStateHash() => r'ef14342c7365335ffd266c1a97c1434f063b766a';
+String _$customerStateHash() => r'06631934678e837cd1854a0cc90524ae59e485aa';
 
 /// Copied from Dart SDK
 class _SystemHash {
