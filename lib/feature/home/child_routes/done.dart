@@ -14,6 +14,7 @@ class DoneView extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return HomeScaffold(
       body: ref.watch(metasStateProvider).whenFine((metas) {
+        final useTwoColumns = context.isWideLandscape;
         return Stack(
           children: [
             HookBuilder(
@@ -24,29 +25,16 @@ class DoneView extends HookConsumerWidget {
                   replacement: EmptyIterableInfo(
                     hintText: context.lc.closedAppointmentsHere,
                   ),
-                  child: ListView.builder(
-                    cacheExtent: 8000,
-                    itemCount: sorted.length,
-                    itemBuilder: (context, idx) => Stack(
-                      children: [
-                        AppointmentListCard(
-                          sorted[idx].id,
-                        ),
-                        const Positioned.fill(
-                          child: Align(
-                            alignment: Alignment.bottomRight,
-                            child: Padding(
-                              padding: EdgeInsets.all(lPadding * 2),
-                              child: Icon(
-                                Icons.check_circle_outline,
-                                size: 50,
-                                color: Colors.green,
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
+                  child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: useTwoColumns ? 2 : 1,
+                      childAspectRatio: useTwoColumns ? 1.8 : 2,
                     ),
+                    itemCount: sorted.length,
+                    itemBuilder: (context, idx) => AppointmentListCard(
+                      sorted[idx].id,
+                    ),
+                    cacheExtent: 8000,
                   ).animate().fadeIn(),
                 );
               },

@@ -1,8 +1,6 @@
 // Project imports:
 import 'package:leafy_leasing/l10n/l10n.dart';
 import 'package:leafy_leasing/shared/base.dart';
-import 'package:leafy_leasing/shared/styling/scroll_behavior.dart';
-import 'package:leafy_leasing/shared/styling/styling_scaffold.dart';
 
 class App extends ConsumerWidget {
   App({super.key});

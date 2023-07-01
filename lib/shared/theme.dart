@@ -1,8 +1,12 @@
 /// Flow: ThemeMode -> Brightness -> Theme  (dark / light mode handling)
 
-// Package imports:
-import 'package:google_fonts/google_fonts.dart';
+import 'dart:io' show Platform;
 
+// Package imports:
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
+import 'package:google_fonts/google_fonts.dart';
 // Project imports:
 import 'package:leafy_leasing/shared/base.dart';
 
@@ -127,4 +131,31 @@ double scaleFromMediaQuery(BuildContext context) {
     scaleFactor = .85; // small phone
   }
   return scaleFactor;
+}
+
+class AppScrollBehavior extends ScrollBehavior {
+  @override
+  // Add mouse drag on desktop for easier responsive testing
+  Set<PointerDeviceKind> get dragDevices {
+    final devices = Set<PointerDeviceKind>.from(super.dragDevices);
+    if (kDebugMode) {
+      devices.add(PointerDeviceKind.mouse);
+    }
+    return devices;
+  }
+
+  @override
+  ScrollPhysics getScrollPhysics(BuildContext context) =>
+      const BouncingScrollPhysics();
+
+  @override
+  Widget buildScrollbar(
+      BuildContext context, Widget child, ScrollableDetails details) {
+    //return child;
+    // check if platform is android
+
+    return Platform.isAndroid
+        ? RawScrollbar(controller: details.controller, child: child)
+        : CupertinoScrollbar(controller: details.controller, child: child);
+  }
 }
