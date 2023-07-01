@@ -26,6 +26,7 @@ class SettingsState extends _$SettingsState {
     _repository = ref.watch(
       settingsRepositoryProvider(key: hiveSettings, boxName: hiveSettings),
     );
+    logger.i('LOGVAR _repository.get() ${_repository.get()}');
     return _repository.get() ?? defaultSettings;
   }
 

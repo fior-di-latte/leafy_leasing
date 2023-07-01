@@ -14,6 +14,7 @@ class AppointmentView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) => Scaffold(
         appBar: AppBar(
+          scrolledUnderElevation: 0,
           title: Row(
             children: [
               const Padding(

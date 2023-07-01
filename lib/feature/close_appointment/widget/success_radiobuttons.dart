@@ -23,7 +23,7 @@ class SuccessRadioButtons extends StatelessWidget {
               canceledByCustomer.value = true;
             },
             subtitle: Text(
-              '(${context.lc.customerNameAsSubtitle})',
+              '(Name of customer as subtitle)',
               style: context.tt.bodySmall!.copyWith(
                 color: context.cs.onBackground.withOpacity(.7),
               ),

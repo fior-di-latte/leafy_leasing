@@ -15,6 +15,7 @@ class CloseAppointmentView extends HookConsumerWidget {
     final commentTextController = useTextEditingController();
     return Scaffold(
       appBar: AppBar(
+        scrolledUnderElevation: 0.0,
         title: Text(context.lc.closeAppointmentTitle),
       ),
       body: Padding(

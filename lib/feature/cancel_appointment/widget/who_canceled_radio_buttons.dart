@@ -23,12 +23,12 @@ class WhoCanceledRadioButtons extends StatelessWidget {
               canceledByCustomer.value = true;
             },
             subtitle: Text(
-              '(${context.lc.customerNameAsSubtitle})',
+              '(Name of customer as subtitle)',
               style: context.tt.bodySmall!.copyWith(
                 color: context.cs.onBackground.withOpacity(.7),
               ),
             ),
-            title: Text(context.lc.customerCanceled),
+            title: const Text('Customer canceled'),
             leading: Radio(
               value: true,
               groupValue: canceledByCustomer.value,
@@ -39,7 +39,7 @@ class WhoCanceledRadioButtons extends StatelessWidget {
             onTap: () {
               canceledByCustomer.value = false;
             },
-            title: Text(context.lc.weCanceled),
+            title: const Text('We canceled'),
             leading: Radio(
               value: false,
               groupValue: canceledByCustomer.value,

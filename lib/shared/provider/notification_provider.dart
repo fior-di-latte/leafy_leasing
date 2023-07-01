@@ -47,14 +47,12 @@ final notificationProvider = StateProvider<SnackbarBuilder>(
 
 extension AddNotification on Ref {
   set notification(SnackbarBuilder builder) {
-    logger.i('${builder.type} InAppNotification}');
     read(notificationProvider.notifier).state = builder;
   }
 }
 
 extension AddNotificationOnWidget on WidgetRef {
   set notification(SnackbarBuilder builder) {
-    logger.i('${builder.type} InAppNotification}');
     read(notificationProvider.notifier).state = builder;
   }
 }

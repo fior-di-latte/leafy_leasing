@@ -11,6 +11,7 @@ class SettingsView extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
+        scrolledUnderElevation: 0.0,
         title: Text(context.lc.settings),
       ),
       body: const Column(

@@ -2,10 +2,10 @@
 import 'dart:async';
 import 'dart:io';
 
-// Project imports:
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:leafy_leasing/shared/base.dart';
 import 'package:leafy_leasing/shared/provider/internet_connection_provider.dart';
+// Project imports:
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:retry/retry.dart';
 
 export 'appointment_provider.dart';

@@ -29,7 +29,7 @@ class CompanyAvatar extends ConsumerWidget {
               height: 72,
               child: Material(
                 shape: const CircleBorder(),
-                elevation: 8,
+                elevation: 6,
                 child: InkWell(
                   customBorder: const CircleBorder(),
                   onTap: () => logger.i(

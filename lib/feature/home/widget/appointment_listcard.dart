@@ -137,6 +137,7 @@ class _InnerCard extends StatelessWidget {
                   RelativeTime(context).format(appointment.date),
                 ),
               ),
+              const Gap(8),
               Transform.scale(
                 alignment: Alignment.centerRight,
                 scale: .8,

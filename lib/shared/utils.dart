@@ -1,11 +1,14 @@
 // Dart imports:
 import 'dart:async';
+import 'dart:io';
 
 // Project imports:
+import 'package:leafy_leasing/shared/service/stash_cache.dart';
 import 'package:flutter/foundation.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:leafy_leasing/l10n/l10n.dart';
 import 'package:leafy_leasing/shared/base.dart';
+import 'package:isar/isar.dart';
 
 extension AddConvenience on BuildContext {
   AppLocalizations get lc => AppLocalizations.of(this);
@@ -14,6 +17,15 @@ extension AddConvenience on BuildContext {
   ThemeData get thm => Theme.of(this);
   ColorScheme get cs => Theme.of(this).colorScheme;
   TextTheme get tt => Theme.of(this).textTheme;
+  Insets get insets => Theme.of(this).extension<Insets>()!;
+  double get scaleFactor => scaleFromMediaQuery(this);
+  bool get isLandscape =>
+      MediaQuery.of(this).orientation == Orientation.landscape;
+  // check if platform is mobile
+  bool get isWideLandscape =>
+      MediaQuery.of(this).size.aspectRatio > 1.25 &&
+      // wide landscape should only be available on desktop or web
+      kIsWeb;
 }
 
 extension DisposeExtension<T> on AutoDisposeRef<T> {

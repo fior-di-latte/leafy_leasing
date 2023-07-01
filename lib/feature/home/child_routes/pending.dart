@@ -15,20 +15,25 @@ class PendingView extends HookConsumerWidget {
         body: ref.watch(metasStateProvider).whenFine((metas) {
           return HookBuilder(
             builder: (context) {
+              final useTwoColumns = context.isWideLandscape;
               final sorted = useSortMetas(metas.pending);
               return Visibility(
                 visible: sorted.isNotEmpty,
                 replacement: EmptyIterableInfo(
                   hintText: context.lc.pendingAppointmentsHere,
                 ),
-                child: ListView.builder(
-                  cacheExtent: 8000,
+                child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: useTwoColumns ? 2 : 1,
+                    childAspectRatio: useTwoColumns ? 1.8 : 2,
+                  ),
                   itemCount: sorted.length,
                   itemBuilder: (context, idx) => AppointmentListCard(
                     sorted[idx].id,
                   ),
-                ).animate().fadeIn(),
-              );
+                  cacheExtent: 8000,
+                ),
+              ).animate(key: ValueKey(useTwoColumns)).fadeIn();
             },
           );
         }),

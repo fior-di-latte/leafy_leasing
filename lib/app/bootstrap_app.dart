@@ -1,14 +1,13 @@
 // Dart imports:
 import 'dart:async';
 
+// Project imports:
+import 'package:leafy_leasing/feature/home/provider/metas_provider.dart';
+import 'package:leafy_leasing/shared/base.dart';
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-// Project imports:
-import 'package:leafy_leasing/feature/home/provider/metas_provider.dart';
-import 'package:leafy_leasing/shared/base.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 Future<void> bootstrap() async {
@@ -29,7 +28,7 @@ Future<void> bootstrap() async {
 }
 
 void _initFonts() {
-  GoogleFonts.config.allowRuntimeFetching = true;
+  GoogleFonts.config.allowRuntimeFetching = false;
   LicenseRegistry.addLicense(() async* {
     final license = await rootBundle.loadString(Assets.googleFontsOFL);
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);

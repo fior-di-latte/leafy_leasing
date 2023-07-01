@@ -9,14 +9,22 @@ class HomeScaffold extends StatelessWidget {
     super.key,
   });
 
+  static const logo = Padding(
+    padding: EdgeInsets.all(sPadding),
+    child: CircleAvatar(
+      foregroundImage: AssetImage(Assets.imageLogo),
+    ),
+  );
+
   final Widget body;
   final String title;
   final bool hasFloatingButton;
 
   @override
   Widget build(BuildContext context) {
+    final isLandscape = context.isLandscape;
     return Scaffold(
-      backgroundColor: context.thm.scaffoldBackgroundColor,
+      backgroundColor: Colors.transparent,
       floatingActionButton: hasFloatingButton
           ? FloatingActionButton(
               child: const Icon(Icons.add),
@@ -25,23 +33,22 @@ class HomeScaffold extends StatelessWidget {
             )
           : null,
       appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () => context.router.push(const SettingsRoute()),
-            icon: const Icon(Icons.more_vert_outlined),
-          ),
-        ],
-        leading: const Padding(
-          padding: EdgeInsets.all(sPadding),
-          child: CircleAvatar(
-            foregroundImage: AssetImage(Assets.imageLogo),
-          ),
-        ),
-        title: FittedBox(
-          child: Padding(
-              padding: const EdgeInsets.only(right: xlPadding),
-              child: Text(title)),
-        ),
+        scrolledUnderElevation: 0,
+        actions: isLandscape
+            ? null
+            : [
+                IconButton(
+                  onPressed: () => context.router.push(const SettingsRoute()),
+                  icon: const Icon(Icons.more_vert_outlined),
+                )
+              ],
+        leading: isLandscape ? null : logo,
+        title: isLandscape
+            ? Align(
+                alignment: Alignment.centerLeft,
+                child: Text(title),
+              )
+            : Text(title),
       ),
       body: body,
     );

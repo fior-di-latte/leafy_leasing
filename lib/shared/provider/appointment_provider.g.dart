@@ -24,7 +24,7 @@ final appointmentRepositoryCacheProvider = AutoDisposeFutureProvider<
 
 typedef AppointmentRepositoryCacheRef
     = AutoDisposeFutureProviderRef<(AppointmentRepository, Cache<Appointment>)>;
-String _$appointmentStateHash() => r'4da8f61c7509f736245b1483d951230a8deb7e60';
+String _$appointmentStateHash() => r'a1c3757432507ecd48fd6f09d6d65eaebc8c61a5';
 
 /// Copied from Dart SDK
 class _SystemHash {

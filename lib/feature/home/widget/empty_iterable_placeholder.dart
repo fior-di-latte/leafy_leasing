@@ -10,7 +10,7 @@ class EmptyIterableInfo extends HookWidget {
     final emoji = useState(_getRandomEmoji());
     return Stack(
       children: [
-        const AnimatedBubbleBackground(),
+        // const AnimatedBubbleBackground(),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -40,12 +40,9 @@ class EmptyIterableInfo extends HookWidget {
               style: context.tt.bodyLarge,
             ),
             const Gap(mPadding),
-            Center(
-              child: Text(
-                hintText,
-                textAlign: TextAlign.center,
-                style: TextStyle(color: context.thm.hintColor),
-              ),
+            Text(
+              hintText,
+              style: TextStyle(color: context.thm.hintColor),
             )
           ],
         ),
