@@ -1,4 +1,5 @@
 // Project imports:
+import 'package:leafy_leasing/feature/home/model/appointment_meta.dart';
 import 'package:leafy_leasing/feature/home/provider/metas_provider.dart';
 import 'package:leafy_leasing/feature/home/widget/appointment_listcard.dart';
 import 'package:leafy_leasing/feature/home/widget/custom_scaffold.dart';
@@ -15,6 +16,7 @@ class CanceledView extends HookConsumerWidget {
       body: ref.watch(metasStateProvider).whenFine((metas) {
         final useTwoColumns = context.isWideLandscape;
         return HookBuilder(
+          key: Key('canceled'),
           builder: (context) {
             final sorted = useSortMetas(metas.canceled);
             return Visibility(
@@ -23,6 +25,7 @@ class CanceledView extends HookConsumerWidget {
                 hintText: context.lc.canceledAppointmentsHere,
               ),
               child: GridView.builder(
+                controller: ScrollController(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: useTwoColumns ? 2 : 1,
                   childAspectRatio: useTwoColumns ? 1.8 : 2,

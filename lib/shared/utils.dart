@@ -71,7 +71,7 @@ extension AddCustomLoadingErrorWidgets<T> on AsyncValue<T> {
     bool skipLoadingOnRefresh = true,
     bool skipLoadingOnReload = true,
     bool skipError = false,
-    bool fadeInData = false,
+    bool crossfadeDataAndOverrideKeys = false,
   }) {
     final placeholder = hasShimmer
         ? Container(color: Colors.grey)
@@ -83,13 +83,18 @@ extension AddCustomLoadingErrorWidgets<T> on AsyncValue<T> {
       skipLoadingOnReload: skipLoadingOnReload,
       skipError: skipError,
       orElse: () => placeholder,
-      data: (T dataInstance) => AnimatedSwitcher(
-        key: ValueKey(dataInstance),
-        duration: 300.milliseconds,
-        child: fadeInData
-            ? data(dataInstance).animate().fadeIn()
-            : data(dataInstance),
-      ),
+      data: (T dataInstance) {
+        var child = data(dataInstance);
+
+        if (crossfadeDataAndOverrideKeys) {
+          child = AnimatedSwitcher(
+            duration: 300.milliseconds,
+            child: child,
+          );
+        }
+
+        return child;
+      },
     );
   }
 }

@@ -23,6 +23,7 @@ class PendingView extends HookConsumerWidget {
                   hintText: context.lc.pendingAppointmentsHere,
                 ),
                 child: GridView.builder(
+                  controller: ScrollController(),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: useTwoColumns ? 2 : 1,
                     childAspectRatio: useTwoColumns ? 1.8 : 2,

@@ -50,7 +50,7 @@ class HomeScaffold extends StatelessWidget {
               )
             : Text(title),
       ),
-      body: body,
+      body: Opacity(opacity: .88, child: body),
     );
   }
 }

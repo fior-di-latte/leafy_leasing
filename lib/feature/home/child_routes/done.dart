@@ -26,6 +26,7 @@ class DoneView extends HookConsumerWidget {
                     hintText: context.lc.closedAppointmentsHere,
                   ),
                   child: GridView.builder(
+                    controller: ScrollController(),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: useTwoColumns ? 2 : 1,
                       childAspectRatio: useTwoColumns ? 1.8 : 2,
