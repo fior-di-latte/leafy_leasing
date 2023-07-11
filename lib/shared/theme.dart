@@ -151,11 +151,14 @@ class AppScrollBehavior extends ScrollBehavior {
   @override
   Widget buildScrollbar(
       BuildContext context, Widget child, ScrollableDetails details) {
-    //return child;
-    // check if platform is android
-
-    return Platform.isAndroid
-        ? RawScrollbar(controller: details.controller, child: child)
-        : CupertinoScrollbar(controller: details.controller, child: child);
+    final iOsLikeScrollbar =
+        CupertinoScrollbar(controller: details.controller, child: child);
+    final androidLikeScrollbar =
+        RawScrollbar(controller: details.controller, child: child);
+    try {
+      return Platform.isAndroid ? androidLikeScrollbar : iOsLikeScrollbar;
+    } catch (e) {
+      return iOsLikeScrollbar;
+    }
   }
 }
