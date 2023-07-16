@@ -168,6 +168,7 @@ mixin AsyncCachedProviderMixin<T, ID> {
             .read(internetConnectionProvider)
             .whenData((value) => value == InternetConnectionStatus.connected)
             .value ??
+        // TODO maybe use false here (bug in relation with NoCache)
         true;
 
     if (!hasInternet) {
