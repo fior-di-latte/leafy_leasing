@@ -1,6 +1,4 @@
 // Project imports:
-import 'dart:async';
-
 import 'package:leafy_leasing/shared/base.dart';
 
 Future<void> main() async {

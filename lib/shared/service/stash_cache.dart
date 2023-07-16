@@ -24,7 +24,7 @@
 //   }
 // }
 //
-// extension AddLoggedCache on IsarCacheStore {
+// extension AddLoggedCache on CacheStore {
 //   Future<Cache<T>> createLoggedCache<T>({
 //     required T Function(Map<String, dynamic>) fromJson,
 //     String? name,
@@ -56,7 +56,7 @@ Future<SembastCacheStore> cacheStore(CacheStoreRef ref) =>
 
 // delete everything from Isar database
 
-extension AddLoggedCache on SembastCacheStore {
+extension AddLoggedCache on CacheStore {
   Future<Cache<T>> createLoggedCache<T>({
     required T Function(Map<String, dynamic>) fromJson,
     String? name,
@@ -71,4 +71,21 @@ extension AddLoggedCache on SembastCacheStore {
 
     return addLoggersToCache(newCache, name: usedName);
   }
+}
+
+class NoCache<T> implements Cache<T> {
+  @override
+  Future<T?> get(String key, {CacheEntryDelegate<T>? delegate}) async => null;
+
+  @override
+  Future<void> put(
+    String key,
+    T value, {
+    CacheEntryDelegate<T>? delegate,
+  }) async {
+    return;
+  }
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }

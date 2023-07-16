@@ -1,19 +1,17 @@
 // Dart imports:
 import 'dart:async';
-import 'dart:io';
 
-// Project imports:
-import 'package:leafy_leasing/shared/service/stash_cache.dart';
 import 'package:flutter/foundation.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:leafy_leasing/l10n/l10n.dart';
 import 'package:leafy_leasing/shared/base.dart';
-import 'package:isar/isar.dart';
+// Project imports:
+import 'package:leafy_leasing/shared/service/stash_cache.dart';
 
 extension AddConvenience on BuildContext {
   AppLocalizations get lc => AppLocalizations.of(this);
-  double get height => MediaQuery.of(this).size.height;
-  double get width => MediaQuery.of(this).size.width;
+  double get height => MediaQuery.sizeOf(this).height;
+  double get width => MediaQuery.sizeOf(this).width;
   ThemeData get thm => Theme.of(this);
   ColorScheme get cs => Theme.of(this).colorScheme;
   TextTheme get tt => Theme.of(this).textTheme;
@@ -21,11 +19,7 @@ extension AddConvenience on BuildContext {
   double get scaleFactor => scaleFromMediaQuery(this);
   bool get isLandscape =>
       MediaQuery.of(this).orientation == Orientation.landscape;
-  // check if platform is mobile
-  bool get isWideLandscape =>
-      MediaQuery.of(this).size.aspectRatio > 1.25 &&
-      // wide landscape should only be available on desktop or web
-      kIsWeb;
+  bool get isWideLandscape => MediaQuery.of(this).size.aspectRatio > 1.25;
 }
 
 extension DisposeExtension<T> on AutoDisposeRef<T> {
@@ -33,6 +27,8 @@ extension DisposeExtension<T> on AutoDisposeRef<T> {
     required R Function(Map<String, dynamic>) fromJson,
     String? name,
   }) async {
+    if (bool.parse(dotenv.get('USE_STASH_CACHE'))) return NoCache<R>();
+
     final store = await watch(cacheStoreProvider.future);
     return store.createLoggedCache(fromJson: fromJson, name: name);
   }

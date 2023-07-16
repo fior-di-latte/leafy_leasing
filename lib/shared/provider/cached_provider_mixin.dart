@@ -168,7 +168,7 @@ mixin AsyncCachedProviderMixin<T, ID> {
             .read(internetConnectionProvider)
             .whenData((value) => value == InternetConnectionStatus.connected)
             .value ??
-        false;
+        true;
 
     if (!hasInternet) {
       final maybeCacheValue = await _cache.get(_id.toString());
