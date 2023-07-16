@@ -160,7 +160,7 @@ mixin AsyncCachedProviderMixin<T, ID> {
   Future<T> _get() => switch (_cacheRead) {
         (CacheReadStrategy.fallback) => _getWithFallback(),
         (CacheReadStrategy.eager) => _getWithEager(),
-        (CacheReadStrategy.no) => _getWithNoCache(),
+        (CacheReadStrategy.no) => _getFromRepository(),
       };
 
   Future<T> _getWithFallback() async {
@@ -181,7 +181,7 @@ mixin AsyncCachedProviderMixin<T, ID> {
       return maybeCacheValue;
     }
     // has internet
-    return _getWithNoCache();
+    return _getFromRepository();
   }
 
   Future<T> _getWithEager() async {
@@ -191,10 +191,10 @@ mixin AsyncCachedProviderMixin<T, ID> {
       state = AsyncLoading<T>();
     }
     // in this short async gap the provider could be disposed
-    return _getWithNoCache();
+    return _getFromRepository();
   }
 
-  Future<T> _getWithNoCache() => retryAndLog(
+  Future<T> _getFromRepository() => retryAndLog(
         () async {
           final incoming = await repository.get(_id);
           await _cache.put(_id.toString(), incoming);

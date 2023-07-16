@@ -1,10 +1,10 @@
 // Project imports:
-import 'package:leafy_leasing/feature/home/model/appointment_meta.dart';
 import 'package:leafy_leasing/feature/home/provider/metas_provider.dart';
 import 'package:leafy_leasing/feature/home/widget/appointment_listcard.dart';
 import 'package:leafy_leasing/feature/home/widget/custom_scaffold.dart';
 import 'package:leafy_leasing/feature/home/widget/empty_iterable_placeholder.dart';
 import 'package:leafy_leasing/shared/base.dart';
+import 'package:leafy_leasing/shared/widget/shimmer_conditional.dart';
 
 @RoutePage()
 class CanceledView extends HookConsumerWidget {
@@ -33,6 +33,8 @@ class CanceledView extends HookConsumerWidget {
                 itemCount: sorted.length,
                 itemBuilder: (context, idx) => AppointmentListCard(
                   sorted[idx].id,
+                ).newShimmerFlip(
+                  'xxxcanceled-${sorted[idx].id}',
                 ),
                 cacheExtent: 8000,
               ).animate().fadeIn(),

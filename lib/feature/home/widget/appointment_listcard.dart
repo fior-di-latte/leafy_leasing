@@ -32,7 +32,7 @@ class AppointmentListCard extends HookConsumerWidget {
                                 child: _InnerCard(
                                   appointment: appointment,
                                   customer: customer,
-                                ).animate().fadeIn(),
+                                ),
                               ),
                             ),
                       ),

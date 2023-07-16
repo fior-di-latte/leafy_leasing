@@ -88,6 +88,7 @@ extension AddCustomLoadingErrorWidgets<T> on AsyncValue<T> {
 
         if (crossfadeDataAndOverrideKeys) {
           child = AnimatedSwitcher(
+            key: ValueKey(dataInstance),
             duration: 300.milliseconds,
             child: child,
           );

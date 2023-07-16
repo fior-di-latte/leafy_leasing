@@ -27,8 +27,7 @@ class HomeView extends HookConsumerWidget {
                 Row(
                   children: [
                     NavigationRail(
-                      backgroundColor:
-                          context.thm.scaffoldBackgroundColor.withOpacity(.1),
+                      backgroundColor: Colors.transparent,
                       leading: Transform.scale(
                         scale: context.scaleFactor,
                         child: HomeScaffold.logo,
@@ -38,7 +37,6 @@ class HomeView extends HookConsumerWidget {
                           isWideLandscape: isWideLandscape,
                         ),
                       ),
-                      groupAlignment: -.8,
                       // minWidth: 200,
                       minExtendedWidth: 240,
                       extended: isWideLandscape,
