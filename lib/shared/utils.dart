@@ -27,7 +27,7 @@ extension DisposeExtension<T> on AutoDisposeRef<T> {
     required R Function(Map<String, dynamic>) fromJson,
     String? name,
   }) async {
-    if (bool.parse(dotenv.get('USE_STASH_CACHE'))) return NoCache<R>();
+    if (!bool.parse(dotenv.get('USE_STASH_CACHE'))) return NoCache<R>();
 
     final store = await watch(cacheStoreProvider.future);
     return store.createLoggedCache(fromJson: fromJson, name: name);
