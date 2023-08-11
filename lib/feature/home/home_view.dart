@@ -9,7 +9,7 @@ class HomeView extends HookConsumerWidget {
   const HomeView({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return PlaygroundWidget();
+    // return PlaygroundWidget();
     final isLandscape = context.isLandscape;
     return AllNotificationListener(
       child: AutoTabsRouter.tabBar(

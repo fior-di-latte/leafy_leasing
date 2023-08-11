@@ -14,7 +14,6 @@ dependencies:
   flutter_animate: ^4.2.0
   flutter_dotenv: ^5.0.2
   flutter_hooks: ^0.18.6
-  flutter_loggy: ^2.0.2
   freezed: ^2.1.0
   freezed_annotation: ^2.2.0
   gap: ^2.0.0
@@ -27,7 +26,6 @@ dependencies:
   isar_flutter_libs: ^3.1.0+1
   json_annotation: ^4.8.0
   logger: ^1.3.0
-  loggy: ^2.0.1
   overlay_support: ^2.1.0
   path_provider: ^2.0.14
   relative_time: ^3.0.0
@@ -37,10 +35,10 @@ dependencies:
   rnd: ^0.2.0
   settings_ui: ^2.0.2
   stash: ^5.0.0
-  stash_sembast_web: ^5.0.0
+#  stash_sembast_web: ^5.0.0
   visibility_detector: ^0.4.0+2
 
-  #  stash_isar: ^5.0.0
+  stash_isar: ^5.0.0
   flutter: 
     sdk: flutter
   flutter_localizations: 
