@@ -4,7 +4,8 @@
   "customerId": "1",
   "durationInMinutes": 45,
   "status": "pending",
-	"comment": null
+	"comment": null,
+	"isOfflineAvailable": false
 },
   {
     "id": "2",
@@ -12,7 +13,8 @@
     "customerId": "3",
     "durationInMinutes": 60,
     "status": "pending",
-	"comment": null
+	"comment": null,
+	"isOfflineAvailable": false
   }
 ,
   {
@@ -21,7 +23,8 @@
     "customerId": "5",
     "durationInMinutes": 45,
     "status": "pending",
-	"comment": null
+	"comment": null,
+	"isOfflineAvailable": false
   }
 ,
   {
@@ -30,7 +33,8 @@
     "customerId": "2",
     "durationInMinutes": 30,
     "status": "pending",
-	"comment": null
+	"comment": null,
+	"isOfflineAvailable": false
   }
 ,
   {
@@ -39,7 +43,8 @@
     "customerId": "4",
     "durationInMinutes": 90,
     "status": "pending",
-	"comment": null
+	"comment": null,
+	"isOfflineAvailable": false
   }
 ,
   {
@@ -48,7 +53,8 @@
     "customerId": "8",
     "durationInMinutes": 60,
     "status": "pending",
-	"comment": null
+	"comment": null,
+	"isOfflineAvailable": false
   }
 ,
   {
@@ -57,7 +63,8 @@
     "customerId": "2",
     "durationInMinutes": 45,
     "status": "pending",
-	"comment": null
+	"comment": null,
+			"isOfflineAvailable": false
   }
 ,
   {
@@ -66,7 +73,8 @@
     "customerId": "3",
     "durationInMinutes": 30,
     "status": "pending",
-	"comment": null
+	"comment": null,
+		"isOfflineAvailable": false
   }
 ,
   {
@@ -75,7 +83,8 @@
     "customerId": "4",
     "durationInMinutes": 90,
     "status": "pending",
-	"comment": null
+	"comment": null,
+	"isOfflineAvailable": false
   }
 ,
   {
@@ -84,7 +93,8 @@
     "customerId": "6",
     "durationInMinutes": 60,
     "status": "pending",
-	"comment": null
+	"comment": null,
+	"isOfflineAvailable": false
   },
   {
     "id": "11",
@@ -92,7 +102,8 @@
     "customerId": "2",
     "durationInMinutes": 60,
     "status": "pending",
-	"comment": null
+	"comment": null,
+	"isOfflineAvailable": false
   }
 ,
   {
@@ -101,7 +112,8 @@
     "customerId": "3",
     "durationInMinutes": 45,
     "status": "pending",
-	"comment": null
+	"comment": null,
+	"isOfflineAvailable": false
   }
 
   ,{
@@ -110,7 +122,8 @@
     "customerId": "5",
     "durationInMinutes": 30,
     "status": "pending",
-	"comment": null
+	"comment": null,
+	"isOfflineAvailable": false
   }
 ,
   {
@@ -119,7 +132,8 @@
     "customerId": "6",
     "durationInMinutes": 90,
     "status": "pending",
-	"comment": null
+	"comment": null,
+	"isOfflineAvailable": false
   }
 ,
   {
@@ -128,7 +142,8 @@
     "customerId": "8",
     "durationInMinutes": 60,
     "status": "pending",
-	"comment": null
+	"comment": null,
+	"isOfflineAvailable": false
   }
 ,
   {
@@ -137,7 +152,8 @@
     "customerId": "9",
     "durationInMinutes": 45,
     "status": "pending",
-	"comment": null
+	"comment": null,
+	"isOfflineAvailable": false
   }
 ,
   {
@@ -146,7 +162,8 @@
     "customerId": "1",
     "durationInMinutes": 30,
     "status": "pending",
-	"comment": null
+	"comment": null,
+	"isOfflineAvailable": false
   }
 ,
   {
@@ -155,7 +172,8 @@
     "customerId": "4",
     "durationInMinutes": 90,
     "status": "pending",
-	"comment": null
+	"comment": null,
+	"isOfflineAvailable": false
   }
 ,
   {
@@ -164,7 +182,8 @@
     "customerId": "7",
     "durationInMinutes": 60,
     "status": "pending",
-	"comment": null
+	"comment": null,
+	"isOfflineAvailable": false
   }
 ]
 }

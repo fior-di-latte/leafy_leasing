@@ -23,13 +23,14 @@ class AppointmentAdapter extends TypeAdapter<Appointment> {
       durationInMinutes: fields[3] as int,
       status: fields[4] as AppointmentStatus,
       comment: fields[5] as String?,
+      isOfflineAvailable: fields[6] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, Appointment obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -41,7 +42,9 @@ class AppointmentAdapter extends TypeAdapter<Appointment> {
       ..writeByte(4)
       ..write(obj.status)
       ..writeByte(5)
-      ..write(obj.comment);
+      ..write(obj.comment)
+      ..writeByte(6)
+      ..write(obj.isOfflineAvailable);
   }
 
   @override
@@ -121,6 +124,7 @@ _$_Appointment _$$_AppointmentFromJson(Map<String, dynamic> json) =>
       durationInMinutes: json['durationInMinutes'] as int,
       status: $enumDecode(_$AppointmentStatusEnumMap, json['status']),
       comment: json['comment'] as String?,
+      isOfflineAvailable: json['isOfflineAvailable'] as bool,
     );
 
 Map<String, dynamic> _$$_AppointmentToJson(_$_Appointment instance) =>
@@ -131,6 +135,7 @@ Map<String, dynamic> _$$_AppointmentToJson(_$_Appointment instance) =>
       'durationInMinutes': instance.durationInMinutes,
       'status': _$AppointmentStatusEnumMap[instance.status]!,
       'comment': instance.comment,
+      'isOfflineAvailable': instance.isOfflineAvailable,
     };
 
 const _$AppointmentStatusEnumMap = {

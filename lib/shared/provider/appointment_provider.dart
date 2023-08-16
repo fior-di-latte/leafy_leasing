@@ -25,6 +25,13 @@ class AppointmentState extends _$AppointmentState
     required String? comment,
   }) =>
       optimistic(state.value!.copyWith(comment: comment, status: newStatus));
+
+  Future<void> download() async {
+    await Future.delayed(3.seconds, () {});
+    await repository.put(state.value!.copyWith(isOfflineAvailable: true),
+        id: id);
+    ref.invalidateSelf();
+  }
 }
 
 sealed class AppointmentRepository

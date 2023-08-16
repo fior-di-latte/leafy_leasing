@@ -32,6 +32,8 @@ mixin _$Appointment {
   AppointmentStatus get status => throw _privateConstructorUsedError;
   @HiveField(5)
   String? get comment => throw _privateConstructorUsedError;
+  @HiveField(6)
+  bool get isOfflineAvailable => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -51,7 +53,8 @@ abstract class $AppointmentCopyWith<$Res> {
       @HiveField(2) String customerId,
       @HiveField(3) int durationInMinutes,
       @HiveField(4) AppointmentStatus status,
-      @HiveField(5) String? comment});
+      @HiveField(5) String? comment,
+      @HiveField(6) bool isOfflineAvailable});
 }
 
 /// @nodoc
@@ -73,6 +76,7 @@ class _$AppointmentCopyWithImpl<$Res, $Val extends Appointment>
     Object? durationInMinutes = null,
     Object? status = null,
     Object? comment = freezed,
+    Object? isOfflineAvailable = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -99,6 +103,10 @@ class _$AppointmentCopyWithImpl<$Res, $Val extends Appointment>
           ? _value.comment
           : comment // ignore: cast_nullable_to_non_nullable
               as String?,
+      isOfflineAvailable: null == isOfflineAvailable
+          ? _value.isOfflineAvailable
+          : isOfflineAvailable // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -117,7 +125,8 @@ abstract class _$$_AppointmentCopyWith<$Res>
       @HiveField(2) String customerId,
       @HiveField(3) int durationInMinutes,
       @HiveField(4) AppointmentStatus status,
-      @HiveField(5) String? comment});
+      @HiveField(5) String? comment,
+      @HiveField(6) bool isOfflineAvailable});
 }
 
 /// @nodoc
@@ -137,6 +146,7 @@ class __$$_AppointmentCopyWithImpl<$Res>
     Object? durationInMinutes = null,
     Object? status = null,
     Object? comment = freezed,
+    Object? isOfflineAvailable = null,
   }) {
     return _then(_$_Appointment(
       id: null == id
@@ -163,6 +173,10 @@ class __$$_AppointmentCopyWithImpl<$Res>
           ? _value.comment
           : comment // ignore: cast_nullable_to_non_nullable
               as String?,
+      isOfflineAvailable: null == isOfflineAvailable
+          ? _value.isOfflineAvailable
+          : isOfflineAvailable // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -176,7 +190,8 @@ class _$_Appointment extends _Appointment {
       @HiveField(2) required this.customerId,
       @HiveField(3) required this.durationInMinutes,
       @HiveField(4) required this.status,
-      @HiveField(5) required this.comment})
+      @HiveField(5) required this.comment,
+      @HiveField(6) required this.isOfflineAvailable})
       : super._();
 
   factory _$_Appointment.fromJson(Map<String, dynamic> json) =>
@@ -200,10 +215,13 @@ class _$_Appointment extends _Appointment {
   @override
   @HiveField(5)
   final String? comment;
+  @override
+  @HiveField(6)
+  final bool isOfflineAvailable;
 
   @override
   String toString() {
-    return 'Appointment(id: $id, date: $date, customerId: $customerId, durationInMinutes: $durationInMinutes, status: $status, comment: $comment)';
+    return 'Appointment(id: $id, date: $date, customerId: $customerId, durationInMinutes: $durationInMinutes, status: $status, comment: $comment, isOfflineAvailable: $isOfflineAvailable)';
   }
 
   @override
@@ -218,13 +236,15 @@ class _$_Appointment extends _Appointment {
             (identical(other.durationInMinutes, durationInMinutes) ||
                 other.durationInMinutes == durationInMinutes) &&
             (identical(other.status, status) || other.status == status) &&
-            (identical(other.comment, comment) || other.comment == comment));
+            (identical(other.comment, comment) || other.comment == comment) &&
+            (identical(other.isOfflineAvailable, isOfflineAvailable) ||
+                other.isOfflineAvailable == isOfflineAvailable));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, date, customerId, durationInMinutes, status, comment);
+  int get hashCode => Object.hash(runtimeType, id, date, customerId,
+      durationInMinutes, status, comment, isOfflineAvailable);
 
   @JsonKey(ignore: true)
   @override
@@ -247,7 +267,8 @@ abstract class _Appointment extends Appointment {
       @HiveField(2) required final String customerId,
       @HiveField(3) required final int durationInMinutes,
       @HiveField(4) required final AppointmentStatus status,
-      @HiveField(5) required final String? comment}) = _$_Appointment;
+      @HiveField(5) required final String? comment,
+      @HiveField(6) required final bool isOfflineAvailable}) = _$_Appointment;
   _Appointment._() : super._();
 
   factory _Appointment.fromJson(Map<String, dynamic> json) =
@@ -271,6 +292,9 @@ abstract class _Appointment extends Appointment {
   @override
   @HiveField(5)
   String? get comment;
+  @override
+  @HiveField(6)
+  bool get isOfflineAvailable;
   @override
   @JsonKey(ignore: true)
   _$$_AppointmentCopyWith<_$_Appointment> get copyWith =>

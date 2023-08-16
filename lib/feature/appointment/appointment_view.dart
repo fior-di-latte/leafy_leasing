@@ -25,7 +25,7 @@ class AppointmentView extends ConsumerWidget {
               ),
               Text(
                 context.lc.appointmentTitle,
-              )
+              ),
             ],
           ),
         ),
@@ -33,7 +33,13 @@ class AppointmentView extends ConsumerWidget {
           padding: const EdgeInsets.all(lPadding),
           child: Column(
             children: [
-              AppointmentCardExtended(id),
+              Stack(
+                children: [
+                  AppointmentCardExtended(id),
+                  Align(
+                      alignment: Alignment.topRight, child: _CloudSyncIcon(id))
+                ],
+              ),
               const Gap(mPadding),
               CustomerAddressCard.fromAppointment(id),
               const Gap(mPadding),
@@ -75,4 +81,62 @@ class AppointmentView extends ConsumerWidget {
           ),
         ),
       );
+}
+
+class _CloudSyncIcon extends HookConsumerWidget {
+  const _CloudSyncIcon(String this.id, {Key? key}) : super(key: key);
+
+  final String id;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return ref.watch(appointmentStateProvider(id)).whenFine((appointment) {
+      return HookBuilder(
+        builder: (context) {
+          _maybeDownloadAppointment(appointment, ref);
+
+          return Padding(
+            padding: const EdgeInsets.all(mPadding),
+            child: AnimatedSwitcher(
+                duration: 300.milliseconds,
+                child: appointment.isOfflineAvailable
+                    ? Tooltip(
+                        message: 'Offline verfügbar',
+                        child: Transform.translate(
+                          offset: const Offset(-5, 5),
+                          child: Icon(Icons.cloud_download_outlined,
+                              key: ValueKey('offline_enabled'),
+                              color: context.cs.primary),
+                        ),
+                      )
+                    : Tooltip(
+                        message: 'Wird gedownloaded ...',
+                        child: Stack(
+                          children: [
+                            CircularProgressIndicator(),
+                            Transform.translate(
+                              offset: const Offset(5, 5),
+                              child: Icon(
+                                Icons.cloud_off_outlined,
+                                key: ValueKey('offline_not_enabled'),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )),
+          );
+        },
+      );
+    });
+  }
+
+  void _maybeDownloadAppointment(Appointment appointment, WidgetRef ref) {
+    useEffect(() {
+      if (!appointment.isOfflineAvailable) {
+        logger.i('Downloading appointment $id');
+        ref.watch(appointmentStateProvider(id).notifier).download();
+      }
+      return null;
+    }, []);
+  }
 }

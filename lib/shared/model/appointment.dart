@@ -71,6 +71,7 @@ class Appointment with _$Appointment {
     @HiveField(3) required int durationInMinutes,
     @HiveField(4) required AppointmentStatus status,
     @HiveField(5) required String? comment,
+    @HiveField(6) required bool isOfflineAvailable,
   }) = _Appointment;
 
   factory Appointment.fromJson(Map<String, dynamic> json) =>
