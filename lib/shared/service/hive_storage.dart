@@ -40,9 +40,17 @@ Future<void> setupHive() async {
 
   await _maybeFlushHive();
 
-  await _fillMetaBox();
-  await _fillAppointmentsBox();
-  await _fillCustomersBox();
+  await _maybeFillBoxes();
+}
+
+Future<void> _maybeFillBoxes() async {
+  final alreadyFilled = Hive.box<AppointmentMetas>(hiveMetas).isNotEmpty;
+  if (!alreadyFilled) {
+    logger.i('Filling Hive Boxes...');
+    await _fillMetaBox();
+    await _fillAppointmentsBox();
+    await _fillCustomersBox();
+  }
 }
 
 Future<void> _maybeFlushHive() async {

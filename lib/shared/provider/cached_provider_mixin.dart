@@ -100,6 +100,44 @@ mixin AsyncCachedProviderMixin<T, ID> {
   }
 
   @protected
+  Future<void> pessimistic(
+    T newValue, {
+    // only use foreign Id if you want to update a foreign object from the family
+    ID? foreignId,
+    bool invalidateFinally = false,
+    FutureOr<void> Function()? onFinally,
+    SnackbarBuilder? errorSnackbar,
+    bool showErrorUiCallback = true,
+  }) async {
+    final oldValue = state;
+    final usedId = foreignId ?? _id;
+    logger.i('Optimistic Update: $newValue');
+    if (mounted) {
+      state = AsyncValue<T>.loading();
+    }
+    try {
+      await repository.put(newValue, id: usedId);
+      // this state may be false if some action
+      // on the server happens, concurrently
+      if (mounted) state = AsyncValue.data(newValue);
+
+      logger.w('Successful network update $repository.');
+    } catch (e, stackTrace) {
+      logger.e('NetworkError | Naive optimism for $T $usedId:'
+          ' $e \n\t Stacktrace $stackTrace');
+      if (showErrorUiCallback) {
+        ref.notification = errorSnackbar ?? SnackbarBuilder.error();
+      }
+      if (mounted) state = oldValue;
+    } finally {
+      if (invalidateFinally) {
+        ref.invalidateSelf();
+      }
+      onFinally?.call();
+    }
+  }
+
+  @protected
   Future<void> optimistic(
     T newValue, {
     // only use foreign Id if you want to update a foreign object from the family

@@ -28,6 +28,9 @@ class AppointmentState extends _$AppointmentState
 
   Future<void> download() async {
     await Future.delayed(3.seconds, () {});
+    await pessimistic(
+      state.value!.copyWith(isOfflineAvailable: true),
+    );
     await repository.put(state.value!.copyWith(isOfflineAvailable: true),
         id: id);
     ref.invalidateSelf();
